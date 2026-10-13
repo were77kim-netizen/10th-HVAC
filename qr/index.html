@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026 HVAC 전문가 세미나 - 현장 QR 안내판</title>
+  <style>
+    :root {
+      --primary: #d60019;
+    }
+    body {
+      font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
+      background: #f4f4f7;
+      margin: 0;
+      padding: 30px;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .print-btn {
+      margin-bottom: 24px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 700;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(214, 0, 25, 0.3);
+    }
+    .print-btn:hover {
+      background: #a00010;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(2, 360px);
+      gap: 24px;
+      justify-content: center;
+    }
+    .card {
+      background: #fff;
+      border: 2px solid #ddd;
+      border-radius: 14px;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+    .tag {
+      display: inline-block;
+      padding: 5px 14px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+    p {
+      margin: 0 0 20px;
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .qr-box {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 16px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .qr-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .url {
+      font-size: 11px;
+      color: #888;
+      word-break: break-all;
+    }
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+      .print-btn {
+        display: none;
+      }
+      .card {
+        box-shadow: none;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="print-btn" onclick="window.print()">🖨️ 현장 비치용 A4 안내판 인쇄 (Ctrl + P)</button>
+
+  <div class="container">
+    <!-- 1. 출석체크 QR -->
+    <div class="card">
+      <span class="tag">입실 후 필수 체크인</span>
+      <h2>1. 출석 체크</h2>
+      <p>스마트폰 카메라로 스캔하여<br>08:50 이전 출석을 완료해 주세요.</p>
+      <div class="qr-box">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Fforms.cloud.microsoft%2Fr%2FkaugdHpUxh" alt="출석체크 QR코드">
+      </div>
+      <div class="url">https://forms.cloud.microsoft/r/kaugdHpUxh</div>
+    </div>
+
+    <!-- 2. 세미나 웹사이트 (아젠다 / 강사소개 / 동선) QR -->
+    <div class="card">
+      <span class="tag">실시간 아젠다 & 장소 동선</span>
+      <h2>2. 세미나 웹사이트</h2>
+      <p>세미나 일정표, 강사 프로필 및<br>만족도 설문을 확인하세요.</p>
+      <div class="qr-box">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Fwere77kim-netizen.github.io%2F10th-HVAC%2F" alt="세미나 웹사이트 QR코드">
+      </div>
+      <div class="url">https://were77kim-netizen.github.io/10th-HVAC/</div>
+    </div>
+  </div>
+
+</body>
+</html>
