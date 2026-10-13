@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, interactive-widget=resizes-content">
   <title>2026 HVAC Engineering Seminar - 현장 체크인</title>
   
-  <meta name="description" content="2026 HVAC Engineering Expert Seminar 모바일 출석 체크 및 세션 가이드">
+  <meta name="description" content="2026 HVAC Engineering Seminar 모바일 출석 체크 및 세션 가이드">
   <meta property="og:title" content="2026 HVAC Seminar 체크인">
   <meta property="og:description" content="현장 간편 출석체크 및 실시간 세션 안내">
   <meta name="theme-color" content="#0b0407">
@@ -443,7 +443,7 @@
     }
 
     .dash-brand {
-      font-size: 13.5px;
+      font-size: 15px;
       font-weight: 900;
       letter-spacing: -0.02em;
       line-height: 1.25;
@@ -551,17 +551,42 @@
       color: #fff;
     }
 
-    /* 세션 뷰어 레이아웃 */
+    /* 세션 뷰어 레이아웃 & 스와이프 제스처 */
     .session-viewer {
       margin: auto 0;
       position: relative;
       display: flex;
       align-items: center;
+      touch-action: pan-y;
+      user-select: none;
+      cursor: grab;
+    }
+
+    .session-viewer:active {
+      cursor: grabbing;
     }
 
     .session-card {
       width: calc(100% - 24px);
       padding: 10px 0;
+    }
+
+    .session-card.slide-next {
+      animation: slideInRight 0.22s ease;
+    }
+
+    .session-card.slide-prev {
+      animation: slideInLeft 0.22s ease;
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(24px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-24px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
     .session-time-row {
@@ -1013,7 +1038,7 @@
     <section class="screen" id="screenDash">
       <!-- 상단 헤더 -->
       <div class="dashboard-header">
-        <div class="dash-brand">2026 HVAC Engineering Expert Seminar</div>
+        <div class="dash-brand">2026 HVAC Engineering Seminar</div>
         <div class="dash-header-actions">
           <button class="icon-btn" id="btnOpenTimetable" type="button" aria-label="행사 시간표">📅</button>
           <button class="icon-btn" id="btnToggleMenu" type="button" aria-label="메뉴">
@@ -1061,7 +1086,7 @@
           </ul>
         </div>
 
-        <!-- 우측 도트 인디케이터 (스크린샷 동일) -->
+        <!-- 우측 도트 인디케이터 (스크린샷 동일 - 총 9개 세션) -->
         <div class="side-dots" id="sideDots">
           <div class="dot active" data-index="0"></div>
           <div class="dot" data-index="1"></div>
@@ -1071,6 +1096,7 @@
           <div class="dot" data-index="5"></div>
           <div class="dot" data-index="6"></div>
           <div class="dot" data-index="7"></div>
+          <div class="dot" data-index="8"></div>
         </div>
       </div>
 
@@ -1223,7 +1249,7 @@
   </div>
 
   <script>
-    // 세션 데이터 8개 (0~7)
+    // 세션 데이터 9개 (0~8)
     const sessions = [
       {
         time: "~ 08:50",
@@ -1288,6 +1314,17 @@
           "AI 데이터센터 급증에 따른 국가 전력망(Grid) 부하 분석",
           "지역 분산에너지 활성화 및 송배전 유연성 확보 전략",
           "민간 기업의 전력 조달 및 에너지 정책 대응 방안"
+        ]
+      },
+      {
+        time: "12:30 ~ 14:00",
+        location: "📍 교내 식당",
+        sublabel: "Lunch Break",
+        status: "예정",
+        title: "🍱 기념촬영 및 점심 식사",
+        speaker: "-",
+        bullets: [
+          // 점심시간 세션 (추후 내용 추가 예정)
         ]
       },
       {
@@ -1463,10 +1500,24 @@
     // =========================================================
     let currentIdx = 0;
     const dots = document.querySelectorAll('.side-dots .dot');
+    const cardEl = document.getElementById('currentSessionCard');
+    const viewerEl = document.querySelector('.session-viewer');
 
-    function renderSession(idx) {
+    function renderSession(idx, direction = '') {
+      if (idx < 0 || idx >= sessions.length) return;
       currentIdx = idx;
       const s = sessions[idx];
+
+      // 슬라이드 전환 애니메이션 (좌/우 스와이프 효과)
+      cardEl.classList.remove('slide-next', 'slide-prev');
+      if (direction === 'next') {
+        void cardEl.offsetWidth; // reflow 강제
+        cardEl.classList.add('slide-next');
+      } else if (direction === 'prev') {
+        void cardEl.offsetWidth;
+        cardEl.classList.add('slide-prev');
+      }
+
       document.getElementById('sTime').textContent = s.time;
       document.getElementById('sLocation').textContent = s.location;
       document.getElementById('sSublabel').innerHTML = `${s.sublabel} <span class="status-pill">${s.status}</span>`;
@@ -1475,44 +1526,94 @@
 
       const ul = document.getElementById('sBullets');
       ul.innerHTML = '';
-      s.bullets.forEach(b => {
+      if (s.bullets && s.bullets.length > 0) {
+        s.bullets.forEach(b => {
+          const li = document.createElement('li');
+          li.textContent = b;
+          ul.appendChild(li);
+        });
+      } else {
+        // 비어있는 세션 (점심시간 등) 안내
         const li = document.createElement('li');
-        li.textContent = b;
+        li.style.listStyle = 'none';
+        li.style.opacity = '0.55';
+        li.style.fontStyle = 'italic';
+        li.textContent = '세부 일정 및 식당 안내는 추후 업데이트 예정입니다.';
         ul.appendChild(li);
-      });
+      }
 
-      // 도트 활성화 갱신
+      // 우측 도트 인디케이터 갱신
       dots.forEach((d, i) => d.classList.toggle('active', i === idx));
     }
 
     dots.forEach(d => {
       d.addEventListener('click', () => {
         const idx = parseInt(d.getAttribute('data-index'), 10);
-        renderSession(idx);
+        const dir = idx > currentIdx ? 'next' : (idx < currentIdx ? 'prev' : '');
+        renderSession(idx, dir);
       });
     });
 
-    // 터치 스와이프 제어 (모바일 제스처 지원)
-    let touchStartX = 0;
-    let touchStartY = 0;
-    const cardEl = document.getElementById('currentSessionCard');
+    // =========================================================
+    // 모바일 터치 스와이프 (좌/우 제스처) 및 PC 마우스 드래그 지원
+    // =========================================================
+    let swipeStartX = 0;
+    let swipeStartY = 0;
+    let isSwiping = false;
 
-    cardEl.addEventListener('touchstart', e => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
+    // 모바일 터치 이벤트 핸들링 (.session-viewer 전체 영역)
+    viewerEl.addEventListener('touchstart', e => {
+      if (e.touches.length > 1) return;
+      swipeStartX = e.touches[0].clientX;
+      swipeStartY = e.touches[0].clientY;
+      isSwiping = true;
     }, { passive: true });
 
-    cardEl.addEventListener('touchend', e => {
-      const diffX = touchStartX - e.changedTouches[0].clientX;
-      const diffY = touchStartY - e.changedTouches[0].clientY;
-      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
-        if (diffX > 0 && currentIdx < sessions.length - 1) {
-          renderSession(currentIdx + 1); // 다음 세션
-        } else if (diffX < 0 && currentIdx > 0) {
-          renderSession(currentIdx - 1); // 이전 세션
+    viewerEl.addEventListener('touchend', e => {
+      if (!isSwiping) return;
+      isSwiping = false;
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      handleSwipeGesture(swipeStartX, swipeStartY, endX, endY);
+    }, { passive: true });
+
+    viewerEl.addEventListener('touchcancel', () => {
+      isSwiping = false;
+    }, { passive: true });
+
+    // PC 환경 마우스 드래그 스와이프 지원
+    let isMouseDown = false;
+    viewerEl.addEventListener('mousedown', e => {
+      if (e.target.closest('.dot') || e.target.closest('button')) return;
+      isMouseDown = true;
+      swipeStartX = e.clientX;
+      swipeStartY = e.clientY;
+    });
+
+    window.addEventListener('mouseup', e => {
+      if (!isMouseDown) return;
+      isMouseDown = false;
+      handleSwipeGesture(swipeStartX, swipeStartY, e.clientX, e.clientY);
+    });
+
+    function handleSwipeGesture(startX, startY, endX, endY) {
+      const diffX = startX - endX;
+      const diffY = startY - endY;
+      // 가로 이동 거리 30px 이상 & 세로 스크롤보다 가로 이동 폭이 클 때만 스와이프로 인식
+      if (Math.abs(diffX) > 30 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+          // 오른쪽에서 왼쪽으로 스와이프 (다음 세션 이동)
+          if (currentIdx < sessions.length - 1) {
+            renderSession(currentIdx + 1, 'next');
+          }
+        } else {
+          // 왼쪽에서 오른쪽으로 스와이프 (이전 세션 이동)
+          if (currentIdx > 0) {
+            renderSession(currentIdx - 1, 'prev');
+          }
         }
       }
-    }, { passive: true });
+    }
 
     // =========================================================
     // 모달 및 메뉴 상호작용
@@ -1533,6 +1634,16 @@
     });
     document.getElementById('btnCloseTimetable').addEventListener('click', () => {
       modalTimetable.classList.remove('show');
+    });
+
+    // 시간표 목록 아이템 클릭 시 해당 세션 카드로 즉시 이동 및 모달 닫기
+    document.querySelectorAll('.timetable-sheet .tt-item').forEach((item, idx) => {
+      item.style.cursor = 'pointer';
+      item.addEventListener('click', () => {
+        const dir = idx > currentIdx ? 'next' : (idx < currentIdx ? 'prev' : '');
+        renderSession(idx, dir);
+        modalTimetable.classList.remove('show');
+      });
     });
 
     // 3. 우측 상단 햄버거 메뉴 토글
