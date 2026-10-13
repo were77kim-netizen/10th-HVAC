@@ -1,0 +1,1605 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, interactive-widget=resizes-content">
+  <title>2026 HVAC Engineering Seminar - 현장 체크인</title>
+  
+  <meta name="description" content="2026 HVAC Engineering Expert Seminar 모바일 출석 체크 및 세션 가이드">
+  <meta property="og:title" content="2026 HVAC Seminar 체크인">
+  <meta property="og:description" content="현장 간편 출석체크 및 실시간 세션 안내">
+  <meta name="theme-color" content="#0b0407">
+
+  <style>
+    :root {
+      --bg: #0b0407;
+      --burgundy: #831335;
+      --burgundy-bright: #a81c46;
+      --burgundy-glow: #e61f5c;
+      --text-muted: rgba(255, 255, 255, 0.65);
+      --border-subtle: rgba(255, 255, 255, 0.14);
+      --font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Noto Sans KR", "Malgun Gothic", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: #ffffff;
+      font-family: var(--font-family);
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      word-break: keep-all;
+    }
+
+    /* 모바일 프레임 컨테이너 (최대 430px 고정) */
+    .app-frame {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      min-height: 100dvh;
+      position: relative;
+      background-color: #0b0407;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+    }
+
+    @media (min-width: 480px) {
+      .app-frame {
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    /* 시그니처 conic-gradient 배경 & 기하학적 앵글 오버레이 */
+    .bg-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      background: #0b0407;
+    }
+
+    .bg-gradient {
+      position: absolute;
+      inset: 0;
+      background: conic-gradient(
+        from 142.5deg at 50% 50%,
+        #080405 0deg,
+        #150409 20deg,
+        #490b1e 48deg,
+        #831335 78deg,
+        #9d163e 98deg,
+        #440919 140deg,
+        #080405 178deg,
+        #120408 190deg,
+        #360917 222deg,
+        #821334 260deg,
+        #9d163f 282deg,
+        #4f0c20 330deg,
+        #080405 360deg
+      );
+      opacity: 0.92;
+    }
+
+    .bg-overlay-angle {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(8, 4, 5, 0.72) 45%, transparent 45.5%);
+    }
+
+    .bg-overlay-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, transparent 20%, rgba(11, 4, 7, 0.65) 100%);
+    }
+
+    /* 공통 화면 레이아웃 */
+    .screen {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 24px 34px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .screen.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* -------------------------------------------------------------
+       Screen 1: Intro (체크인 시작)
+    ------------------------------------------------------------- */
+    .intro-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 6px;
+    }
+
+    .lg-logo-svg {
+      height: 22px;
+      width: auto;
+      fill: #ffffff;
+      opacity: 0.95;
+    }
+
+    .intro-center {
+      margin: auto 0;
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    .event-badge {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    .intro-title {
+      font-size: 34px;
+      font-weight: 900;
+      line-height: 1.25;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .intro-sub {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.32;
+      color: #ffffff;
+      letter-spacing: -0.03em;
+      margin-bottom: 22px;
+    }
+
+    .intro-meta {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.68);
+      letter-spacing: -0.01em;
+    }
+
+    /* -------------------------------------------------------------
+       Screen 2 & 3: Steps (1: 이메일, 2: 이름)
+    ------------------------------------------------------------- */
+    .step-top-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-top: 8px;
+    }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 4px;
+    }
+
+    .step-count {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.05em;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #ffffff;
+      transition: width 0.3s ease;
+    }
+
+    .form-body {
+      margin-top: 48px;
+      margin-bottom: auto;
+    }
+
+    .form-title {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    .app-input {
+      width: 100%;
+      height: 58px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 14px;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 0 18px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+
+    .app-input::placeholder {
+      color: rgba(255, 255, 255, 0.38);
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    .app-input:focus {
+      border-color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 16px rgba(168, 28, 70, 0.35);
+    }
+
+    .input-hint {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.45);
+      padding-left: 4px;
+      line-height: 1.4;
+    }
+
+    /* -------------------------------------------------------------
+       버튼 스타일
+    ------------------------------------------------------------- */
+    .btn-bottom {
+      width: 100%;
+      height: 56px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-light {
+      background: #e8e8ed;
+      color: #0b0407;
+    }
+
+    .btn-light:hover {
+      background: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .btn-disabled {
+      background: rgba(255, 255, 255, 0.26);
+      color: rgba(255, 255, 255, 0.5);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* -------------------------------------------------------------
+       Confirm Modal: 체크인할까요?
+    ------------------------------------------------------------- */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .confirm-card {
+      width: 100%;
+      max-width: 370px;
+      background: #141416;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 20px;
+      padding: 26px 22px 22px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+      animation: popIn 0.25s ease;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .confirm-card h3 {
+      font-size: 21px;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .confirm-card p.sub {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 20px;
+      line-height: 1.45;
+    }
+
+    .field-box {
+      background: #1e1e22;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 13px 16px;
+      margin-bottom: 10px;
+    }
+
+    .field-box .lbl {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.45);
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .field-box .val-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .field-box .val {
+      font-size: 17px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .field-box .badge-lock {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .confirm-btns {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .btn-modal-cancel {
+      flex: 1;
+      height: 48px;
+      background: #232328;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #fff;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn-modal-confirm {
+      flex: 1;
+      height: 48px;
+      background: #ffffff;
+      border: none;
+      color: #0b0407;
+      border-radius: 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    /* -------------------------------------------------------------
+       Screen 4: Main Dashboard (세미나 메인 화면)
+    ------------------------------------------------------------- */
+    .dashboard-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 6px;
+      position: relative;
+      z-index: 20;
+    }
+
+    .dash-brand {
+      font-size: 18px;
+      font-weight: 950;
+      letter-spacing: -0.02em;
+    }
+
+    .dash-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      background: #ff3b56;
+      border-radius: 50%;
+      position: absolute;
+      top: -2px;
+      right: -2px;
+    }
+
+    /* 슬라이드 햄버거 메뉴 팝오버 */
+    .menu-popover {
+      position: absolute;
+      top: 64px;
+      right: 18px;
+      width: 250px;
+      background: #151518;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 18px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+      z-index: 50;
+      display: none;
+      animation: popIn 0.2s ease;
+      overflow: hidden;
+    }
+
+    .menu-popover.show {
+      display: block;
+    }
+
+    .menu-profile-box {
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .profile-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .profile-info strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .profile-info small {
+      display: block;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+    }
+
+    .menu-list {
+      list-style: none;
+      padding: 8px 0;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.85);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .menu-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+    }
+
+    /* 세션 뷰어 레이아웃 */
+    .session-viewer {
+      margin: auto 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .session-card {
+      width: calc(100% - 24px);
+      padding: 10px 0;
+    }
+
+    .session-time-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .session-time {
+      font-size: 26px;
+      font-weight: 950;
+      letter-spacing: -0.02em;
+    }
+
+    .location-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .session-sublabel {
+      font-size: 15px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #0b0407;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .session-title {
+      font-size: 27px;
+      font-weight: 950;
+      line-height: 1.35;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .session-speaker {
+      font-size: 16px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 18px;
+    }
+
+    .session-bullets {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .session-bullets li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .session-bullets li::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 16px;
+    }
+
+    /* 우측 도트 인디케이터 (스크린샷 동일) */
+    .side-dots {
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.22);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .dot.active {
+      width: 8px;
+      height: 8px;
+      background: #ffffff;
+      box-shadow: 0 0 10px #ffffff;
+    }
+
+    /* 하단 액션 버튼 (참여하기) */
+    .btn-participate {
+      width: 100%;
+      height: 56px;
+      background: #46464c;
+      color: #ffffff;
+      border: none;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-participate:hover {
+      background: #55555c;
+    }
+
+    /* -------------------------------------------------------------
+       모달: 행사 시간표 (스크린샷 5 동일)
+    ------------------------------------------------------------- */
+    .timetable-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      display: none;
+      flex-direction: column;
+      justify-content: flex-end;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .timetable-modal.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .timetable-sheet {
+      background: #141416;
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 24px 24px 0 0;
+      padding: 24px 20px 40px;
+      max-height: 85vh;
+      overflow-y: auto;
+      animation: slideUp 0.25s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .timetable-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .timetable-header-row h3 {
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .close-sheet-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #25252a;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tt-item {
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .tt-time {
+      font-size: 14px;
+      font-weight: 900;
+      color: #ff6172;
+      margin-bottom: 4px;
+    }
+
+    .tt-title {
+      font-size: 16px;
+      font-weight: 850;
+      margin-bottom: 2px;
+    }
+
+    .tt-speaker {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* -------------------------------------------------------------
+       모달: 첫 진입 오늘의 미션 / 안내 (스크린샷 1 동일)
+    ------------------------------------------------------------- */
+    .mission-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .mission-modal.show {
+      display: flex;
+    }
+
+    .mission-card {
+      width: 100%;
+      max-width: 380px;
+      background: #141416;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 20px;
+      padding: 26px 22px 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+    }
+
+    .mission-card h3 {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .mission-card p.desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 20px;
+      line-height: 1.45;
+    }
+
+    .m-item {
+      background: #1c1c20;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .m-num {
+      font-size: 20px;
+      font-weight: 900;
+      color: #ff3b56;
+    }
+
+    .m-info {
+      flex: 1;
+    }
+
+    .m-info small {
+      display: block;
+      font-size: 10px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.05em;
+    }
+
+    .m-info strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 850;
+      margin: 2px 0;
+    }
+
+    .m-badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 99px;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .m-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn-m-later {
+      padding: 10px 18px;
+      background: #25252a;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #fff;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn-m-view {
+      padding: 10px 18px;
+      background: #c21340;
+      border: none;
+      color: #fff;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-frame">
+    <!-- 배경 Canvas -->
+    <div class="bg-canvas">
+      <div class="bg-gradient"></div>
+      <div class="bg-overlay-angle"></div>
+      <div class="bg-overlay-vignette"></div>
+    </div>
+
+    <!-- =========================================================
+         SCREEN 1: 인트로 시작 화면 (스크린샷 1과 100% 동일)
+    ========================================================= -->
+    <section class="screen active" id="screenIntro">
+      <div class="intro-header">
+        <svg class="lg-logo-svg" viewBox="58 57 108 47" xmlns="http://www.w3.org/2000/svg">
+          <path d="M81.66 57.01c-12.98 0-23.5 10.52-23.5 23.5s10.52 23.5 23.5 23.5 23.5-10.52 23.5-23.5-10.53-23.5-23.5-23.5m5.62 31.95v1.84h-6.56V70.2h1.88v18.76zm8.29 5.45c-3.72 3.72-8.66 5.76-13.92 5.76s-10.19-2.05-13.91-5.76a19.56 19.56 0 0 1-5.76-13.91c0-10.84 8.83-19.67 19.67-19.67.23 0 .69 0 .94.02v1.84c-.23 0-.73-.02-.94-.02-4.76 0-9.24 1.86-12.61 5.22-3.37 3.37-5.22 7.85-5.22 12.61s1.86 9.24 5.22 12.61c3.37 3.37 7.85 5.23 12.61 5.23 9.43 0 17.17-7.35 17.8-16.63v-.27H87.27v-1.83h14.05v.89c0 5.25-2.05 10.2-5.76 13.91ZM76.97 73c0 1.55-1.26 2.82-2.82 2.82s-2.81-1.26-2.81-2.82 1.26-2.82 2.81-2.82 2.82 1.26 2.82 2.82M123.72 65.25h-7.06V95.8h21.68v-5.95h-14.62zM153.86 84.15h5.75v5.34c-1.06.41-3.13.81-5.09.81-6.35 0-8.47-3.23-8.47-9.78s2.02-9.93 8.37-9.93c3.53 0 5.55 1.11 7.21 3.23l4.39-4.03c-2.67-3.83-7.36-4.99-11.75-4.99-9.88 0-15.07 5.39-15.07 15.68s4.69 15.78 15.02 15.78c4.74 0 9.38-1.21 11.9-2.98V78.46h-12.25v5.7Z"/>
+        </svg>
+      </div>
+
+      <div class="intro-center">
+        <span class="event-badge">10TH HVAC SEMINAR</span>
+        <div class="intro-title">AI & 친환경 시대,</div>
+        <div class="intro-sub">차세대 공조 솔루션을 위한<br>HVAC Engineering</div>
+        <div class="intro-meta">2026. 11. 12. · 국민대학교 본부관</div>
+      </div>
+
+      <div>
+        <button class="btn-bottom btn-light" id="btnGoStep1" type="button">
+          체크인
+        </button>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SCREEN 2: 1단계 - 이메일 아이디 입력 (스크린샷 2와 100% 동일)
+    ========================================================= -->
+    <section class="screen" id="screenStep1">
+      <div>
+        <div class="step-top-bar">
+          <div class="nav-row">
+            <button class="back-btn" id="btnBackToIntro" type="button" aria-label="뒤로가기">←</button>
+            <span class="step-count">1 / 2</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 50%;"></div>
+          </div>
+        </div>
+
+        <div class="form-body">
+          <h2 class="form-title">이메일 아이디</h2>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="inputEmail"
+              class="app-input"
+              placeholder="메일주소 @ 앞부분만 입력"
+              autocomplete="off"
+              inputmode="email"
+              autofocus
+            >
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button class="btn-bottom btn-light btn-disabled" id="btnGoStep2" type="button" disabled>
+          다음
+        </button>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SCREEN 3: 2단계 - 이름 입력 (한글)
+    ========================================================= -->
+    <section class="screen" id="screenStep2">
+      <div>
+        <div class="step-top-bar">
+          <div class="nav-row">
+            <button class="back-btn" id="btnBackToStep1" type="button" aria-label="뒤로가기">←</button>
+            <span class="step-count">2 / 2</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <div class="form-body">
+          <h2 class="form-title">이름</h2>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="inputName"
+              class="app-input"
+              placeholder="사용할 이름 (한글)"
+              autocomplete="name"
+            >
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button class="btn-bottom btn-light btn-disabled" id="btnOpenConfirmModal" type="button" disabled>
+          체크인
+        </button>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SCREEN 4: 대시보드 화면 (체크인 완료 후 세션 뷰어)
+    ========================================================= -->
+    <section class="screen" id="screenDash">
+      <!-- 상단 헤더 -->
+      <div class="dashboard-header">
+        <div class="dash-brand">HVAC CON<sup>26</sup></div>
+        <div class="dash-header-actions">
+          <button class="icon-btn" id="btnOpenTimetable" type="button" aria-label="행사 시간표">📅</button>
+          <button class="icon-btn" id="btnToggleMenu" type="button" aria-label="메뉴">
+            ≡
+            <span class="badge-dot"></span>
+          </button>
+        </div>
+
+        <!-- 햄버거 팝오버 드롭다운 메뉴 (스크린샷 4 동일) -->
+        <div class="menu-popover" id="menuPopover">
+          <div class="menu-profile-box">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-info">
+              <strong id="menuUserName">홍길동</strong>
+              <small id="menuUserEmail">user@lge.com</small>
+            </div>
+          </div>
+          <ul class="menu-list">
+            <li class="menu-item" id="menuItemMissions">✨ 오늘의 퀴즈 미션</li>
+            <li class="menu-item" id="menuItemTimetable">📅 행사 시간표 보기</li>
+            <li class="menu-item" id="menuItemKakao">💬 카카오톡 오픈 톡방</li>
+            <li class="menu-item" id="menuItemLogout" style="color: #ff5366;">⏻ 체크아웃 (재입력)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 메인 세션 뷰어 (중앙) -->
+      <div class="session-viewer">
+        <div class="session-card" id="currentSessionCard">
+          <div class="session-time-row">
+            <div class="session-time" id="sTime">~08:50</div>
+            <div class="location-badge" id="sLocation">📍 본부관 학술회의장</div>
+          </div>
+          <div class="session-sublabel" id="sSublabel">
+            Reception & 입실 <span class="status-pill" id="sStatus">진행 중</span>
+          </div>
+
+          <h2 class="session-title" id="sTitle">세미나 등록 및 모바일 체크인</h2>
+          <div class="session-speaker" id="sSpeaker">-</div>
+
+          <ul class="session-bullets" id="sBullets">
+            <li>등록 데스크에서 명찰을 수령하고 입실해 주세요.</li>
+            <li>각 좌석 테이블에 비치된 QR코드 및 카카오톡 소통방에 입장하세요.</li>
+            <li>Opening 세션은 오전 9시에 정시 시작합니다!</li>
+          </ul>
+        </div>
+
+        <!-- 우측 도트 인디케이터 (스크린샷 동일) -->
+        <div class="side-dots" id="sideDots">
+          <div class="dot active" data-index="0"></div>
+          <div class="dot" data-index="1"></div>
+          <div class="dot" data-index="2"></div>
+          <div class="dot" data-index="3"></div>
+          <div class="dot" data-index="4"></div>
+          <div class="dot" data-index="5"></div>
+          <div class="dot" data-index="6"></div>
+          <div class="dot" data-index="7"></div>
+        </div>
+      </div>
+
+      <!-- 하단 액션 버튼 -->
+      <div>
+        <button class="btn-participate" id="btnBottomAction" type="button">
+          ✋ 참여하기 ∨
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <!-- =========================================================
+       MODAL 1: '체크인할까요?' 확인 팝업 (스크린샷 2와 100% 동일)
+  ========================================================= -->
+  <div class="modal-backdrop" id="modalConfirm">
+    <div class="confirm-card">
+      <h3>체크인할까요?</h3>
+      <p class="sub">아래 정보로 체크인합니다. 이름을 바꾸려면 수정을 누르세요.</p>
+
+      <div class="field-box">
+        <div class="lbl">이메일 아이디</div>
+        <div class="val-row">
+          <div class="val" id="modalValEmail">test</div>
+          <div class="badge-lock">변경 불가</div>
+        </div>
+      </div>
+
+      <div class="field-box">
+        <div class="lbl">이름</div>
+        <div class="val-row">
+          <div class="val" id="modalValName">홍길동</div>
+          <div class="badge-lock" style="color: rgba(255,255,255,0.65);">변경 가능</div>
+        </div>
+      </div>
+
+      <div class="confirm-btns">
+        <button class="btn-modal-cancel" id="btnModalEdit" type="button">수정</button>
+        <button class="btn-modal-confirm" id="btnModalConfirm" type="button">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 2: '오늘의 미션을 확인해 보세요' 첫 팝업 (스크린샷 1과 100% 동일)
+  ========================================================= -->
+  <div class="mission-modal" id="modalMission">
+    <div class="mission-card">
+      <h3>오늘의 미션을 확인해 보세요</h3>
+      <p class="desc">세미나 퀴즈 미션을 모두 마치고 만찬 럭키드로우 경품을 받아 보세요!</p>
+
+      <div class="m-item">
+        <div class="m-num">01</div>
+        <div class="m-info">
+          <small>KEYNOTE SESSION</small>
+          <strong>주거난방 & AI 액체냉각 퀴즈</strong>
+        </div>
+        <span class="m-badge">미완료</span>
+      </div>
+
+      <div class="m-item">
+        <div class="m-num">02</div>
+        <div class="m-info">
+          <small>INSIGHT SESSION</small>
+          <strong>AIDC 전력망 & 히트펌프 퀴즈</strong>
+        </div>
+        <span class="m-badge">미완료</span>
+      </div>
+
+      <div class="m-item">
+        <div class="m-num">03</div>
+        <div class="m-info">
+          <small>FEEDBACK & LUCKY DRAW</small>
+          <strong>만족도 설문 제출하기</strong>
+        </div>
+        <span class="m-badge">미완료</span>
+      </div>
+
+      <div class="m-actions">
+        <button class="btn-m-later" id="btnMissionClose" type="button">나중에</button>
+        <button class="btn-m-view" id="btnMissionGo" type="button">미션 풀러 가기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 3: 행사 시간표 바텀시트 (스크린샷 5와 100% 동일)
+  ========================================================= -->
+  <div class="timetable-modal" id="modalTimetable">
+    <div class="timetable-sheet">
+      <div class="timetable-header-row">
+        <h3>행사 시간표</h3>
+        <button class="close-sheet-btn" id="btnCloseTimetable" type="button">✕</button>
+      </div>
+
+      <div class="tt-item">
+        <div class="tt-time">~ 08:50</div>
+        <div class="tt-title">Reception & 입실 (출석 체크)</div>
+        <div class="tt-speaker">본부관 학술회의장</div>
+      </div>
+
+      <div class="tt-item">
+        <div class="tt-time">09:00 ~ 09:20</div>
+        <div class="tt-title">Opening & 시상</div>
+        <div class="tt-speaker">운영사무국</div>
+      </div>
+
+      <div class="tt-item">
+        <div class="tt-time">09:20 ~ 10:10</div>
+        <div class="tt-title">국내주거난방의 변천과 현황</div>
+        <div class="tt-speaker">여명석 교수 (서울대학교)</div>
+      </div>
+
+      <div class="tt-item">
+        <div class="tt-time">10:30 ~ 11:20</div>
+        <div class="tt-title">고밀도 AI 서버의 액체냉각 및 데이터센터 열관리 기술</div>
+        <div class="tt-speaker">이성혁 교수 (중앙대학교)</div>
+      </div>
+
+      <div class="tt-item">
+        <div class="tt-time">11:40 ~ 12:30</div>
+        <div class="tt-title">국내 전력시장 현황 및 AIDC 전력공급 방안</div>
+        <div class="tt-speaker">조홍종 교수 (단국대학교)</div>
+      </div>
+
+      <div class="tt-item">
+        <div class="tt-time">12:30 ~ 14:00</div>
+        <div class="tt-title">🍱 기념촬영 및 점심 식사</div>
+        <div class="tt-speaker">교내 식당</div>
+      </div>
+
+      <div class="tt-item">
+        <div class="tt-time">14:00 ~ 14:50</div>
+        <div class="tt-title">건축설비 측면에서 바라보는 공동주택 공기열원 히트펌프의 역할과 과제</div>
+        <div class="tt-speaker">유정현 수석연구원 (LHRI)</div>
+      </div>
+
+      <div class="tt-item">
+        <div class="tt-time">15:10 ~ 15:40</div>
+        <div class="tt-title">에너지컨설팅 사례 발표</div>
+        <div class="tt-speaker">오영훈 팀장 (에너지컨설팅팀)</div>
+      </div>
+
+      <div class="tt-item">
+        <div class="tt-time">16:00 ~ 17:40</div>
+        <div class="tt-title">과학 및 인문학 강의</div>
+        <div class="tt-speaker">이정모 관장 (과학커뮤니케이터)</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 세션 데이터 8개 (0~7)
+    const sessions = [
+      {
+        time: "~ 08:50",
+        location: "📍 본부관 학술회의장",
+        sublabel: "Reception & 입실",
+        status: "진행 중",
+        title: "세미나 등록 및 모바일 체크인",
+        speaker: "-",
+        bullets: [
+          "등록 데스크에서 명찰을 수령하고 입실해 주세요.",
+          "각 좌석 테이블에 비치된 QR코드 및 카카오톡 소통방에 입장하세요.",
+          "Opening 세션은 오전 9시에 정시 시작합니다!"
+        ]
+      },
+      {
+        time: "09:00 ~ 09:20",
+        location: "📍 본부관 학술회의장",
+        sublabel: "Opening Session",
+        status: "예정",
+        title: "오프닝 및 개회사",
+        speaker: "운영사무국",
+        bullets: [
+          "세미나 취지 및 1일 아젠다 안내",
+          "우수 엔지니어링 시상식 진행",
+          "현장 참여 퀴즈 및 럭키드로우 경품 안내"
+        ]
+      },
+      {
+        time: "09:20 ~ 10:10",
+        location: "📍 본부관 학술회의장",
+        sublabel: "Keynote Session 1",
+        status: "예정",
+        title: "국내주거난방의 변천과 현황",
+        speaker: "여명석 교수 (서울대학교)",
+        bullets: [
+          "우리나라 전통 온돌에서 현대 바닥 복사난방으로의 발전사",
+          "공동주택 바닥난방의 열적 쾌적성 및 에너지 절감 효과",
+          "탄소중립 시대의 주거 난방 미래 전망"
+        ]
+      },
+      {
+        time: "10:30 ~ 11:20",
+        location: "📍 본부관 학술회의장",
+        sublabel: "Keynote Session 2",
+        status: "예정",
+        title: "고밀도 AI 서버의 액체냉각 및 데이터센터 열관리 기술",
+        speaker: "이성혁 교수 (중앙대학교)",
+        bullets: [
+          "고밀도 AI 칩(GPU) 발열 한계와 공랭의 한계점 극복",
+          "Direct-to-Chip(D2C) 액체냉각 및 액침냉각(Immersion) 최신 기술",
+          "데이터센터 PUE 절감을 위한 차세대 냉각 인프라 설계"
+        ]
+      },
+      {
+        time: "11:40 ~ 12:30",
+        location: "📍 본부관 학술회의장",
+        sublabel: "Keynote Session 3",
+        status: "예정",
+        title: "국내 전력시장 현황 및 AIDC 전력공급 방안",
+        speaker: "조홍종 교수 (단국대학교)",
+        bullets: [
+          "AI 데이터센터 급증에 따른 국가 전력망(Grid) 부하 분석",
+          "지역 분산에너지 활성화 및 송배전 유연성 확보 전략",
+          "민간 기업의 전력 조달 및 에너지 정책 대응 방안"
+        ]
+      },
+      {
+        time: "14:00 ~ 14:50",
+        location: "📍 본부관 학술회의장",
+        sublabel: "Insight Session 1",
+        status: "예정",
+        title: "공동주택 공기열원 히트펌프의 역할과 과제",
+        speaker: "유정현 수석연구원 (LHRI)",
+        bullets: [
+          "제로에너지건축물(ZEB) 구현을 위한 히트펌프 적용 사례",
+          "공기열원 히트펌프(AWHP)의 겨울철 난방 효율 개선 연구",
+          "공동주택 보일러 대체 가능성과 제도적 개선 과제"
+        ]
+      },
+      {
+        time: "15:10 ~ 15:40",
+        location: "📍 본부관 학술회의장",
+        sublabel: "Insight Session 2",
+        status: "예정",
+        title: "에너지컨설팅 사례 발표",
+        speaker: "오영훈 팀장 (에너지컨설팅팀)",
+        bullets: [
+          "산업 플랜트 및 대형 빌딩 실시간 에너지 진단(Audit)",
+          "실제 현장 맞춤형 고효율 공조 솔루션 적용 성과 분석",
+          "운영 비용(OPEX) 절감 및 탄소 배출 감축 효과"
+        ]
+      },
+      {
+        time: "16:00 ~ 17:40",
+        location: "📍 본부관 학술회의장",
+        sublabel: "Special Lecture",
+        status: "예정",
+        title: "과학 및 인문학 강의",
+        speaker: "이정모 관장 (과학커뮤니케이터)",
+        bullets: [
+          "기술과 과학이 급변하는 AI 시대의 소통과 공감",
+          "질문하고 의심하며 함께 탐구하는 열린 자세의 힘",
+          "과학자의 시선으로 바라본 인간과 엔지니어의 미래"
+        ]
+      }
+    ];
+
+    // 스크린 요소
+    const screens = {
+      intro: document.getElementById('screenIntro'),
+      step1: document.getElementById('screenStep1'),
+      step2: document.getElementById('screenStep2'),
+      dash: document.getElementById('screenDash')
+    };
+
+    function showScreen(name) {
+      Object.values(screens).forEach(s => s.classList.remove('active'));
+      screens[name].classList.add('active');
+    }
+
+    // 입력 요소
+    const btnGoStep1 = document.getElementById('btnGoStep1');
+    const btnBackToIntro = document.getElementById('btnBackToIntro');
+    const btnGoStep2 = document.getElementById('btnGoStep2');
+    const btnBackToStep1 = document.getElementById('btnBackToStep1');
+    const btnOpenConfirmModal = document.getElementById('btnOpenConfirmModal');
+
+    const inputEmail = document.getElementById('inputEmail');
+    const inputName = document.getElementById('inputName');
+
+    // 모달 요소
+    const modalConfirm = document.getElementById('modalConfirm');
+    const modalValEmail = document.getElementById('modalValEmail');
+    const modalValName = document.getElementById('modalValName');
+    const btnModalEdit = document.getElementById('btnModalEdit');
+    const btnModalConfirm = document.getElementById('btnModalConfirm');
+
+    // 1단계: 인트로 -> 이메일 입력 이동
+    btnGoStep1.addEventListener('click', () => {
+      showScreen('step1');
+      setTimeout(() => inputEmail.focus(), 250);
+    });
+
+    btnBackToIntro.addEventListener('click', () => {
+      showScreen('intro');
+    });
+
+    // 1단계 이메일 입력 검증 (2글자 이상 입력 시 '다음' 버튼 활성화)
+    inputEmail.addEventListener('input', () => {
+      const val = inputEmail.value.trim();
+      if (val.length >= 2) {
+        btnGoStep2.classList.remove('btn-disabled');
+        btnGoStep2.removeAttribute('disabled');
+      } else {
+        btnGoStep2.classList.add('btn-disabled');
+        btnGoStep2.setAttribute('disabled', 'true');
+      }
+    });
+
+    inputEmail.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !btnGoStep2.disabled) {
+        btnGoStep2.click();
+      }
+    });
+
+    // 1단계 -> 2단계(이름 입력) 이동
+    btnGoStep2.addEventListener('click', () => {
+      showScreen('step2');
+      setTimeout(() => inputName.focus(), 250);
+    });
+
+    btnBackToStep1.addEventListener('click', () => {
+      showScreen('step1');
+    });
+
+    // 2단계 이름 입력 검증 (한글 이름 2자 이상 입력 시 '체크인' 버튼 활성화)
+    inputName.addEventListener('input', () => {
+      const val = inputName.value.trim();
+      if (val.length >= 2) {
+        btnOpenConfirmModal.classList.remove('btn-disabled');
+        btnOpenConfirmModal.removeAttribute('disabled');
+      } else {
+        btnOpenConfirmModal.classList.add('btn-disabled');
+        btnOpenConfirmModal.setAttribute('disabled', 'true');
+      }
+    });
+
+    inputName.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !btnOpenConfirmModal.disabled) {
+        btnOpenConfirmModal.click();
+      }
+    });
+
+    // '체크인할까요?' 확인 팝업 열기 (스크린샷 2 동일)
+    btnOpenConfirmModal.addEventListener('click', () => {
+      modalValEmail.textContent = inputEmail.value.trim();
+      modalValName.textContent = inputName.value.trim();
+      modalConfirm.classList.add('show');
+    });
+
+    // 팝업 내 [수정] 클릭 시: 모달 닫고 이름 입력 화면으로 복귀
+    btnModalEdit.addEventListener('click', () => {
+      modalConfirm.classList.remove('show');
+      setTimeout(() => inputName.focus(), 200);
+    });
+
+    // 팝업 내 [확인] 클릭 시: 체크인 완료 처리 및 대시보드 진입!
+    btnModalConfirm.addEventListener('click', () => {
+      modalConfirm.classList.remove('show');
+
+      const email = inputEmail.value.trim();
+      const name = inputName.value.trim();
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+
+      // 로컬 스토리지에 체크인 기록 영구 저장
+      const checkinData = { email, name, checkinTime: timeStr, date: now.toISOString().slice(0, 10) };
+      try {
+        localStorage.setItem('hvac_user_checked', JSON.stringify(checkinData));
+      } catch (e) {}
+
+      // 대시보드 프로필 갱신
+      document.getElementById('menuUserName').textContent = name;
+      document.getElementById('menuUserEmail').textContent = email.includes('@') ? email : email + '@lge.com';
+
+      // 대시보드 화면 활성화
+      showScreen('dash');
+
+      // 체크인 완료 직후 첫 팝업("오늘의 미션을 확인해 보세요") 자동 띄우기 (스크린샷 1 동일)
+      setTimeout(() => {
+        document.getElementById('modalMission').classList.add('show');
+      }, 400);
+    });
+
+    // =========================================================
+    // 대시보드 세션 인디케이터 도트 클릭 & 뷰어 갱신
+    // =========================================================
+    let currentIdx = 0;
+    const dots = document.querySelectorAll('.side-dots .dot');
+
+    function renderSession(idx) {
+      currentIdx = idx;
+      const s = sessions[idx];
+      document.getElementById('sTime').textContent = s.time;
+      document.getElementById('sLocation').textContent = s.location;
+      document.getElementById('sSublabel').innerHTML = `${s.sublabel} <span class="status-pill">${s.status}</span>`;
+      document.getElementById('sTitle').textContent = s.title;
+      document.getElementById('sSpeaker').textContent = s.speaker;
+
+      const ul = document.getElementById('sBullets');
+      ul.innerHTML = '';
+      s.bullets.forEach(b => {
+        const li = document.createElement('li');
+        li.textContent = b;
+        ul.appendChild(li);
+      });
+
+      // 도트 활성화 갱신
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    dots.forEach(d => {
+      d.addEventListener('click', () => {
+        const idx = parseInt(d.getAttribute('data-index'), 10);
+        renderSession(idx);
+      });
+    });
+
+    // 터치 스와이프 제어 (모바일 제스처 지원)
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const cardEl = document.getElementById('currentSessionCard');
+
+    cardEl.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    cardEl.addEventListener('touchend', e => {
+      const diffX = touchStartX - e.changedTouches[0].clientX;
+      const diffY = touchStartY - e.changedTouches[0].clientY;
+      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0 && currentIdx < sessions.length - 1) {
+          renderSession(currentIdx + 1); // 다음 세션
+        } else if (diffX < 0 && currentIdx > 0) {
+          renderSession(currentIdx - 1); // 이전 세션
+        }
+      }
+    }, { passive: true });
+
+    // =========================================================
+    // 모달 및 메뉴 상호작용
+    // =========================================================
+    // 1. 오늘의 미션 모달 닫기 / 퀴즈 풀러 가기
+    document.getElementById('btnMissionClose').addEventListener('click', () => {
+      document.getElementById('modalMission').classList.remove('show');
+    });
+
+    document.getElementById('btnMissionGo').addEventListener('click', () => {
+      window.location.href = './index.html#quiz';
+    });
+
+    // 2. 행사 시간표 모달 열기 / 닫기
+    const modalTimetable = document.getElementById('modalTimetable');
+    document.getElementById('btnOpenTimetable').addEventListener('click', () => {
+      modalTimetable.classList.add('show');
+    });
+    document.getElementById('btnCloseTimetable').addEventListener('click', () => {
+      modalTimetable.classList.remove('show');
+    });
+
+    // 3. 우측 상단 햄버거 메뉴 토글
+    const menuPopover = document.getElementById('menuPopover');
+    document.getElementById('btnToggleMenu').addEventListener('click', (e) => {
+      e.stopPropagation();
+      menuPopover.classList.toggle('show');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menuPopover.contains(e.target)) {
+        menuPopover.classList.remove('show');
+      }
+    });
+
+    // 메뉴 항목들
+    document.getElementById('menuItemMissions').addEventListener('click', () => {
+      menuPopover.classList.remove('show');
+      window.location.href = './index.html#quiz';
+    });
+
+    document.getElementById('menuItemTimetable').addEventListener('click', () => {
+      menuPopover.classList.remove('show');
+      modalTimetable.classList.add('show');
+    });
+
+    document.getElementById('menuItemKakao').addEventListener('click', () => {
+      menuPopover.classList.remove('show');
+      window.open('https://open.kakao.com/o/sHVAC2026', '_blank');
+    });
+
+    // 체크아웃 (로그아웃 / 재체크인)
+    document.getElementById('menuItemLogout').addEventListener('click', () => {
+      if (confirm('체크인을 다시 진행하시겠습니까?')) {
+        try { localStorage.removeItem('hvac_user_checked'); } catch (e) {}
+        inputEmail.value = '';
+        inputName.value = '';
+        menuPopover.classList.remove('show');
+        showScreen('intro');
+      }
+    });
+
+    // 하단 '✋ 참여하기' 버튼 누를 때 액션
+    document.getElementById('btnBottomAction').addEventListener('click', () => {
+      modalTimetable.classList.add('show');
+    });
+
+    // =========================================================
+    // 초기 로딩 시 이전 체크인 상태 복원
+    // =========================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        const saved = localStorage.getItem('hvac_user_checked');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && parsed.name) {
+            document.getElementById('menuUserName').textContent = parsed.name;
+            document.getElementById('menuUserEmail').textContent = parsed.email.includes('@') ? parsed.email : parsed.email + '@lge.com';
+            showScreen('dash');
+            renderSession(0);
+            return;
+          }
+        }
+      } catch (e) {}
+
+      // 저장된 사용자 없으면 인트로 화면
+      showScreen('intro');
+      renderSession(0);
+    });
+  </script>
+</body>
+</html>
