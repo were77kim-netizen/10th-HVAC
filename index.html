@@ -1,0 +1,2002 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta
+    name="description"
+    content="2026 HVAC Engineering 전문가 세미나 일정, 강연 주제 및 강사 프로필 안내"
+  >
+
+  <meta name="theme-color" content="#050505">
+
+  <title>2026 HVAC Engineering 전문가 세미나</title>
+
+  <style>
+    :root {
+      --red: #d60019;
+      --red-light: #ff5264;
+      --black: #050505;
+      --dark: #101012;
+      --line: #303034;
+      --muted: #b9b9bf;
+      --paper: #f2f2f3;
+      --radius: 20px;
+      --shadow: 0 22px 60px rgba(0, 0, 0, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--black);
+      color: #ffffff;
+      font-family:
+        Pretendard,
+        "Noto Sans KR",
+        "Malgun Gothic",
+        Arial,
+        sans-serif;
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .wrap {
+      width: min(1160px, calc(100% - 36px));
+      margin-inline: auto;
+    }
+
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+    }
+
+    .skip:focus {
+      left: 16px;
+      top: 16px;
+      z-index: 9999;
+      padding: 10px 14px;
+      background: #ffffff;
+      color: #000000;
+    }
+
+    /* =========================
+       Header
+    ========================= */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(5, 5, 5, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-mark {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 0 7px rgba(214, 0, 25, 0.18);
+    }
+
+    .links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .links a:not(.nav-cta) {
+      color: #d8d8dc;
+    }
+
+    .links a:hover {
+      color: #ffffff;
+    }
+
+    .nav-cta {
+      padding: 10px 16px;
+      border: 1px solid #555555;
+      background: #171719;
+      border-radius: 999px;
+    }
+
+    .nav-cta.primary {
+      border-color: var(--red);
+      background: var(--red);
+    }
+
+    .menu-button {
+      display: none;
+      border: 1px solid #555555;
+      color: #ffffff;
+      background: #111111;
+      border-radius: 10px;
+      padding: 9px 12px;
+      cursor: pointer;
+    }
+
+    .mobile-menu {
+      display: none;
+      border-top: 1px solid #29292c;
+      padding: 12px 18px 18px;
+      background: #09090a;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 12px 6px;
+      border-bottom: 1px solid #242428;
+      font-weight: 800;
+    }
+
+    /* =========================
+       Hero
+    ========================= */
+
+    .hero {
+      min-height: 700px;
+      display: grid;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 78% 18%,
+          rgba(214, 0, 25, 0.95),
+          transparent 34%
+        ),
+        radial-gradient(
+          circle at 5% 95%,
+          rgba(150, 0, 16, 0.75),
+          transparent 34%
+        ),
+        linear-gradient(
+          135deg,
+          #070709 0%,
+          #260006 58%,
+          #050505 100%
+        );
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.16;
+      pointer-events: none;
+
+      background-image:
+        linear-gradient(
+          rgba(255, 255, 255, 0.08) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.08) 1px,
+          transparent 1px
+        );
+
+      background-size: 42px 42px;
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 85%
+        );
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: 112px 0 96px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ff6a7a;
+    }
+
+    .year {
+      margin-top: 26px;
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 950;
+    }
+
+    .hero h1 {
+      max-width: 900px;
+      margin: 4px 0 22px;
+      font-size: clamp(48px, 8vw, 92px);
+      line-height: 1.02;
+      letter-spacing: -0.065em;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: #ff6172;
+    }
+
+    .hero-copy {
+      max-width: 780px;
+      margin: 0;
+      color: #e7e7e9;
+      font-size: clamp(16px, 2vw, 20px);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 0 22px;
+      border: 1px solid #ffffff;
+      border-radius: 12px;
+      font-weight: 900;
+      transition: 0.2s ease;
+    }
+
+    .button.primary {
+      background: var(--red);
+      border-color: var(--red);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    .button.ghost:hover {
+      color: #000000;
+      background: #ffffff;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      max-width: 850px;
+      margin-top: 46px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.21);
+    }
+
+    .meta div {
+      padding: 18px 20px;
+      background: rgba(3, 3, 4, 0.5);
+    }
+
+    .meta small {
+      display: block;
+      color: #ff99a4;
+      font-weight: 800;
+    }
+
+    .meta strong {
+      display: block;
+      margin-top: 3px;
+    }
+
+    /* =========================
+       Common sections
+    ========================= */
+
+    section {
+      padding: 92px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    .section-head small {
+      color: var(--red-light);
+      font-weight: 950;
+      letter-spacing: 0.16em;
+    }
+
+    .section-head h2 {
+      margin: 5px 0 0;
+      font-size: clamp(34px, 5vw, 54px);
+      line-height: 1.1;
+      letter-spacing: -0.045em;
+    }
+
+    .section-head p {
+      max-width: 600px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    /* =========================
+       Agenda
+    ========================= */
+
+    .agenda-toggle {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .chip {
+      border: 1px solid #444444;
+      color: #dddddd;
+      background: #111111;
+      border-radius: 999px;
+      padding: 8px 13px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .chip.active {
+      border-color: var(--red);
+      background: var(--red);
+      color: #ffffff;
+    }
+
+    .agenda-shell {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .agenda-header,
+    .agenda-row {
+      display: grid;
+      grid-template-columns: 170px 1fr 160px 180px;
+      align-items: stretch;
+    }
+
+    .agenda-header {
+      background: var(--red);
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .agenda-header div,
+    .agenda-row > div {
+      display: flex;
+      align-items: center;
+      padding: 15px 18px;
+      border-right:
+        1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .agenda-header div:last-child,
+    .agenda-row > div:last-child {
+      border-right: 0;
+    }
+
+    .agenda-row {
+      min-height: 72px;
+      border-top: 1px solid var(--line);
+      background: #0c0c0e;
+      transition: 0.18s ease;
+    }
+
+    .agenda-row:hover {
+      background: #151518;
+    }
+
+    .agenda-time {
+      flex-direction: column;
+      align-items: flex-start !important;
+      justify-content: center;
+    }
+
+    .agenda-time small {
+      margin-top: 3px;
+      color: #ff8390;
+    }
+
+    .agenda-topic {
+      font-weight: 850;
+    }
+
+    .agenda-speaker {
+      color: #ededf0;
+      font-weight: 800;
+    }
+
+    .agenda-note {
+      color: #c2c2c7;
+      font-size: 14px;
+    }
+
+    .agenda-row.is-break {
+      min-height: 52px;
+      background: #080809;
+      color: #8f8f95;
+    }
+
+    .agenda-row.is-meal {
+      background:
+        linear-gradient(
+          90deg,
+          rgba(214, 0, 25, 0.24),
+          #0c0c0e
+        );
+    }
+
+    .agenda-row.is-opening {
+      background: #101014;
+    }
+
+    /* =========================
+       Speakers
+    ========================= */
+
+    .speakers {
+      background:
+        linear-gradient(
+          145deg,
+          #151518,
+          #050505 62%
+        );
+    }
+
+    .speaker-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .speaker-card {
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      min-height: 330px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(
+          135deg,
+          #f6f6f7,
+          #d7d7da
+        );
+      color: #151518;
+      box-shadow: var(--shadow);
+      transition: 0.22s ease;
+    }
+
+    .speaker-card:hover,
+    .speaker-card:focus {
+      transform: translateY(-5px);
+      outline: none;
+      box-shadow:
+        0 28px 70px rgba(0, 0, 0, 0.42);
+    }
+
+    .speaker-photo {
+      position: relative;
+      min-height: 100%;
+      background: #242429;
+      overflow: hidden;
+    }
+
+    .portrait {
+      width: 100%;
+      height: 100%;
+      min-height: 330px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: saturate(0.84) contrast(1.04);
+    }
+
+    .portrait.placeholder {
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(
+          145deg,
+          #1b1b20,
+          #87000e
+        );
+      color: #ffffff;
+      text-align: center;
+      font-size: 17px;
+      font-weight: 950;
+      letter-spacing: 0.1em;
+    }
+
+    .photo-badge {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      padding: 5px 9px;
+      color: #ffffff;
+      background: var(--red);
+      font-size: 10px;
+      font-weight: 950;
+      letter-spacing: 0.12em;
+      border-radius: 999px;
+    }
+
+    .speaker-body {
+      padding: 27px 26px 25px;
+    }
+
+    .speaker-org {
+      margin: 0;
+      color: #65656b;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .speaker-card h3 {
+      margin: 2px 0 12px;
+      font-size: 28px;
+      letter-spacing: -0.035em;
+    }
+
+    .speaker-topic {
+      margin: 0 0 16px;
+      padding-left: 12px;
+      border-left: 4px solid var(--red);
+      font-weight: 950;
+      line-height: 1.45;
+    }
+
+    .speaker-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #44444a;
+      font-size: 13px;
+    }
+
+    .speaker-card li + li {
+      margin-top: 4px;
+    }
+
+    /* =========================
+       Information
+    ========================= */
+
+    .info-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+    }
+
+    .info-box {
+      padding: 30px;
+      border: 1px solid var(--line);
+      background: #0d0d0f;
+      border-radius: 18px;
+    }
+
+    .info-box h3 {
+      margin-top: 0;
+      font-size: 24px;
+    }
+
+    .info-box li + li {
+      margin-top: 9px;
+    }
+
+    .quick-links {
+      display: grid;
+      gap: 12px;
+    }
+
+    .quick-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 17px 18px;
+      border: 1px solid #3a3a3f;
+      background: #121215;
+      color: #ffffff;
+      border-radius: 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .quick-link:hover {
+      border-color: var(--red);
+      background: #18181b;
+    }
+
+    /* =========================
+       FAQ
+    ========================= */
+
+    .faq {
+      background:
+        radial-gradient(
+          circle at 100% 100%,
+          rgba(214, 0, 25, 0.5),
+          transparent 34%
+        );
+    }
+
+    .faq-item {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #0e0e10;
+      overflow: hidden;
+    }
+
+    .faq-item + .faq-item {
+      margin-top: 12px;
+    }
+
+    .faq-button {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      text-align: left;
+      border: 0;
+      padding: 19px 20px;
+      background: transparent;
+      color: #ffffff;
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 20px 20px;
+      color: #c9c9cd;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    .faq-item.open .faq-button span:last-child {
+      transform: rotate(45deg);
+    }
+
+    /* =========================
+       Footer and floating buttons
+    ========================= */
+
+    footer {
+      padding: 34px 0;
+      border-top: 1px solid #2c2c30;
+      color: #9999a0;
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .floating {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 900;
+      display: flex;
+      gap: 8px;
+    }
+
+    .floating a,
+    .backtop {
+      border: 0;
+      min-width: 52px;
+      min-height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #ffffff;
+      background: var(--red);
+      box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.38);
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .backtop {
+      background: #26262b;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.2s;
+    }
+
+    .backtop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* =========================
+       Scroll reveal
+    ========================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* =========================
+       Tablet
+    ========================= */
+
+    @media (max-width: 980px) {
+      .speaker-card {
+        grid-template-columns: 150px 1fr;
+      }
+
+      .agenda-header,
+      .agenda-row {
+        grid-template-columns:
+          150px 1fr 135px 150px;
+      }
+    }
+
+    /* =========================
+       Mobile
+    ========================= */
+
+    @media (max-width: 820px) {
+      .links {
+        display: none;
+      }
+
+      .menu-button {
+        display: block;
+      }
+
+      .mobile-menu.open {
+        display: block;
+      }
+
+      .meta {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .agenda-header {
+        display: none;
+      }
+
+      .agenda-row {
+        grid-template-columns: 1fr;
+        padding: 17px;
+        gap: 5px;
+      }
+
+      .agenda-row > div {
+        padding: 0;
+        border-right: 0;
+      }
+
+      .agenda-time {
+        color: #ff6677;
+      }
+
+      .agenda-time small {
+        display: inline;
+        margin-left: 8px;
+      }
+
+      .speaker-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .speaker-card {
+        grid-template-columns: 180px 1fr;
+      }
+
+      .info-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: min(100% - 26px, 1160px);
+      }
+
+      .hero {
+        min-height: 640px;
+      }
+
+      .hero-inner {
+        padding: 82px 0 72px;
+      }
+
+      .hero h1 {
+        font-size: 44px;
+      }
+
+      section {
+        padding: 70px 0;
+      }
+
+      .speaker-card {
+        grid-template-columns: 1fr;
+      }
+
+      .speaker-photo {
+        height: 260px;
+      }
+
+      .portrait {
+        min-height: 260px;
+        object-position: center 18%;
+      }
+
+      .floating {
+        right: 14px;
+        bottom: 14px;
+      }
+
+      .floating a {
+        min-width: auto;
+        padding: 0 17px;
+      }
+    }
+
+    /* =========================
+       Print
+    ========================= */
+
+    @media print {
+      header,
+      .floating,
+      .hero-actions,
+      .agenda-toggle,
+      .faq,
+      .quick-links {
+        display: none !important;
+      }
+
+      body {
+        background: #ffffff;
+        color: #000000;
+      }
+
+      .hero {
+        min-height: auto;
+        color: #000000;
+        background: #ffffff;
+      }
+
+      .hero h1 span,
+      .section-head small {
+        color: #b00016;
+      }
+
+      section {
+        padding: 28px 0;
+      }
+
+      .agenda-row {
+        background: #ffffff !important;
+        color: #000000;
+        border-color: #bbbbbb;
+        break-inside: avoid;
+      }
+
+      .speaker-card {
+        box-shadow: none;
+        border: 1px solid #bbbbbb;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#agenda">
+    일정표로 바로가기
+  </a>
+
+  <!-- Header -->
+  <header>
+    <div class="wrap nav">
+      <a
+        class="brand"
+        href="#home"
+        aria-label="첫 화면으로 이동"
+      >
+        <span class="brand-mark"></span>
+        HVAC ENGINEERING SEMINAR
+      </a>
+
+      <nav class="links" aria-label="주요 메뉴">
+        <a href="#agenda">일정표</a>
+        <a href="#speakers">강사 프로필</a>
+        <a href="#notice">참석 안내</a>
+
+        <a
+          class="nav-cta"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://forms.cloud.microsoft/r/G391UV62Pm"
+        >
+          만족도 설문
+        </a>
+
+        <a
+          class="nav-cta primary"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://forms.cloud.microsoft/r/kaugdHpUxh"
+        >
+          출석체크
+        </a>
+      </nav>
+
+      <button
+        class="menu-button"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        메뉴
+      </button>
+    </div>
+
+    <nav
+      class="mobile-menu"
+      id="mobileMenu"
+      aria-label="모바일 메뉴"
+    >
+      <a href="#agenda">일정표</a>
+      <a href="#speakers">강사 프로필</a>
+      <a href="#notice">참석 안내</a>
+
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://forms.cloud.microsoft/r/G391UV62Pm"
+      >
+        만족도 설문
+      </a>
+
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://forms.cloud.microsoft/r/kaugdHpUxh"
+      >
+        출석체크
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="wrap hero-inner">
+        <div class="eyebrow">
+          ENGINEERING INSIGHT DAY
+        </div>
+
+        <div class="year">
+          2026
+        </div>
+
+        <h1>
+          HVAC Engineering
+          <span>전문가 세미나</span>
+        </h1>
+
+        <p class="hero-copy">
+          주거 난방의 변화, AI 데이터센터 액체냉각,
+          AIDC 전력공급, 공동주택 공기열원 히트펌프,
+          에너지컨설팅과 과학·인문학을 한자리에서
+          다루는 엔지니어링 전문 세미나입니다.
+        </p>
+
+        <div class="hero-actions">
+          <a
+            class="button primary"
+            href="#agenda"
+          >
+            전체 일정 보기
+          </a>
+
+          <a
+            class="button ghost"
+            href="#speakers"
+          >
+            강사 프로필 보기
+          </a>
+        </div>
+
+        <div class="meta" aria-label="행사 요약">
+          <div>
+            <small>입실</small>
+            <strong>08:50까지</strong>
+          </div>
+
+          <div>
+            <small>전문 세션</small>
+            <strong>총 6개 강연</strong>
+          </div>
+
+          <div>
+            <small>전체 일정</small>
+            <strong>09:00 ~ 17:50</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Agenda -->
+    <section id="agenda">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <small>TIME TABLE</small>
+            <h2>세미나 일정표</h2>
+          </div>
+
+          <p>
+            첨부 일정표의 시간, 주제, 강사, 비고를
+            반영했습니다. 세부 일정은 운영 상황에
+            따라 변경될 수 있습니다.
+          </p>
+        </div>
+
+        <div
+          class="agenda-toggle"
+          aria-label="일정 필터"
+        >
+          <button
+            class="chip active"
+            type="button"
+            data-filter="all"
+          >
+            전체
+          </button>
+
+          <button
+            class="chip"
+            type="button"
+            data-filter="session"
+          >
+            강연 중심
+          </button>
+        </div>
+
+        <div class="agenda-shell">
+          <div class="agenda-header">
+            <div>시간</div>
+            <div>주제</div>
+            <div>강사</div>
+            <div>비고</div>
+          </div>
+
+          <div
+            class="agenda-row is-opening"
+            data-kind="session"
+          >
+            <div class="agenda-time">
+              <strong>08:50</strong>
+            </div>
+            <div class="agenda-topic">입실</div>
+            <div class="agenda-speaker">-</div>
+            <div class="agenda-note"></div>
+          </div>
+
+          <div
+            class="agenda-row is-opening"
+            data-kind="session"
+          >
+            <div class="agenda-time">
+              <strong>09:00 ~ 09:20</strong>
+              <small>20분</small>
+            </div>
+            <div class="agenda-topic">Opening</div>
+            <div class="agenda-speaker">-</div>
+            <div class="agenda-note">
+              일정안내, 시상
+            </div>
+          </div>
+
+          <div
+            class="agenda-row"
+            data-kind="session"
+          >
+            <div class="agenda-time">
+              <strong>09:20 ~ 10:10</strong>
+              <small>50분</small>
+            </div>
+            <div class="agenda-topic">
+              국내주거난방의 변천과 현황
+            </div>
+            <div class="agenda-speaker">
+              여명석 교수
+            </div>
+            <div class="agenda-note">
+              서울대학교
+            </div>
+          </div>
+
+          <div
+            class="agenda-row is-break"
+            data-kind="break"
+          >
+            <div class="agenda-time">
+              <strong>10:10 ~ 10:30</strong>
+              <small>20분</small>
+            </div>
+            <div class="agenda-topic">
+              Break time
+            </div>
+            <div class="agenda-speaker">-</div>
+            <div class="agenda-note"></div>
+          </div>
+
+          <div
+            class="agenda-row"
+            data-kind="session"
+          >
+            <div class="agenda-time">
+              <strong>10:30 ~ 11:20</strong>
+              <small>50분</small>
+            </div>
+            <div class="agendaow is-break"
+            data-kind="break"
+          >
+            <div class="agenda-time">
+              <strong>11:20 ~ 11:40</strong>
+              <small>20분</small>
+            </div>
+            <div class="agenda-topic">
+              Break time
+            </div>
+            <div class="agenda-speaker">-</div>
+            <div class="agenda-note"></div>
+          </div>
+
+          <div
+            class="agenda-row"
+            data-kind="session"
+          >
+            <div class="agenda-time">
+              <strong>11:40 ~ 12:30</strong>
+              <small>50분</small>
+            </div>
+            <div class="agenda-topic">
+              국내 전력시장 현황 및
+              AIDC 전력공급 방안
+            </div>
+            <div class="agenda-speaker">
+              조홍종 교수
+            </div>
+            <div class="agenda-note">
+              단국대학교
+            </div>
+          </div>
+
+          <div
+            class="agenda-row is-meal"
+            data-kind="session"
+          >
+            <div class="agenda-time">
+              <strong>12:30 ~ 14:00</strong>
+              <small>90분</small>
+            </div>
+            <div class="agenda-topic">
+              기념촬영 및 점심
+            </div>
+            <div class="agenda-speaker">-</div>
+            <div class="agenda-note">
+              교내 식당
+            </div>
+          </div>
+
+          <div
+            class="agenda-row"
+            data-kind="session"
+          >
+            <div class="agenda-time">
+              <strong>14:00 ~ 14:50</strong>
+              <small>50분</small>
+            </div>
+            <div class="agenda-topic">
+              건축설비 측면에서 바라보는
+              공동주택 공기열원 히트펌프의 역할과 과제
+            </div>
+            <div class="agenda-speaker">
+              유정현 수석
+            </div>
+            <div class="agenda-note">
+              LHRI<br>
+              토지주택연구원
+            </div>
+          </div>
+
+          <div
+            class="agenda-row is-break"
+            data-kind="break"
+          >
+            <div class="agenda-time">
+              <strong>14:50 ~ 15:10</strong>
+              <small>20분</small>
+            </div>
+            <div class="agenda-topic">
+              Break time
+            </div>
+            <div class="agenda-speaker">-</div>
+            <div class="agenda-note"></div>
+          </div>
+
+          <div
+            class="agenda-row"
+            data-kind="session"
+          >
+            <div class="agenda-time">
+              <strong>15:10 ~ 15:40</strong>
+              <small>30분</small>
+            </div>
+            <div class="agenda-topic">
+              에너지컨설팅 사례 발표
+            </div>
+            <div class="agenda-speaker">
+              오영훈 팀장
+            </div>
+            <div class="agenda-note">
+              에너지컨설팅팀
+            </div>
+          </div>
+
+          <div
+            class="agenda-row is-break"
+            data-kind="break"
+          >
+            <div class="agenda-time">
+              <strong>15:40 ~ 16:00</strong>
+              <small>20분</small>
+            </div>
+            <div class="agenda-topic">
+              Break time
+            </div>
+            <div class="agenda-speaker">-</div>
+            <div class="agenda-note"></div>
+          </div>
+
+          <div
+            class="agenda-row"
+            data-kind="session"
+          >
+            <div class="agenda-time">
+              <strong>16:00 ~ 17:40</strong>
+              <small>100분</small>
+            </div>
+            <div class="agenda-topic">
+              과학 및 인문학 강의
+              (주제 선정 中)
+            </div>
+            <div class="agenda-speaker">
+              이정모 관장
+            </div>
+            <div class="agenda-note">
+              과학커뮤니케이터
+            </div>
+          </div>
+
+          <div
+            class="agenda-row is-break"
+            data-kind="break"
+          >
+            <div class="agenda-time">
+              <strong>17:40 ~ 17:50</strong>
+              <small>10분</small>
+            </div>
+            <div class="agenda-topic">
+              Wrap up
+            </div>
+            <div class="agenda-speaker">-</div>
+            <div class="agenda-note"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Speakers -->
+    <section class="speakers" id="speakers">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <small>INSIGHT SPEAKERS</small>
+            <h2>강사 프로필</h2>
+          </div>
+
+          <p>
+            아래 이미지 파일은 index.html과 같은
+            저장소의 images 폴더에 업로드해 주세요.
+          </p>
+        </div>
+
+        <div class="speaker-grid">
+          <!-- 여명석 -->
+          <article
+            class="speaker-card reveal"
+            tabindex="0"
+          >
+            <div class="speaker-photo">
+              images/yeo-myeongseok.jpg
+              <span class="photo-badge">
+                SPEAKER
+              </span>
+            </div>
+
+            <div class="speaker-body">
+              <p class="speaker-org">
+                서울대학교
+              </p>
+
+              <h3>여명석 교수</h3>
+
+              <p class="speaker-topic">
+                국내주거난방의 변천과 현황
+              </p>
+
+              <ul>
+                <li>
+                  ’27년 대한설비공학회장
+                </li>
+                <li>
+                  현) 서울대학교 공과대학 건축학과
+                  건축공학전공 교수
+                </li>
+                <li>
+                  현) 서울대학교 탄소중립 캠퍼스
+                  추진단 단장
+                </li>
+                <li>
+                  현) 대한건축학회 이사
+                </li>
+                <li>
+                  전) 서울대학교 건축학과장
+                </li>
+                <li>
+                  전) 서울대학교 공과대학 학사부학장
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 이성혁 -->
+          <article
+            class="speaker-card reveal"
+            tabindex="0"
+          >
+            <div class="speaker-photo">
+              images/lee-seonghyeok.jpg
+              <span class="photo-badge">
+                SPEAKER
+              </span>
+            </div>
+
+            <div class="speaker-body">
+              <p class="speaker-org">
+                중앙대학교
+              </p>
+
+              <h3>이성혁 교수</h3>
+
+              <p class="speaker-topic">
+                고밀도 AI 서버의 액체냉각 및
+                데이터센터 열관리 기술
+              </p>
+
+              <ul>
+                <li>
+                  현) 중앙대학교 기계공학부 교수
+                </li>
+                <li>
+                  현) 대한기계학회 부회장
+                </li>
+                <li>
+                  현) JMST 부편집인
+                </li>
+                <li>
+                  전) 중앙대학교
+                  차세대에너지안전연구소 소장
+                </li>
+                <li>
+                  전) 중앙대학교 기계공학부 학과장
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 조홍종 -->
+          <article
+            class="speaker-card reveal"
+            tabindex="0"
+          >
+            <div class="speaker-photo">
+              images/cho-hongjong.jpg
+              <span class="photo-badge">
+                SPEAKER
+              </span>
+            </div>
+
+            <div class="speaker-body">
+              <p class="speaker-org">
+                단국대학교
+              </p>
+
+              <h3>조홍종 교수</h3>
+
+              <p class="speaker-topic">
+                국내 전력시장 현황 및
+                AIDC 전력공급 방안
+              </p>
+
+              <ul>
+                <li>
+                  현) 한국자원경제학회 회장
+                </li>
+                <li>
+                  현) 한국가스공사 비상임이사
+                </li>
+                <li>
+                  현) 수요예측실무위원회 위원장
+                </li>
+                <li>
+                  전) 에너지위원회 위원
+                </li>
+                <li>
+                  전) 전력수급기본계획
+                  총괄분과 위원
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 유정현 -->
+          <article
+            class="speaker-card reveal"
+            tabindex="0"
+          >
+            <div class="speaker-photo">
+              images/yoo-jeonghyeon.jpg
+              <span class="photo-badge">
+                SPEAKER
+              </span>
+            </div>
+
+            <div class="speaker-body">
+              <p class="speaker-org">
+                토지주택연구원 LHRI
+              </p>
+
+              <h3>유정현 수석연구원</h3>
+
+              <p class="speaker-topic">
+                공동주택 공기열원 히트펌프의
+                역할과 과제
+              </p>
+
+              <ul>
+                <li>
+                  현) LH 토지주택연구원
+                  수석연구원
+                </li>
+                <li>
+                  제로에너지건축물,
+                  공동주택 에너지시스템 전문가
+                </li>
+                <li>
+                  수소도시 및 에너지자립도시
+                  연구 수행
+                </li>
+                <li>
+                  공기열원 히트펌프,
+                  RE100 및 분산에너지 연구 수행
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 오영훈 -->
+          <article
+            class="speaker-card reveal"
+            tabindex="0"
+          >
+            <div class="speaker-photo">
+              <div
+                class="portrait placeholder"
+                aria-label="프로필 사진 미제공"
+              >
+                <span>
+                  ENERGY<br>
+                  CONSULTING
+                </span>
+              </div>
+
+              <span class="photo-badge">
+                SPEAKER
+              </span>
+            </div>
+
+            <div class="speaker-body">
+              <p class="speaker-org">
+                에너지컨설팅팀
+              </p>
+
+              <h3>오영훈 팀장</h3>
+
+              <p class="speaker-topic">
+                에너지컨설팅 사례 발표
+              </p>
+
+              <ul>
+                <li>
+                  에너지컨설팅 사례 및 성과 공유
+                </li>
+                <li>
+                  현장 중심의 에너지 효율화
+                  방안 소개
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 이정모 -->
+          <article
+            class="speaker-card reveal"
+            tabindex="0"
+          >
+            <div class="speaker-photo">
+              images/lee-jeongmo.jpg
+              <span class="photo-badge">
+                SPEAKER
+              </span>
+            </div>
+
+            <div class="speaker-body">
+              <p class="speaker-org">
+                과학 커뮤니케이터
+              </p>
+
+              <h3>이정모 관장</h3>
+
+              <p class="speaker-topic">
+                과학 및 인문학 강의
+              </p>
+
+              <ul>
+                <li>
+                  현) 과학 커뮤니케이터 및
+                  과학관 전문가
+                </li>
+                <li>
+                  전) 국립과천과학관 관장
+                </li>
+                <li>
+                  전) 서울시립과학관 관장
+                </li>
+                <li>
+                  전) 서대문자연사박물관 관장
+                </li>
+                <li>
+                  다양한 저술 및 방송 활동을 통한
+                  과학 대중화
+                </li>
+                <li>
+                  과학·역사·인문학을 연결하는
+                  스토리텔링형 강연
+                </li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Information -->
+    <section id="notice">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <small>INFORMATION</small>
+            <h2>참석 안내</h2>
+          </div>
+
+          <p>
+            행사 당일 원활한 운영을 위해
+            아래 내용을 확인해 주세요.
+          </p>
+        </div>
+
+        <div class="info-layout">
+          <div class="info-box reveal">
+            <h3>운영 안내</h3>
+
+            <ul>
+              <li>
+                오전 8시 50분까지 입실해 주세요.
+              </li>
+              <li>
+                Opening은 오전 9시에 시작합니다.
+              </li>
+              <li>
+                기념촬영과 점심은
+                12:30부터 14:00까지 진행됩니다.
+              </li>
+              <li>
+                비즈니스 캐주얼 착용을 권장합니다.
+              </li>
+              <li>
+                세부 일정과 강의 주제는
+                운영 상황에 따라 변경될 수 있습니다.
+              </li>
+            </ul>
+          </div>
+
+          <div class="quick-links reveal">
+            <a
+              class="quick-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://forms.cloud.microsoft/r/kaugdHpUxh"
+            >
+              <span>출석체크</span>
+              <span>↗</span>
+            </a>
+
+            <a
+              class="quick-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://forms.cloud.microsoft/r/G391UV62Pm"
+            >
+              <span>만족도 설문</span>
+              <span>↗</span>
+            </a>
+
+            <button
+              class="quick-link"
+              type="button"
+              id="printPage"
+            >
+              <span>일정표 인쇄 / PDF 저장</span>
+              <span>⎙</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section
+      class="faq"
+      aria-labelledby="faqTitle"
+    >
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <small>FAQ</small>
+            <h2 id="faqTitle">
+              자주 묻는 질문
+            </h2>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button
+            class="faq-button"
+            type="button"
+          >
+            <span>
+              강의자료는 제공되나요?
+            </span>
+            <span>＋</span>
+          </button>
+
+          <div class="faq-answer">
+            강의자료 제공 여부와 공유 방식은
+            각 강연자의 자료 공개 범위에 따라
+            행사 운영진이 별도로 안내합니다.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button
+            class="faq-button"
+            type="button"
+          >
+            <span>
+              일정이 변경될 수 있나요?
+            </span>
+            <span>＋</span>
+          </button>
+
+          <div class="faq-answer">
+            현장 운영과 강연자 일정에 따라
+            세부 시간 또는 주제가 일부 조정될
+            수 있습니다.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button
+            class="faq-button"
+            type="button"
+          >
+            <span>
+              모바일에서도 확인할 수 있나요?
+            </span>
+            <span>＋</span>
+          </button>
+
+          <div class="faq-answer">
+            이 페이지는 모바일 반응형으로 제작되어
+            스마트폰에서도 일정표와 강사 프로필을
+            확인할 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap footer-inner">
+      <strong>
+        2026 HVAC Engineering 전문가 세미나
+      </strong>
+
+      <span>
+        GitHub Pages Ready
+      </span>
+    </div>
+  </footer>
+
+  <!-- Floating buttons -->
+  <div class="floating">
+    <button
+      class="backtop"
+      id="backTop"
+      type="button"
+      aria-label="맨 위로 이동"
+    >
+      ↑
+    </button>
+
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href="https://forms.cloud.microsoft/r/kaugdHpUxh"
+    >
+      출석체크
+    </a>
+  </div>
+
+  <script>
+    /* 모바일 메뉴 */
+
+    const menuButton =
+      document.querySelector(".menu-button");
+
+    const mobileMenu =
+      document.getElementById("mobileMenu");
+
+    menuButton.addEventListener("click", function () {
+      const isOpen =
+        mobileMenu.classList.toggle("open");
+
+      menuButton.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+      );
+
+      document.body.classList.toggle(
+        "menu-open",
+        isOpen
+      );
+    });
+
+    mobileMenu
+      .querySelectorAll("a")
+      .forEach(function (link) {
+        link.addEventListener("click", function () {
+          mobileMenu.classList.remove("open");
+
+          menuButton.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+          document.body.classList.remove(
+            "menu-open"
+          );
+        });
+      });
+
+    /* 일정 필터 */
+
+    const chips =
+      document.querySelectorAll(".chip");
+
+    const agendaRows =
+      document.querySelectorAll(".agenda-row");
+
+    chips.forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        chips.forEach(function (item) {
+          item.classList.remove("active");
+        });
+
+        chip.classList.add("active");
+
+        const filter =
+          chip.dataset.filter;
+
+        agendaRows.forEach(function (row) {
+          if (
+            filter === "all" ||
+            row.dataset.kind === filter
+          ) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      });
+    });
+
+    /* FAQ */
+
+    document
+      .querySelectorAll(".faq-button")
+      .forEach(function (button) {
+        button.addEventListener(
+          "click",
+          function () {
+            button
+              .closest(".faq-item")
+              .classList.toggle("open");
+          }
+        );
+      });
+
+    /* 스크롤 등장 효과 */
+
+    const observer =
+      new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add(
+                "visible"
+              );
+            }
+          });
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+    document
+      .querySelectorAll(".reveal")
+      .forEach(function (element) {
+        observer.observe(element);
+      });
+
+    /* 맨 위로 이동 */
+
+    const backTop =
+      document.getElementById("backTop");
+
+    window.addEventListener(
+      "scroll",
+      function () {
+        backTop.classList.toggle(
+          "show",
+          window.scrollY > 700
+        );
+      }
+    );
+
+    backTop.addEventListener(
+      "click",
+      function () {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
+    );
+
+    /* 인쇄 및 PDF 저장 */
+
+    document
+      .getElementById("printPage")
+      .addEventListener(
+        "click",
+        function () {
+          window.print();
+        }
+      );
+  </script>
+</body>
+</html>
