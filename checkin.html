@@ -567,7 +567,7 @@
     }
 
     .session-card {
-      width: calc(100% - 24px);
+      width: 100%;
       padding: 10px 0;
     }
 
@@ -673,34 +673,32 @@
       font-size: 16px;
     }
 
-    /* 우측 도트 인디케이터 (스크린샷 동일) */
-    .side-dots {
-      position: absolute;
-      right: -8px;
-      top: 50%;
-      transform: translateY(-50%);
+    /* 하단 가로 도트 인디케이터 (좌우 스와이핑과 일치) */
+    .session-dots-bar {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 0 14px;
     }
 
     .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.22);
+      width: 8px;
+      height: 8px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.25);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.25s ease;
     }
 
     .dot.active {
-      width: 8px;
+      width: 24px;
       height: 8px;
       background: #ffffff;
-      box-shadow: 0 0 10px #ffffff;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
     }
 
-    /* 하단 액션 버튼 (참여하기) */
+    /* 하단 액션 버튼 (세션 질문하기) */
     .btn-participate {
       width: 100%;
       height: 56px;
@@ -720,6 +718,174 @@
 
     .btn-participate:hover {
       background: #55555c;
+    }
+
+    /* -------------------------------------------------------------
+       모달: 현재 세션 Q&A 질문 작성 바텀시트
+    ------------------------------------------------------------- */
+    .session-qna-sheet {
+      width: 100%;
+      max-width: 430px;
+      background: #15060d;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 24px 24px 0 0;
+      padding: 20px 20px 26px;
+      position: relative;
+      animation: slideUp 0.28s ease;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .qna-session-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 850;
+      color: #ff9aa5;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 3px 8px;
+      border-radius: 99px;
+      margin-bottom: 4px;
+    }
+
+    .qna-input-box {
+      margin: 14px 0 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 12px;
+    }
+
+    .qna-textarea {
+      width: 100%;
+      min-height: 84px;
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 14px;
+      font-family: inherit;
+      line-height: 1.5;
+      resize: none;
+      outline: none;
+    }
+
+    .qna-textarea::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .qna-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .qna-user-tag {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qna-anon-label {
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, 0.55);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-send-qna {
+      background: linear-gradient(135deg, #a81c46, #e61f5c);
+      color: #fff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 850;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-send-qna:hover {
+      opacity: 0.9;
+    }
+
+    .qna-extra-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .qna-link-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 11px 0;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 12.5px;
+      font-weight: 750;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .qna-link-btn.kakao {
+      background: rgba(254, 229, 0, 0.1);
+      border-color: rgba(254, 229, 0, 0.3);
+      color: #fee500;
+    }
+
+    /* -------------------------------------------------------------
+       모달: 행사장 안내 약도 (Campus Map)
+    ------------------------------------------------------------- */
+    .map-schematic-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .map-locations-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .map-loc-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+    }
+
+    .map-loc-icon {
+      font-size: 20px;
+      line-height: 1;
+      padding-top: 2px;
+    }
+
+    .map-loc-content strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 850;
+      color: #ffffff;
+      margin-bottom: 3px;
+    }
+
+    .map-loc-content span {
+      display: block;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.45;
     }
 
     /* -------------------------------------------------------------
@@ -1063,6 +1229,7 @@
             <li class="menu-item" id="menuItemMissions">✨ 오늘의 퀴즈 챌린지</li>
             <li class="menu-item" id="menuItemQna">✍️ 실시간 세션 Q&A</li>
             <li class="menu-item" id="menuItemTimetable">📅 행사 시간표 보기</li>
+            <li class="menu-item" id="menuItemMap">🗺️ 행사장 안내 약도</li>
             <li class="menu-item" id="menuItemKakao">💬 카카오톡 공식 채널</li>
             <li class="menu-item" id="menuItemLogout" style="color: #ff5366;">⏻ 체크아웃 (재입력)</li>
           </ul>
@@ -1092,9 +1259,11 @@
             <li>Opening 세션은 오전 9시에 정시 시작합니다!</li>
           </ul>
         </div>
+      </div>
 
-        <!-- 우측 도트 인디케이터 (스크린샷 동일 - 총 9개 세션) -->
-        <div class="side-dots" id="sideDots">
+      <!-- 하단 영역: 가로 인디케이터 도트 (좌우 스와이핑과 일치) + 하단 Q&A 액션 버튼 -->
+      <div>
+        <div class="session-dots-bar" id="sideDots">
           <div class="dot active" data-index="0"></div>
           <div class="dot" data-index="1"></div>
           <div class="dot" data-index="2"></div>
@@ -1105,12 +1274,9 @@
           <div class="dot" data-index="7"></div>
           <div class="dot" data-index="8"></div>
         </div>
-      </div>
 
-      <!-- 하단 액션 버튼 -->
-      <div>
         <button class="btn-participate" id="btnBottomAction" type="button">
-          ✋ 참여하기 ∨
+          💬 세션 질문하기 ∨
         </button>
       </div>
     </section>
@@ -1254,6 +1420,129 @@
       </div>
 
       <div style="text-align: center; font-size: 11px; color: rgba(255, 255, 255, 0.45); padding: 14px 0 4px; border-top: 1px solid rgba(255, 255, 255, 0.08); margin-top: 12px;">
+        주최: ES엔지니어링담당 · 운영: ES아카데미팀
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 4: 현재 세션 질문하기 바텀시트
+  ========================================================= -->
+  <div class="timetable-modal" id="modalSessionQna">
+    <div class="session-qna-sheet">
+      <div class="sheet-header-row" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+        <div>
+          <span class="qna-session-badge" id="modalQnaBadge">KEYNOTE 1</span>
+          <h3 id="modalQnaTitle" style="font-size: 17px; font-weight: 900; line-height: 1.35; margin-top: 4px;">세션 질문하기</h3>
+        </div>
+        <button class="close-sheet-btn" id="btnCloseSessionQna" type="button">✕</button>
+      </div>
+
+      <p style="font-size: 12.5px; color: rgba(255,255,255,0.6); line-height: 1.45;">
+        강연자에게 궁금한 점을 질문해 보세요. 질의응답 시간에 우선 답변됩니다.
+      </p>
+
+      <div class="qna-input-box">
+        <textarea
+          class="qna-textarea"
+          id="modalQnaContent"
+          placeholder="강연 내용과 관련하여 궁금한 질문을 남겨주세요."
+        ></textarea>
+
+        <div class="qna-meta-row">
+          <div class="qna-user-tag">
+            <span id="modalQnaAuthorName">홍길동</span>
+            <label class="qna-anon-label">
+              <input type="checkbox" id="modalQnaAnonCheck"> 익명
+            </label>
+          </div>
+          <button class="btn-send-qna" id="btnSubmitSessionQna" type="button">질문 등록</button>
+        </div>
+      </div>
+
+      <div class="qna-extra-links">
+        <a href="./qna.html" class="qna-link-btn">
+          📋 실시간 전체 Q&A 보드 보러가기 →
+        </a>
+        <a href="https://pf.kakao.com/_DZkSX" target="_blank" rel="noopener noreferrer" class="qna-link-btn kakao">
+          💬 카톡 채널 1:1로 직접 질문하기 ↗
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 5: 행사장 안내 약도 (Campus Map)
+  ========================================================= -->
+  <div class="timetable-modal" id="modalMap">
+    <div class="timetable-sheet" style="max-height: 85vh;">
+      <div class="timetable-header-row">
+        <h3>🗺️ 행사장 안내 약도</h3>
+        <button class="close-sheet-btn" id="btnCloseMap" type="button">✕</button>
+      </div>
+      <p style="font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 14px;">
+        국민대학교 본부관 (별관) 학술회의장 및 주요 시설 위치 안내입니다.
+      </p>
+
+      <div class="map-schematic-card">
+        <div style="font-size: 32px; margin-bottom: 6px;">🏛️</div>
+        <strong style="font-size: 15px;">국민대학교 캠퍼스 안내도</strong>
+        <small style="color: rgba(255,255,255,0.5); display: block; margin-top: 4px;">
+          정문 → 본부관 학술회의장 (도보 약 6분)
+        </small>
+      </div>
+
+      <div class="map-locations-list">
+        <div class="map-loc-item">
+          <div class="map-loc-icon">📍</div>
+          <div class="map-loc-content">
+            <strong>학술회의장 (본부관 별관 1층)</strong>
+            <span>세미나 등록데스크, 개회사, 시상식 및 전 세션 강연 진행</span>
+          </div>
+        </div>
+
+        <div class="map-loc-item">
+          <div class="map-loc-icon">🍱</div>
+          <div class="map-loc-content">
+            <strong>점심 식당: '천하' (법학관 5층)</strong>
+            <span>12:30 ~ 14:00 오찬 장소 (본부관 앞 기념촬영 후 도보 2~3분 이동)</span>
+          </div>
+        </div>
+
+        <div class="map-loc-item">
+          <div class="map-loc-icon">🚬</div>
+          <div class="map-loc-content">
+            <strong style="color: #ff9aa5;">지정 흡연구역</strong>
+            <span>본부관 뒤편 야외 지정 흡연 부스 (※ 캠퍼스 전 구역 금연, 지정 부스만 이용)</span>
+          </div>
+        </div>
+
+        <div class="map-loc-item">
+          <div class="map-loc-icon">☕</div>
+          <div class="map-loc-content">
+            <strong>휴게 및 음료 / 다과</strong>
+            <span>학술회의장 입구 로비 등록데스크 옆 커피/다과 제공</span>
+          </div>
+        </div>
+
+        <div class="map-loc-item">
+          <div class="map-loc-icon">🚻</div>
+          <div class="map-loc-content">
+            <strong>화장실</strong>
+            <span>본부관 1층 학술회의장 입구 좌우측</span>
+          </div>
+        </div>
+
+        <div class="map-loc-item">
+          <div class="map-loc-icon">🚗</div>
+          <div class="map-loc-content">
+            <strong>주차장 (자가용 이용 시)</strong>
+            <span>본부관 지하주차장 이용 (출차 시 등록데스크에서 무료 주차권 수령)</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; font-size: 11px; color: rgba(255, 255, 255, 0.45); padding: 14px 0 4px; border-top: 1px solid rgba(255, 255, 255, 0.08); margin-top: 16px;">
         주최: ES엔지니어링담당 · 운영: ES아카데미팀
       </div>
     </div>
@@ -1510,7 +1799,7 @@
     // 대시보드 세션 인디케이터 도트 클릭 & 뷰어 갱신
     // =========================================================
     let currentIdx = 0;
-    const dots = document.querySelectorAll('.side-dots .dot');
+    const dots = document.querySelectorAll('#sideDots .dot');
     const cardEl = document.getElementById('currentSessionCard');
     const viewerEl = document.querySelector('.session-viewer');
 
@@ -1686,6 +1975,75 @@
       modalTimetable.classList.add('show');
     });
 
+    // 약도 모달 열기 / 닫기
+    const modalMap = document.getElementById('modalMap');
+    document.getElementById('menuItemMap').addEventListener('click', () => {
+      menuPopover.classList.remove('show');
+      modalMap.classList.add('show');
+    });
+    document.getElementById('btnCloseMap').addEventListener('click', () => {
+      modalMap.classList.remove('show');
+    });
+
+    // 세션별 질문하기 바텀시트 모달 열기 / 닫기
+    const modalSessionQna = document.getElementById('modalSessionQna');
+    const modalQnaBadge = document.getElementById('modalQnaBadge');
+    const modalQnaTitle = document.getElementById('modalQnaTitle');
+    const modalQnaContent = document.getElementById('modalQnaContent');
+    const modalQnaAuthorName = document.getElementById('modalQnaAuthorName');
+    const modalQnaAnonCheck = document.getElementById('modalQnaAnonCheck');
+
+    // 하단 '💬 세션 질문하기 ∨' 버튼 누를 때 액션: 현재 세션 Q&A 팝업 오픈!
+    document.getElementById('btnBottomAction').addEventListener('click', () => {
+      const s = sessions[currentIdx];
+      modalQnaBadge.textContent = s.sublabel;
+      modalQnaTitle.textContent = s.title;
+      modalQnaAuthorName.textContent = document.getElementById('menuUserName').textContent || '참가자';
+      modalQnaContent.value = '';
+      modalQnaAnonCheck.checked = false;
+      modalSessionQna.classList.add('show');
+      setTimeout(() => modalQnaContent.focus(), 250);
+    });
+
+    document.getElementById('btnCloseSessionQna').addEventListener('click', () => {
+      modalSessionQna.classList.remove('show');
+    });
+
+    // 현재 세션 질문 제출 (qna.html 실시간 보드와 100% 호환 연동)
+    document.getElementById('btnSubmitSessionQna').addEventListener('click', () => {
+      const content = modalQnaContent.value.trim();
+      if (!content) {
+        alert('질문 내용을 입력해 주세요.');
+        modalQnaContent.focus();
+        return;
+      }
+
+      const s = sessions[currentIdx];
+      const author = modalQnaAnonCheck.checked ? '익명 참가자' : (modalQnaAuthorName.textContent || '참가자');
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+
+      try {
+        let qList = [];
+        const saved = localStorage.getItem('hvac_qna_list');
+        if (saved) qList = JSON.parse(saved);
+        qList.unshift({
+          id: Date.now(),
+          session: 's' + currentIdx,
+          sessionName: s.sublabel + ' · ' + s.title.slice(0, 16),
+          author: author,
+          content: content,
+          time: timeStr,
+          likes: 1,
+          isLiked: true
+        });
+        localStorage.setItem('hvac_qna_list', JSON.stringify(qList));
+      } catch (e) {}
+
+      modalSessionQna.classList.remove('show');
+      alert('🎉 질문이 성공적으로 등록되었습니다!\n세션 Q&A 시간에 답변해 드립니다.');
+    });
+
     document.getElementById('menuItemKakao').addEventListener('click', () => {
       menuPopover.classList.remove('show');
       window.open('https://pf.kakao.com/_DZkSX', '_blank');
@@ -1700,11 +2058,6 @@
         menuPopover.classList.remove('show');
         showScreen('intro');
       }
-    });
-
-    // 하단 '✋ 참여하기' 버튼 누를 때 액션
-    document.getElementById('btnBottomAction').addEventListener('click', () => {
-      modalTimetable.classList.add('show');
     });
 
     // =========================================================

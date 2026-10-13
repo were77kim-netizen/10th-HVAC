@@ -2,23 +2,30 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="2026 HVAC Engineering Seminar 일정, 강사, 카카오톡 채널 및 세션별 안내">
-  <meta property="og:title" content="2026 HVAC Engineering Seminar">
-  <meta property="og:description" content="실시간 아젠다 공지, 카카오톡 채널 소통, 스마트 출석체크 & 세션별 퀴즈 이벤트">
-  <meta name="theme-color" content="#050505">
 
-  <title>2026 HVAC Engineering Seminar</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="description"
+    content="2026 HVAC Engineering Expert Seminar 일정 및 강사 안내"
+  >
+
+  <meta
+    name="theme-color"
+    content="#050505"
+  >
+
+  <title>2026 HVAC Engineering Expert Seminar</title>
 
   <style>
     :root {
       --red: #d60019;
       --red-light: #ff5366;
-      --kakao-yellow: #fee500;
-      --kakao-brown: #391b1b;
       --black: #050505;
       --panel: #101012;
-      --panel-hover: #18181c;
       --line: #303034;
       --muted: #b9b9bf;
       --radius: 18px;
@@ -38,7 +45,14 @@
       margin: 0;
       background: var(--black);
       color: #ffffff;
-      font-family: Pretendard, "Noto Sans KR", "Malgun Gothic", Arial, sans-serif;
+
+      font-family:
+        Pretendard,
+        "Noto Sans KR",
+        "Malgun Gothic",
+        Arial,
+        sans-serif;
+
       line-height: 1.65;
       word-break: keep-all;
     }
@@ -60,27 +74,34 @@
     /* =========================
        상단 메뉴
     ========================= */
+
     header {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(5, 5, 5, 0.92);
+
+      background: rgba(5, 5, 5, 0.9);
       backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+      border-bottom:
+        1px solid rgba(255, 255, 255, 0.12);
     }
 
     .nav {
       min-height: 72px;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+
+      gap: 20px;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
+
       font-size: 14px;
       font-weight: 950;
       letter-spacing: 0.05em;
@@ -90,15 +111,19 @@
       width: 18px;
       height: 18px;
       flex: 0 0 auto;
+
       border-radius: 50%;
       background: var(--red);
-      box-shadow: 0 0 0 7px rgba(214, 0, 25, 0.18);
+
+      box-shadow:
+        0 0 0 7px rgba(214, 0, 25, 0.18);
     }
 
     .links {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 20px;
+
       font-size: 14px;
       font-weight: 850;
     }
@@ -113,116 +138,140 @@
     }
 
     .cta {
-      padding: 9px 15px;
+      padding: 10px 15px;
+
       border: 1px solid #555555;
       border-radius: 999px;
+
       background: #171719;
-      transition: all 0.2s;
-      white-space: nowrap;
     }
 
     .cta:hover {
       border-color: var(--red);
     }
 
-    .cta.kakao {
-      background: var(--kakao-yellow);
-      color: var(--kakao-brown);
-      border-color: var(--kakao-yellow);
-      font-weight: 900;
-    }
-
-    .cta.kakao:hover {
-      background: #ffd900;
-      border-color: #ffd900;
-      transform: translateY(-2px);
-    }
-
     .cta.primary {
       border-color: var(--red);
       background: var(--red);
-      color: #fff;
     }
 
     .menu-btn {
       display: none;
+
       min-width: 52px;
       min-height: 44px;
+
       padding: 9px 12px;
+
       border: 1px solid #555555;
       border-radius: 10px;
+
       background: #111111;
       color: #ffffff;
+
       cursor: pointer;
     }
 
     .mobile-menu {
       display: none;
+
       padding: 10px 18px 18px;
+
       background: #09090a;
-      border-top: 1px solid #29292c;
+
+      border-top:
+        1px solid #29292c;
     }
 
     .mobile-menu a {
       display: block;
+
       padding: 14px 8px;
-      border-bottom: 1px solid #242428;
+
+      border-bottom:
+        1px solid #242428;
+
       font-size: 15px;
       font-weight: 850;
     }
 
-    .mobile-menu .kakao-link {
-      color: var(--kakao-yellow);
-    }
-
     /* =========================
-       메인 히어로
+       메인 화면
     ========================= */
+
     .hero {
       min-height: 700px;
+
       display: grid;
       align-items: center;
+
       position: relative;
       overflow: hidden;
+
       background:
-        radial-gradient(circle at 78% 18%, rgba(214, 0, 25, 0.95), transparent 34%),
-        radial-gradient(circle at 5% 95%, rgba(150, 0, 16, 0.75), transparent 34%),
-        linear-gradient(135deg, #070709 0%, #260006 58%, #050505 100%);
+        radial-gradient(
+          circle at 78% 18%,
+          rgba(214, 0, 25, 0.95),
+          transparent 34%
+        ),
+        radial-gradient(
+          circle at 5% 95%,
+          rgba(150, 0, 16, 0.75),
+          transparent 34%
+        ),
+        linear-gradient(
+          135deg,
+          #070709 0%,
+          #260006 58%,
+          #050505 100%
+        );
     }
 
     .hero::after {
       content: "";
+
       position: absolute;
       inset: 0;
+
       opacity: 0.15;
       pointer-events: none;
+
       background-image:
-        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+        linear-gradient(
+          rgba(255, 255, 255, 0.08) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.08) 1px,
+          transparent 1px
+        );
+
       background-size: 42px 42px;
     }
 
     .hero-inner {
       position: relative;
       z-index: 1;
-      padding: 100px 0 90px;
-    }
 
-    .eyebrow-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
+      padding: 108px 0 94px;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 9px;
+
       padding: 8px 15px;
-      border: 1px solid rgba(255, 255, 255, 0.26);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.26);
+
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08);
+
+      background:
+        rgba(255, 255, 255, 0.08);
+
       font-size: 12px;
       font-weight: 950;
       letter-spacing: 0.15em;
@@ -230,35 +279,31 @@
 
     .eyebrow::before {
       content: "";
+
       width: 7px;
       height: 7px;
+
       border-radius: 50%;
       background: #ff6a7a;
     }
 
-    .eyebrow-kakao {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(254, 229, 0, 0.15);
-      border: 1px solid rgba(254, 229, 0, 0.4);
-      color: #ffe838;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
     .year {
-      margin-top: 22px;
-      font-size: clamp(25px, 3vw, 38px);
+      margin-top: 25px;
+
+      font-size:
+        clamp(25px, 3vw, 38px);
+
       font-weight: 950;
     }
 
     .hero h1 {
       max-width: 1020px;
+
       margin: 4px 0 22px;
-      font-size: clamp(45px, 7.6vw, 88px);
+
+      font-size:
+        clamp(45px, 7.6vw, 88px);
+
       line-height: 1.02;
       letter-spacing: -0.06em;
     }
@@ -271,40 +316,43 @@
     .hero-copy {
       max-width: 800px;
       margin: 0;
+
       color: #e7e7e9;
-      font-size: clamp(16px, 2vw, 20px);
+
+      font-size:
+        clamp(16px, 2vw, 20px);
     }
 
     .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
+
       margin-top: 30px;
     }
 
     .btn {
       min-height: 48px;
+
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+
       padding: 0 22px;
+
       border: 1px solid #ffffff;
       border-radius: 12px;
+
       font-weight: 900;
-      transition: transform 0.2s, background 0.2s;
-      cursor: pointer;
+
+      transition:
+        transform 0.2s,
+        background 0.2s;
     }
 
     .btn.primary {
       background: var(--red);
       border-color: var(--red);
-    }
-
-    .btn.kakao {
-      background: var(--kakao-yellow);
-      color: var(--kakao-brown);
-      border-color: var(--kakao-yellow);
     }
 
     .btn:hover {
@@ -313,14 +361,23 @@
 
     .meta {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
       gap: 1px;
+
       max-width: 1000px;
       margin-top: 44px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.2);
+
       border-radius: 16px;
       overflow: hidden;
-      background: rgba(255, 255, 255, 0.2);
+
+      background:
+        rgba(255, 255, 255, 0.2);
     }
 
     .meta div {
@@ -342,6 +399,7 @@
     /* =========================
        공통 영역
     ========================= */
+
     section {
       padding: 90px 0;
     }
@@ -350,265 +408,44 @@
       margin-bottom: 35px;
     }
 
-    .section-head .badge {
-      display: inline-block;
-      color: var(--red-light);
-      font-weight: 900;
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
     .section-head h2 {
       margin: 0;
-      font-size: clamp(32px, 4.8vw, 52px);
+
+      font-size:
+        clamp(34px, 5vw, 54px);
+
       line-height: 1.1;
       letter-spacing: -0.045em;
-    }
-
-    .section-head p {
-      color: var(--muted);
-      margin-top: 8px;
-      font-size: 16px;
-    }
-
-    /* =========================
-       1. 카카오톡 오픈 톡방 & 홍보 섹션
-    ========================= */
-    .kakao-section {
-      background: radial-gradient(circle at 85% 20%, rgba(254, 229, 0, 0.12), transparent 45%), #0a0a0c;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .kakao-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 24px;
-    }
-
-    .kakao-card {
-      background: #111114;
-      border: 1px solid #333338;
-      border-radius: var(--radius);
-      padding: 34px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .kakao-card.main-talk {
-      border-color: rgba(254, 229, 0, 0.4);
-      box-shadow: 0 10px 40px rgba(254, 229, 0, 0.08);
-    }
-
-    .kakao-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--kakao-yellow);
-      color: var(--kakao-brown);
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 900;
-      margin-bottom: 16px;
-    }
-
-    .kakao-card h3 {
-      font-size: 26px;
-      margin: 0 0 12px;
-      font-weight: 900;
-    }
-
-    .kakao-card p {
-      color: #d0d0d5;
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 22px;
-    }
-
-    .kakao-features {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 28px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .kakao-features li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 14px;
-      color: #e4e4e8;
-    }
-
-    .kakao-features li::before {
-      content: "✓";
-      color: var(--kakao-yellow);
-      font-weight: 900;
-    }
-
-    .btn-kakao-enter {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: var(--kakao-yellow);
-      color: var(--kakao-brown);
-      padding: 14px 28px;
-      border-radius: 12px;
-      font-weight: 900;
-      font-size: 16px;
-      transition: all 0.2s;
-    }
-
-    .btn-kakao-enter:hover {
-      background: #ffd900;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(254, 229, 0, 0.3);
-    }
-
-    .share-box {
-      background: #111114;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .share-box h3 {
-      font-size: 22px;
-      margin: 0 0 10px;
-    }
-
-    .share-box p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-      margin-bottom: 20px;
-    }
-
-    .share-btn-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .btn-copy-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px;
-      background: #202025;
-      border: 1px solid #44444c;
-      color: #fff;
-      border-radius: 10px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .btn-copy-link:hover {
-      background: #2c2c34;
-      border-color: #666675;
-    }
-
-    /* 토스트 알림 */
-    .toast {
-      position: fixed;
-      bottom: 90px;
-      left: 50%;
-      transform: translateX(-50%) translateY(30px);
-      background: #1c1c20;
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 999px;
-      border: 1px solid rgba(254, 229, 0, 0.5);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      font-weight: 800;
-      font-size: 14px;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s ease;
-      z-index: 2000;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    /* =========================
-       2. 세션별 퀴즈 배너 섹션 (quiz.html 분리 링크)
-    ========================= */
-    .quiz-compact-section {
-      background: radial-gradient(circle at 20% 30%, rgba(214, 0, 25, 0.12), transparent 45%), #070709;
-      border-bottom: 1px solid var(--line);
-      padding: 60px 0;
-    }
-
-    .quiz-banner-card {
-      background: linear-gradient(135deg, rgba(131, 19, 53, 0.35) 0%, rgba(18, 18, 22, 0.95) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: var(--radius);
-      padding: 36px 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .quiz-banner-text {
-      max-width: 620px;
-    }
-
-    .quiz-banner-text h2 {
-      font-size: 24px;
-      font-weight: 900;
-      margin: 8px 0 10px;
-      letter-spacing: -0.02em;
-    }
-
-    .quiz-banner-text p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14.5px;
-      line-height: 1.6;
-    }
-
-    .quiz-banner-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
     }
 
     /* =========================
        시간표
     ========================= */
+
     .agenda-shell {
       border: 1px solid var(--line);
       border-radius: 18px;
+
       overflow: hidden;
+
       box-shadow: var(--shadow);
     }
 
     .agenda-head,
     .agenda-row {
       display: grid;
-      grid-template-columns: 160px 72px 1fr 150px 170px;
+
+      grid-template-columns:
+        160px
+        72px
+        1fr
+        150px
+        170px;
     }
 
     .agenda-head {
       background: var(--red);
+
       font-weight: 900;
       text-align: center;
     }
@@ -617,8 +454,11 @@
     .agenda-row > div {
       display: flex;
       align-items: center;
+
       padding: 14px 15px;
-      border-right: 1px solid rgba(255, 255, 255, 0.13);
+
+      border-right:
+        1px solid rgba(255, 255, 255, 0.13);
     }
 
     .agenda-head > div:last-child,
@@ -628,7 +468,10 @@
 
     .agenda-row {
       min-height: 68px;
-      border-top: 1px solid var(--line);
+
+      border-top:
+        1px solid var(--line);
+
       background: #0c0c0e;
     }
 
@@ -637,17 +480,28 @@
     }
 
     .agenda-row.session {
-      background: linear-gradient(90deg, rgba(214, 0, 25, 0.08), #0c0c0e);
+      background:
+        linear-gradient(
+          90deg,
+          rgba(214, 0, 25, 0.08),
+          #0c0c0e
+        );
     }
 
     .agenda-row.break {
       min-height: 50px;
+
       color: #8f8f95;
       background: #080809;
     }
 
     .agenda-row.meal {
-      background: linear-gradient(90deg, rgba(214, 0, 25, 0.24), #0c0c0e);
+      background:
+        linear-gradient(
+          90deg,
+          rgba(214, 0, 25, 0.24),
+          #0c0c0e
+        );
     }
 
     .time,
@@ -669,33 +523,63 @@
     /* =========================
        강사 프로필
     ========================= */
+
     .speakers {
-      background: linear-gradient(145deg, #151518, #050505 62%);
+      background:
+        linear-gradient(
+          145deg,
+          #151518,
+          #050505 62%
+        );
     }
 
     .speaker-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(320px, 1fr)
+        );
+
       gap: 20px;
     }
 
     .speaker-card {
       padding: 30px;
-      border-radius: var(--radius);
-      background: linear-gradient(135deg, #f6f6f7, #d7d7da);
+
+      border-radius:
+        var(--radius);
+
+      background:
+        linear-gradient(
+          135deg,
+          #f6f6f7,
+          #d7d7da
+        );
+
       color: #151518;
-      box-shadow: var(--shadow);
-      transition: transform 0.22s;
+
+      box-shadow:
+        var(--shadow);
+
+      transition:
+        transform 0.22s;
     }
 
     .speaker-card::before {
       content: "EXPERT SPEAKER";
+
       display: inline-block;
+
       margin-bottom: 17px;
       padding: 5px 10px;
+
       border-radius: 999px;
+
       background: var(--red);
       color: #ffffff;
+
       font-size: 10px;
       font-weight: 950;
       letter-spacing: 0.12em;
@@ -707,7 +591,9 @@
 
     .speaker-card .org {
       margin: 0;
+
       color: #66666c;
+
       font-size: 13px;
       font-weight: 900;
     }
@@ -719,8 +605,12 @@
 
     .speaker-topic {
       margin: 0 0 16px;
+
       padding-left: 12px;
-      border-left: 4px solid var(--red);
+
+      border-left:
+        4px solid var(--red);
+
       font-weight: 950;
       line-height: 1.45;
     }
@@ -728,7 +618,9 @@
     .speaker-card ul {
       margin: 0;
       padding-left: 18px;
+
       color: #44444a;
+
       font-size: 13px;
     }
 
@@ -739,6 +631,7 @@
     /* =========================
        장소 및 오시는 길
     ========================= */
+
     .venue-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -748,8 +641,10 @@
     .venue-card,
     .route-card {
       padding: 30px;
+
       border: 1px solid var(--line);
       border-radius: 18px;
+
       background: #0d0d0f;
     }
 
@@ -761,6 +656,7 @@
 
     .venue-name {
       margin: 4px 0 18px;
+
       font-size: 21px;
       font-weight: 950;
     }
@@ -777,6 +673,7 @@
     /* =========================
        참석 안내
     ========================= */
+
     .info-layout {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
@@ -785,8 +682,10 @@
 
     .info-box {
       padding: 30px;
+
       border: 1px solid var(--line);
       border-radius: 18px;
+
       background: #0d0d0f;
     }
 
@@ -803,35 +702,32 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       padding: 17px 18px;
+
       border: 1px solid #3a3a3f;
       border-radius: 12px;
+
       background: #121215;
       color: #ffffff;
+
       font-weight: 900;
-      transition: all 0.2s;
     }
 
     .quick-link:hover {
       border-color: var(--red);
     }
 
-    .quick-link.kakao {
-      border-color: rgba(254, 229, 0, 0.4);
-      background: #1a180e;
-      color: var(--kakao-yellow);
-    }
-
-    .quick-link.kakao:hover {
-      border-color: var(--kakao-yellow);
-    }
-
     /* =========================
        하단
     ========================= */
+
     footer {
       padding: 34px 0;
-      border-top: 1px solid #2c2c30;
+
+      border-top:
+        1px solid #2c2c30;
+
       color: #9999a0;
       font-size: 13px;
     }
@@ -840,14 +736,18 @@
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
+
       gap: 18px;
     }
 
     .floating {
       position: fixed;
+
       right: 20px;
       bottom: 20px;
+
       z-index: 900;
+
       display: flex;
       gap: 8px;
     }
@@ -855,34 +755,35 @@
     .floating a,
     .top-btn {
       min-height: 52px;
+
       display: grid;
       place-items: center;
+
       border: 0;
       border-radius: 999px;
+
       background: var(--red);
       color: #ffffff;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.38);
+
+      box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.38);
+
       font-weight: 900;
       cursor: pointer;
     }
 
     .floating a {
-      padding: 0 20px;
-    }
-
-    .floating a.kakao-float {
-      background: var(--kakao-yellow);
-      color: var(--kakao-brown);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      padding: 0 22px;
     }
 
     .top-btn {
       width: 52px;
+
       background: #26262b;
+
       opacity: 0;
       pointer-events: none;
+
       transition: 0.2s;
     }
 
@@ -894,6 +795,7 @@
     .reveal {
       opacity: 0;
       transform: translateY(22px);
+
       transition: 0.6s;
     }
 
@@ -903,225 +805,360 @@
     }
 
     /* =========================
-       반응형 미디어 쿼리
+       태블릿
     ========================= */
+
     @media (max-width: 960px) {
       .agenda-head,
       .agenda-row {
-        grid-template-columns: 145px 60px 1fr 130px 145px;
+        grid-template-columns:
+          145px
+          60px
+          1fr
+          130px
+          145px;
       }
+
       .meta {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .quiz-grid {
-        grid-template-columns: 1fr;
-      }
-      .kakao-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+          repeat(2, 1fr);
       }
     }
+
+    /* =========================
+       모바일
+    ========================= */
 
     @media (max-width: 820px) {
       html {
         scroll-padding-top: 70px;
       }
+
       .links {
         display: none;
       }
+
       .menu-btn {
         display: block;
       }
+
       .mobile-menu.open {
         display: block;
       }
+
       .agenda-shell {
         border: 0;
         border-radius: 0;
+
         overflow: visible;
+
         box-shadow: none;
       }
+
       .agenda-head {
         display: none;
       }
+
       .agenda-row {
         grid-template-columns: 1fr;
+
         gap: 5px;
+
         margin-bottom: 10px;
         padding: 18px;
+
         border: 1px solid var(--line);
         border-radius: 13px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+
+        box-shadow:
+          0 8px 24px rgba(0, 0, 0, 0.18);
       }
+
       .agenda-row > div {
         justify-content: flex-start;
+
         padding: 0;
+
         border-right: 0;
+
         text-align: left;
       }
+
       .time {
         color: #ff6677;
+
         font-size: 15px;
         font-weight: 950;
       }
+
       .minute {
         color: #bdbdc3;
         font-size: 13px;
       }
+
       .minute::before {
         content: "시간: ";
         color: #aaaaaa;
       }
+
       .minute::after {
         content: "분";
       }
+
       .topic {
         font-size: 16px;
         line-height: 1.45;
       }
+
       .speaker {
         margin-top: 7px;
       }
+
       .note {
         font-size: 13px;
       }
+
       .venue-grid,
       .info-layout {
         grid-template-columns: 1fr;
       }
+
       .meta {
         grid-template-columns: 1fr;
       }
     }
 
+    /* =========================
+       작은 모바일
+    ========================= */
+
     @media (max-width: 560px) {
       .wrap {
-        width: min(100% - 26px, 1160px);
+        width:
+          min(
+            100% - 26px,
+            1160px
+          );
       }
+
       .nav {
         min-height: 64px;
       }
+
       .brand {
-        max-width: 230px;
+        max-width: 250px;
+
         font-size: 11px;
         line-height: 1.25;
+        letter-spacing: 0.015em;
       }
+
       .hero {
         min-height: 650px;
       }
+
       .hero-inner {
         padding: 82px 0 70px;
       }
+
       .hero h1 {
-        font-size: 40px;
+        font-size: 41px;
       }
+
       section {
         padding: 68px 0;
       }
-      .section-head h2 {
-        font-size: 32px;
+
+      .section-head {
+        margin-bottom: 26px;
       }
+
+      .section-head h2 {
+        font-size: 34px;
+      }
+
       .speaker-card,
       .venue-card,
       .route-card,
-      .info-box,
-      .kakao-card {
+      .info-box {
         padding: 22px;
       }
-      .floating {
-        right: 12px;
-        bottom: 12px;
+
+      .speaker-card h3 {
+        font-size: 24px;
       }
+
+      .venue-name {
+        font-size: 19px;
+      }
+
+      .floating {
+        right: 13px;
+        bottom: 13px;
+      }
+
       .floating a {
-        min-height: 52px;
-        padding: 0 16px;
-        font-size: 14px;
+        min-height: 60px;
+
+        padding: 0 24px;
+
+        font-size: 15px;
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- 상단 헤더 -->
   <header>
     <div class="wrap nav">
       <a class="brand" href="#home">
         <span class="brand-mark"></span>
-        2026 HVAC ENGINEERING SEMINAR
+        HVAC ENGINEERING EXPERT SEMINAR
       </a>
 
-      <nav class="links" aria-label="주요 메뉴">
-        <a href="#agenda">일정표</a>
-        <a href="#speakers">강사 프로필</a>
-        <a href="#kakao">카카오 채널</a>
-        <a href="./quiz.html">세션 퀴즈</a>
-        <a href="./qna.html">실시간 Q&A</a>
-        <a href="#venue">오시는 길</a>
-        <a href="#notice">참석 안내</a>
-        <a class="cta" href="./checkin.html">
-          📱 모바일 체크인
+      <nav
+        class="links"
+        aria-label="주요 메뉴"
+      >
+        <a href="#agenda">
+          일정표
         </a>
-        <a class="cta primary" target="_blank" rel="noopener noreferrer" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u">
-          만족도 설문 ↗
+
+        <a href="#speakers">
+          강사 프로필
+        </a>
+
+        <a href="#venue">
+          오시는 길
+        </a>
+
+        <a href="#notice">
+          참석 안내
+        </a>
+
+        <a
+          class="cta"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u"
+        >
+          만족도 설문
+        </a>
+
+        <a
+          class="cta primary"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://forms.cloud.microsoft/r/kaugdHpUxh"
+        >
+          출석체크
         </a>
       </nav>
 
-      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobileMenu">
-        메뉴
-      </button>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <a
+          href="./index_ys.html"
+          title="YS 버전 대시보드로 이동"
+          style="display: inline-flex; align-items: center; gap: 4px; padding: 7px 12px; background: rgba(235, 14, 38, 0.14); border: 1px solid rgba(235, 14, 38, 0.45); border-radius: 999px; color: #ff8595; font-size: 11.5px; font-weight: 850; text-decoration: none; transition: all 0.2s; white-space: nowrap;"
+          onmouseover="this.style.background='rgba(235,14,38,0.28)'; this.style.borderColor='#ff6677';"
+          onmouseout="this.style.background='rgba(235,14,38,0.14)'; this.style.borderColor='rgba(235,14,38,0.45)';"
+        >
+          YS 버전 ↗
+        </a>
+
+        <button
+          class="menu-btn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobileMenu"
+        >
+          메뉴
+        </button>
+      </div>
     </div>
 
-    <!-- 모바일 드롭다운 메뉴 -->
-    <nav class="mobile-menu" id="mobileMenu" aria-label="모바일 메뉴">
-      <a href="#agenda">일정표</a>
-      <a href="#speakers">강사 프로필</a>
-      <a href="#kakao" class="kakao-link">💬 카카오톡 공식 채널</a>
-      <a href="./quiz.html">💡 세션별 퀴즈 풀기</a>
-      <a href="./qna.html">✍️ 실시간 세션 Q&A</a>
-      <a href="#venue">오시는 길</a>
-      <a href="#notice">참석 안내</a>
-      <a href="./checkin.html" style="color: var(--red-light); font-weight: 850;">
-        📱 모바일 체크인 바로가기 ↗
+    <nav
+      class="mobile-menu"
+      id="mobileMenu"
+      aria-label="모바일 메뉴"
+    >
+      <a href="#agenda">
+        일정표
       </a>
-      <a target="_blank" rel="noopener noreferrer" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u">
-        만족도 설문 ↗
+
+      <a href="#speakers">
+        강사 프로필
+      </a>
+
+      <a href="#venue">
+        오시는 길
+      </a>
+
+      <a href="#notice">
+        참석 안내
+      </a>
+
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u"
+      >
+        만족도 설문
+      </a>
+
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://forms.cloud.microsoft/r/kaugdHpUxh"
+      >
+        출석체크
+      </a>
+
+      <a
+        href="./index_ys.html"
+        style="color: #ff8595; font-weight: 850;"
+      >
+        YS 버전 대시보드 바로가기 ↗
       </a>
     </nav>
   </header>
 
   <main>
-    <!-- 1. 히어로 섹션 -->
-    <section class="hero" id="home">
+    <section
+      class="hero"
+      id="home"
+    >
       <div class="wrap hero-inner">
-        <div class="eyebrow-wrap">
-          <div class="eyebrow">ENGINEERING INSIGHT DAY · 2026. 11. 12.</div>
+        <div class="eyebrow">
+          ENGINEERING INSIGHT DAY
         </div>
 
-        <div class="year">2026</div>
+        <div class="year">
+          2026
+        </div>
 
         <h1>
           HVAC Engineering
-          <span>Seminar</span>
+
+          <span>
+            Expert Seminar
+          </span>
         </h1>
 
         <p class="hero-copy">
           국내 주거난방의 변천, 고밀도 AI 서버 액체냉각,
           AIDC 전력공급, 공동주택 공기열원 히트펌프,
           에너지컨설팅과 과학·인문학을 한자리에서 다루는
-          오프라인 현장 전문가 세미나입니다.
+          전문가 세미나입니다.
         </p>
 
         <div class="actions">
           <a class="btn primary" href="#agenda">
-            📅 전체 일정 보기
+            전체 일정 보기
           </a>
-          <a class="btn" href="./checkin.html">
-            📱 모바일 체크인
-          </a>
-          <a class="btn" href="./quiz.html">
-            ✨ 세션 퀴즈 도전
-          </a>
-          <a class="btn" href="./qna.html">
-            💬 실시간 Q&A
+
+          <a class="btn" href="#venue">
+            오시는 길
           </a>
         </div>
 
@@ -1130,14 +1167,17 @@
             <small>입실</small>
             <strong>08:50까지</strong>
           </div>
+
           <div>
             <small>전체 일정</small>
             <strong>09:00 ~ 17:50</strong>
           </div>
+
           <div>
             <small>장소</small>
             <strong>국민대학교 본부관(별관)</strong>
           </div>
+
           <div>
             <small>행사장</small>
             <strong>학술회의장</strong>
@@ -1146,13 +1186,12 @@
       </div>
     </section>
 
-    <!-- 2. 세미나 일정표 -->
     <section id="agenda">
       <div class="wrap">
         <div class="section-head">
-          <span class="badge">PROGRAM TIME TABLE</span>
-          <h2>세미나 일정표</h2>
-          <p>전문 강연과 휴식, 기념촬영 및 점심 일정입니다.</p>
+          <h2>
+            세미나 일정표
+          </h2>
         </div>
 
         <div class="agenda-shell">
@@ -1165,343 +1204,642 @@
           </div>
 
           <div class="agenda-row">
-            <div class="time">~ 08:50</div>
-            <div class="minute">-</div>
-            <div class="topic">입실 및 모바일 출석체크</div>
-            <div class="speaker">-</div>
-            <div class="note">QR 코드 스캔</div>
+            <div class="time">
+              ~ 08:50
+            </div>
+
+            <div class="minute">
+              -
+            </div>
+
+            <div class="topic">
+              입실
+            </div>
+
+            <div class="speaker">
+              -
+            </div>
+
+            <div class="note"></div>
           </div>
 
           <div class="agenda-row">
-            <div class="time">09:00 ~ 09:20</div>
-            <div class="minute">20</div>
-            <div class="topic">Opening</div>
-            <div class="speaker">ES엔지니어링담당</div>
-            <div class="note">일정안내, 시상</div>
+            <div class="time">
+              09:00 ~ 09:20
+            </div>
+
+            <div class="minute">
+              20
+            </div>
+
+            <div class="topic">
+              Opening
+            </div>
+
+            <div class="speaker">
+              -
+            </div>
+
+            <div class="note">
+              일정안내, 시상
+            </div>
           </div>
 
           <div class="agenda-row session">
-            <div class="time">09:20 ~ 10:10</div>
-            <div class="minute">50</div>
-            <div class="topic">국내주거난방의 변천과 현황</div>
-            <div class="speaker">여명석 교수</div>
-            <div class="note">서울대학교</div>
+            <div class="time">
+              09:20 ~ 10:10
+            </div>
+
+            <div class="minute">
+              50
+            </div>
+
+            <div class="topic">
+              국내주거난방의 변천과 현황
+            </div>
+
+            <div class="speaker">
+              여명석 교수
+            </div>
+
+            <div class="note">
+              서울대학교
+            </div>
           </div>
 
           <div class="agenda-row break">
-            <div class="time">10:10 ~ 10:30</div>
-            <div class="minute">20</div>
-            <div class="topic">Break time</div>
-            <div class="speaker">-</div>
+            <div class="time">
+              10:10 ~ 10:30
+            </div>
+
+            <div class="minute">
+              20
+            </div>
+
+            <div class="topic">
+              Break time
+            </div>
+
+            <div class="speaker">
+              -
+            </div>
+
             <div class="note"></div>
           </div>
 
           <div class="agenda-row session">
-            <div class="time">10:30 ~ 11:20</div>
-            <div class="minute">50</div>
-            <div class="topic">고밀도 AI 서버의 액체냉각 및 데이터센터 열관리 기술</div>
-            <div class="speaker">이성혁 교수</div>
-            <div class="note">중앙대학교</div>
+            <div class="time">
+              10:30 ~ 11:20
+            </div>
+
+            <div class="minute">
+              50
+            </div>
+
+            <div class="topic">
+              고밀도 AI 서버의 액체냉각 및
+              데이터센터 열관리 기술
+            </div>
+
+            <div class="speaker">
+              이성혁 교수
+            </div>
+
+            <div class="note">
+              중앙대학교
+            </div>
           </div>
 
           <div class="agenda-row break">
-            <div class="time">11:20 ~ 11:40</div>
-            <div class="minute">20</div>
-            <div class="topic">Break time</div>
-            <div class="speaker">-</div>
+            <div class="time">
+              11:20 ~ 11:40
+            </div>
+
+            <div class="minute">
+              20
+            </div>
+
+            <div class="topic">
+              Break time
+            </div>
+
+            <div class="speaker">
+              -
+            </div>
+
             <div class="note"></div>
           </div>
 
           <div class="agenda-row session">
-            <div class="time">11:40 ~ 12:30</div>
-            <div class="minute">50</div>
-            <div class="topic">국내 전력시장 현황 및 AIDC 전력공급 방안</div>
-            <div class="speaker">조홍종 교수</div>
-            <div class="note">단국대학교</div>
+            <div class="time">
+              11:40 ~ 12:30
+            </div>
+
+            <div class="minute">
+              50
+            </div>
+
+            <div class="topic">
+              국내 전력시장 현황 및
+              AIDC 전력공급 방안
+            </div>
+
+            <div class="speaker">
+              조홍종 교수
+            </div>
+
+            <div class="note">
+              단국대학교
+            </div>
           </div>
 
           <div class="agenda-row meal">
-            <div class="time">12:30 ~ 14:00</div>
-            <div class="minute">90</div>
-            <div class="topic">기념촬영 및 점심 식사</div>
-            <div class="speaker">-</div>
-            <div class="note">교내 식당</div>
+            <div class="time">
+              12:30 ~ 14:00
+            </div>
+
+            <div class="minute">
+              90
+            </div>
+
+            <div class="topic">
+              기념촬영 및 점심
+            </div>
+
+            <div class="speaker">
+              -
+            </div>
+
+            <div class="note">
+              교내 식당
+            </div>
           </div>
 
           <div class="agenda-row session">
-            <div class="time">14:00 ~ 14:50</div>
-            <div class="minute">50</div>
-            <div class="topic">건축설비 측면에서 바라보는 공동주택 공기열원 히트펌프의 역할과 과제</div>
-            <div class="speaker">유정현 수석</div>
-            <div class="note">LHRI (토지주택연구원)</div>
+            <div class="time">
+              14:00 ~ 14:50
+            </div>
+
+            <div class="minute">
+              50
+            </div>
+
+            <div class="topic">
+              건축설비 측면에서 바라보는 공동주택
+              공기열원 히트펌프의 역할과 과제
+            </div>
+
+            <div class="speaker">
+              유정현 수석
+            </div>
+
+            <div class="note">
+              LHRI<br>
+              (토지주택연구원)
+            </div>
           </div>
 
           <div class="agenda-row break">
-            <div class="time">14:50 ~ 15:10</div>
-            <div class="minute">20</div>
-            <div class="topic">Break time</div>
-            <div class="speaker">-</div>
+            <div class="time">
+              14:50 ~ 15:10
+            </div>
+
+            <div class="minute">
+              20
+            </div>
+
+            <div class="topic">
+              Break time
+            </div>
+
+            <div class="speaker">
+              -
+            </div>
+
             <div class="note"></div>
           </div>
 
           <div class="agenda-row session">
-            <div class="time">15:10 ~ 15:40</div>
-            <div class="minute">30</div>
-            <div class="topic">에너지컨설팅 사례 발표</div>
-            <div class="speaker">오영훈 팀장</div>
-            <div class="note">에너지컨설팅팀</div>
+            <div class="time">
+              15:10 ~ 15:40
+            </div>
+
+            <div class="minute">
+              30
+            </div>
+
+            <div class="topic">
+              에너지컨설팅 사례 발표
+            </div>
+
+            <div class="speaker">
+              오영훈 팀장
+            </div>
+
+            <div class="note">
+              에너지컨설팅팀
+            </div>
           </div>
 
           <div class="agenda-row break">
-            <div class="time">15:40 ~ 16:00</div>
-            <div class="minute">20</div>
-            <div class="topic">Break time</div>
-            <div class="speaker">-</div>
+            <div class="time">
+              15:40 ~ 16:00
+            </div>
+
+            <div class="minute">
+              20
+            </div>
+
+            <div class="topic">
+              Break time
+            </div>
+
+            <div class="speaker">
+              -
+            </div>
+
             <div class="note"></div>
           </div>
 
           <div class="agenda-row session">
-            <div class="time">16:00 ~ 17:40</div>
-            <div class="minute">100</div>
-            <div class="topic">과학 및 인문학 강의</div>
-            <div class="speaker">이정모 관장</div>
-            <div class="note">과학커뮤니케이터</div>
+            <div class="time">
+              16:00 ~ 17:40
+            </div>
+
+            <div class="minute">
+              100
+            </div>
+
+            <div class="topic">
+              과학 및 인문학 강의 (주제 선정 中)
+            </div>
+
+            <div class="speaker">
+              이정모 관장
+            </div>
+
+            <div class="note">
+              과학커뮤니케이터
+            </div>
           </div>
 
           <div class="agenda-row break">
-            <div class="time">17:40 ~ 17:50</div>
-            <div class="minute">10</div>
-            <div class="topic">Wrap up</div>
-            <div class="speaker">-</div>
-            <div class="note">설문 및 마무리</div>
+            <div class="time">
+              17:40 ~ 17:50
+            </div>
+
+            <div class="minute">
+              10
+            </div>
+
+            <div class="topic">
+              Wrap up
+            </div>
+
+            <div class="speaker">
+              -
+            </div>
+
+            <div class="note"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. 강사 프로필 -->
-    <section class="speakers" id="speakers">
+    <section
+      class="speakers"
+      id="speakers"
+    >
       <div class="wrap">
         <div class="section-head">
-          <span class="badge">KEYNOTE SPEAKERS</span>
-          <h2>강사 프로필</h2>
+          <h2>
+            강사 프로필
+          </h2>
         </div>
 
         <div class="speaker-grid">
           <article class="speaker-card reveal">
-            <p class="org">서울대학교</p>
-            <h3>여명석 교수</h3>
-            <p class="speaker-topic">국내주거난방의 변천과 현황</p>
-            <ul>
-              <li>’27년 대한설비공학회장</li>
-              <li>현) 서울대학교 공과대학 건축학과 건축공학전공 교수</li>
-              <li>현) 서울대학교 탄소중립 캠퍼스 추진단 단장</li>
-              <li>현) 대한건축학회 이사</li>
-              <li>전) 서울대학교 건축학과장</li>
-            </ul>
-          </article>
-
-          <article class="speaker-card reveal">
-            <p class="org">중앙대학교</p>
-            <h3>이성혁 교수</h3>
-            <p class="speaker-topic">고밀도 AI 서버의 액체냉각 및 데이터센터 열관리 기술</p>
-            <ul>
-              <li>현) 중앙대학교 기계공학부 교수</li>
-              <li>현) 대한기계학회 부회장</li>
-              <li>현) JMST 부편집인</li>
-              <li>전) 중앙대학교 차세대에너지안전연구소 소장</li>
-            </ul>
-          </article>
-
-          <article class="speaker-card reveal">
-            <p class="org">단국대학교</p>
-            <h3>조홍종 교수</h3>
-            <p class="speaker-topic">국내 전력시장 현황 및 AIDC 전력공급 방안</p>
-            <ul>
-              <li>현) 한국자원경제학회 회장</li>
-              <li>현) 한국가스공사 비상임이사</li>
-              <li>현) 수요예측실무위원회 위원장</li>
-              <li>전) 전력수급기본계획 총괄분과 위원</li>
-            </ul>
-          </article>
-
-          <article class="speaker-card reveal">
-            <p class="org">토지주택연구원(LHRI)</p>
-            <h3>유정현 수석연구원</h3>
-            <p class="speaker-topic">공동주택 공기열원 히트펌프의 역할과 과제</p>
-            <ul>
-              <li>현) LH 토지주택연구원 수석연구원</li>
-              <li>제로에너지건축물과 공동주택 에너지시스템 연구</li>
-              <li>수소도시 및 에너지자립도시 연구 수행</li>
-              <li>공기열원 히트펌프 및 분산에너지 연구</li>
-            </ul>
-          </article>
-
-          <article class="speaker-card reveal">
-            <p class="org">에너지컨설팅팀</p>
-            <h3>오영훈 팀장</h3>
-            <p class="speaker-topic">에너지컨설팅 사례 발표</p>
-            <ul>
-              <li>건물 및 플랜트 에너지 효율화 솔루션</li>
-              <li>실제 컨설팅 현장 적용 사례 및 성과 분석</li>
-            </ul>
-          </article>
-
-          <article class="speaker-card reveal">
-            <p class="org">과학 커뮤니케이터</p>
-            <h3>이정모 관장</h3>
-            <p class="speaker-topic">과학 및 인문학 강의</p>
-            <ul>
-              <li>현) 과학 커뮤니케이터 및 과학관 전문가</li>
-              <li>전) 국립과천과학관 관장</li>
-              <li>전) 서울시립과학관 관장</li>
-              <li>전) 서대문자연사박물관 관장</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. 카카오톡 공식 채널 & 공유 안내 -->
-    <section class="kakao-section" id="kakao">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="badge" style="color: var(--kakao-yellow);">OFFICIAL COMMUNICATION</span>
-          <h2>카카오톡 공식 채널 & 실시간 소통</h2>
-          <p>공식 알림톡 및 행사 긴급 공지 수신, 1:1 질문·문의는 카카오톡 채널에서 이용하실 수 있습니다.</p>
-        </div>
-
-        <div class="kakao-grid">
-          <!-- 카카오톡 공식 채널 카드 -->
-          <div class="kakao-card main-talk reveal">
-            <span class="kakao-tag">💬 공식 카카오톡 채널</span>
-            <h3>2026 HVAC 세미나 공식 채널</h3>
-            <p>
-              카카오톡 채널 추가 후 중요 행사 알림톡 수신 및<br>
-              운영팀과의 1:1 실시간 문의가 가능합니다.
+            <p class="org">
+              서울대학교
             </p>
 
-            <ul class="kakao-features">
-              <li><strong>공식 알림톡:</strong> 세션 시작 알림 및 중요 현장 안내 수신</li>
-              <li><strong>1:1 채팅 문의:</strong> 좌석, 주차, 시설 관련 실시간 1:1 문의</li>
-              <li><strong>자료 및 설문 안내:</strong> 세미나 발표자료 및 만족도 설문 링크 안내</li>
-            </ul>
+            <h3>
+              여명석 교수
+            </h3>
 
-            <a class="btn-kakao-enter" target="_blank" rel="noopener noreferrer" href="https://pf.kakao.com/_DZkSX">
-              <span>카카오톡 채널 추가 & 1:1 채팅하기 ↗</span>
-            </a>
-          </div>
-
-          <!-- 세미나 공유하기 카드 -->
-          <div class="share-box reveal">
-            <div>
-              <span class="badge" style="color: #ff9aa5;">SHARE EVENT</span>
-              <h3>동료에게 세미나 공유</h3>
-              <p>
-                함께 참석하는 동료나 팀원들에게 세미나 일정표와 체크인 링크를 카카오톡으로 전달하세요.
-              </p>
-            </div>
-
-            <div class="share-btn-wrap">
-              <button class="btn-copy-link" id="copyUrlBtn" type="button">
-                🔗 세미나 웹사이트 링크 복사하기
-              </button>
-              <button class="btn-copy-link" id="shareKakaoBtn" type="button" style="background: rgba(254, 229, 0, 0.15); border-color: rgba(254, 229, 0, 0.4); color: var(--kakao-yellow);">
-                💬 카카오톡/모바일로 공유하기
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. 세션별 인터랙티브 퀴즈 배너 (quiz.html 및 qna.html 분리 링크) -->
-    <section class="quiz-compact-section" id="quiz">
-      <div class="wrap">
-        <div class="quiz-banner-card reveal">
-          <div class="quiz-banner-text">
-            <span class="badge" style="color: #ff5366;">EVENT & LUCKY DRAW</span>
-            <h2>세션별 퀴즈 챌린지 & 실시간 Q&A</h2>
-            <p>
-              각 세션의 핵심 인사이트를 퀴즈로 풀고, 만찬 시 진행되는 특별 경품 럭키드로우 추첨 기회를 잡으세요!
-              강연자에게 궁금한 질문은 실시간 Q&A 보드에서 남기실 수 있습니다.
+            <p class="speaker-topic">
+              국내주거난방의 변천과 현황
             </p>
-          </div>
-          <div class="quiz-banner-actions">
-            <a class="btn primary" href="./quiz.html">
-              💡 세션 퀴즈 풀러 가기 →
-            </a>
-            <a class="btn" href="./qna.html">
-              ✍️ 실시간 세션 Q&A →
-            </a>
-          </div>
+
+            <ul>
+              <li>
+                ’27년 대한설비공학회장
+              </li>
+
+              <li>
+                현) 서울대학교 공과대학 건축학과
+                건축공학전공 교수
+              </li>
+
+              <li>
+                현) 서울대학교 탄소중립 캠퍼스
+                추진단 단장
+              </li>
+
+              <li>
+                현) 대한건축학회 이사
+              </li>
+
+              <li>
+                전) 서울대학교 건축학과장
+              </li>
+
+              <li>
+                전) 서울대학교 공과대학 학사부학장
+              </li>
+            </ul>
+          </article>
+
+          <article class="speaker-card reveal">
+            <p class="org">
+              중앙대학교
+            </p>
+
+            <h3>
+              이성혁 교수
+            </h3>
+
+            <p class="speaker-topic">
+              고밀도 AI 서버의 액체냉각 및
+              데이터센터 열관리 기술
+            </p>
+
+            <ul>
+              <li>
+                현) 중앙대학교 기계공학부 교수
+              </li>
+
+              <li>
+                현) 대한기계학회 부회장
+              </li>
+
+              <li>
+                현) JMST 부편집인
+              </li>
+
+              <li>
+                전) 중앙대학교
+                차세대에너지안전연구소 소장
+              </li>
+
+              <li>
+                전) 중앙대학교 기계공학부 학과장
+              </li>
+            </ul>
+          </article>
+
+          <article class="speaker-card reveal">
+            <p class="org">
+              단국대학교
+            </p>
+
+            <h3>
+              조홍종 교수
+            </h3>
+
+            <p class="speaker-topic">
+              국내 전력시장 현황 및
+              AIDC 전력공급 방안
+            </p>
+
+            <ul>
+              <li>
+                현) 한국자원경제학회 회장
+              </li>
+
+              <li>
+                현) 한국가스공사 비상임이사
+              </li>
+
+              <li>
+                현) 수요예측실무위원회 위원장
+              </li>
+
+              <li>
+                전) 에너지위원회 위원
+              </li>
+
+              <li>
+                전) 전력수급기본계획 총괄분과 위원
+              </li>
+            </ul>
+          </article>
+
+          <article class="speaker-card reveal">
+            <p class="org">
+              토지주택연구원(LHRI)
+            </p>
+
+            <h3>
+              유정현 수석연구원
+            </h3>
+
+            <p class="speaker-topic">
+              공동주택 공기열원 히트펌프의
+              역할과 과제
+            </p>
+
+            <ul>
+              <li>
+                현) LH 토지주택연구원 수석연구원
+              </li>
+
+              <li>
+                제로에너지건축물과 공동주택
+                에너지시스템 분야 연구
+              </li>
+
+              <li>
+                수소도시 및 에너지자립도시
+                관련 연구 수행
+              </li>
+
+              <li>
+                공기열원 히트펌프 및
+                분산에너지 연구 수행
+              </li>
+            </ul>
+          </article>
+
+          <article class="speaker-card reveal">
+            <p class="org">
+              과학 커뮤니케이터
+            </p>
+
+            <h3>
+              이정모 관장
+            </h3>
+
+            <p class="speaker-topic">
+              과학 및 인문학 강의
+            </p>
+
+            <ul>
+              <li>
+                현) 과학 커뮤니케이터 및
+                과학관 전문가
+              </li>
+
+              <li>
+                전) 국립과천과학관 관장
+              </li>
+
+              <li>
+                전) 서울시립과학관 관장
+              </li>
+
+              <li>
+                전) 서대문자연사박물관 관장
+              </li>
+
+              <li>
+                과학·역사·인문학을 연결하는
+                사례 중심의 강연 진행
+              </li>
+            </ul>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- 6. 오시는 길 -->
     <section id="venue">
       <div class="wrap">
         <div class="section-head">
-          <span class="badge">LOCATION & ROUTE</span>
-          <h2>장소 및 오시는 길</h2>
+          <h2>
+            장소 및 오시는 길
+          </h2>
         </div>
 
         <div class="venue-grid">
           <article class="venue-card reveal">
-            <h3>행사 장소</h3>
-            <p class="venue-name">국민대학교 본부관 (별관) 학술회의장</p>
+            <h3>
+              행사 장소
+            </h3>
+
+            <p class="venue-name">
+              국민대학교 본부관 (별관) 학술회의장
+            </p>
+
             <ul class="route-list">
-              <li>4호선 길음역 3번 출구 → 국민대학교 정문행 버스, 약 10분</li>
-              <li>4호선 성신여대입구역 → 국민대학교행 버스, 약 15분</li>
-              <li>우이신설선 정릉역 → 국민대학교 정문, 도보 약 15분</li>
+              <li>
+                4호선 길음역 3번 출구 →
+                국민대학교 정문행 버스, 약 10분
+              </li>
+
+              <li>
+                4호선 성신여대입구역 →
+                국민대학교행 버스, 약 15분
+              </li>
+
+              <li>
+                우이신설선 정릉역 →
+                국민대학교 정문, 도보 약 15분
+              </li>
             </ul>
           </article>
 
           <article class="route-card reveal">
-            <h3>행사장 이용 동선</h3>
+            <h3>
+              행사장 이용 동선
+            </h3>
+
             <ul class="route-list">
-              <li>국민대학교 정문 → 본부관 별관 1층 대강당 (학술회의장), 도보 약 6분</li>
-              <li>본부관 별관 → 법학관 5층 천하 (식당), 도보 약 2~3분</li>
-              <li>자가용 이용 시: 교내 지하주차장 이용 (출차 시 등록데스크에서 주차권 수령)</li>
+              <li>
+                국민대학교 정문 →
+                본부관 별관 1층 대강당,
+                도보 약 6분
+              </li>
+
+              <li>
+                본부관 별관 →
+                법학관 5층 천하,
+                도보 약 2~3분
+              </li>
             </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- 7. 참석 안내 및 퀵 링크 -->
     <section id="notice">
       <div class="wrap">
         <div class="section-head">
-          <span class="badge">INFORMATION</span>
-          <h2>참석 안내</h2>
+          <h2>
+            참석 안내
+          </h2>
         </div>
 
         <div class="info-layout">
           <div class="info-box reveal">
-            <h3>운영 안내</h3>
+            <h3>
+              운영 안내
+            </h3>
+
             <ul>
-              <li>오전 8시 50분까지 입실해 주세요.</li>
-              <li>Opening은 오전 9시에 시작합니다.</li>
-              <li>기념촬영 및 점심은 12:30부터 14:00까지 진행됩니다.</li>
-              <li>행사 장소는 국민대학교 본부관 (별관) 학술회의장입니다.</li>
-              <li>세부 일정은 운영 상황에 따라 조정될 수 있습니다.</li>
+              <li>
+                오전 8시 50분까지 입실해 주세요.
+              </li>
+
+              <li>
+                Opening은 오전 9시에 시작합니다.
+              </li>
+
+              <li>
+                기념촬영 및 점심은
+                12:30부터 14:00까지 진행됩니다.
+              </li>
+
+              <li>
+                행사 장소는 국민대학교 본부관
+                (별관) 학술회의장입니다.
+              </li>
+
+              <li>
+                세부 일정은 운영 상황에 따라
+                조정될 수 있습니다.
+              </li>
             </ul>
           </div>
 
           <div class="quick-links reveal">
-            <a class="quick-link kakao" target="_blank" rel="noopener noreferrer" href="https://pf.kakao.com/_DZkSX">
-              <span>💬 카카오톡 공식 채널</span>
-              <span>↗</span>
+            <a
+              class="quick-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://forms.cloud.microsoft/r/kaugdHpUxh"
+            >
+              <span>
+                출석체크
+              </span>
+
+              <span>
+                ↗
+              </span>
             </a>
-            <a class="quick-link" href="./checkin.html">
-              <span>📱 모바일 체크인</span>
-              <span>→</span>
-            </a>
-            <a class="quick-link" target="_blank" rel="noopener noreferrer" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u">
-              <span>📊 만족도 설문 참여</span>
-              <span>↗</span>
+
+            <a
+              class="quick-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u"
+            >
+              <span>
+                만족도 설문
+              </span>
+
+              <span>
+                ↗
+              </span>
             </a>
           </div>
         </div>
@@ -1509,118 +1847,169 @@
     </section>
   </main>
 
-  <!-- 푸터 -->
   <footer>
     <div class="wrap footer-inner">
-      <strong>2026 HVAC Engineering Seminar</strong>
-      <span>주최: ES엔지니어링담당 · 운영: ES아카데미팀 · 장소: 국민대학교 본부관 학술회의장</span>
+      <strong>
+        2026 HVAC Engineering Expert Seminar
+      </strong>
+
+      <span>
+        국민대학교 본부관 (별관) 학술회의장
+      </span>
     </div>
   </footer>
 
-  <!-- 화면 하단 플로팅 버튼들 -->
   <div class="floating">
-    <button class="top-btn" id="topBtn" type="button" aria-label="맨 위로 이동">↑</button>
-    <a href="./checkin.html" class="checkin-float" style="background: var(--red); color: #fff; padding: 10px 18px; border-radius: 99px; font-weight: 850; font-size: 13px; text-decoration: none; box-shadow: 0 8px 24px rgba(214, 0, 25, 0.4);">
-      📱 체크인
+    <button
+      class="top-btn"
+      id="topBtn"
+      type="button"
+      aria-label="맨 위로 이동"
+    >
+      ↑
+    </button>
+
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href="https://forms.cloud.microsoft/r/kaugdHpUxh"
+    >
+      출석체크
     </a>
   </div>
 
-  <!-- 토스트 팝업 -->
-  <div class="toast" id="toast">✅ 세미나 링크가 복사되었습니다!</div>
-
   <script>
-    // 1. 모바일 메뉴 제어
-    const menuButton = document.querySelector(".menu-btn");
-    const mobileMenu = document.getElementById("mobileMenu");
+    const menuButton =
+      document.querySelector(".menu-btn");
 
-    menuButton.addEventListener("click", function () {
-      const isOpen = mobileMenu.classList.toggle("open");
-      menuButton.setAttribute("aria-expanded", String(isOpen));
-    });
+    const mobileMenu =
+      document.getElementById("mobileMenu");
 
-    mobileMenu.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        mobileMenu.classList.remove("open");
-        menuButton.setAttribute("aria-expanded", "false");
-      });
-    });
+    menuButton.addEventListener(
+      "click",
+      function () {
+        const isOpen =
+          mobileMenu.classList.toggle("open");
 
-    // 2. 부드러운 스크롤 이동
-    const menuLinks = document.querySelectorAll('a[href^="#"]');
-    menuLinks.forEach(function (link) {
-      link.addEventListener("click", function (event) {
-        const targetSelector = link.getAttribute("href");
-        if (!targetSelector || targetSelector === "#") return;
-        const target = document.querySelector(targetSelector);
-        if (!target) return;
-        event.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
-
-    // 3. 스크롤 등장 애니메이션 (Reveal)
-    const revealObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
+        menuButton.setAttribute(
+          "aria-expanded",
+          String(isOpen)
+        );
+      }
     );
 
-    document.querySelectorAll(".reveal").forEach(function (element) {
-      revealObserver.observe(element);
-    });
+    mobileMenu
+      .querySelectorAll("a")
+      .forEach(function (link) {
+        link.addEventListener(
+          "click",
+          function () {
+            mobileMenu.classList.remove("open");
 
-    // 4. 맨 위로 가기 버튼
-    const topButton = document.getElementById("topBtn");
-    window.addEventListener("scroll", function () {
-      topButton.classList.toggle("show", window.scrollY > 600);
-    });
-
-    topButton.addEventListener("click", function () {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
-    // 5. 링크 복사 & 카카오톡 공유 기능
-    const toast = document.getElementById("toast");
-    function showToast(msg) {
-      toast.textContent = msg;
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 2800);
-    }
-
-    const copyBtn = document.getElementById("copyUrlBtn");
-    if (copyBtn) {
-      copyBtn.addEventListener("click", function () {
-        const url = window.location.href;
-        navigator.clipboard.writeText(url).then(() => {
-          showToast("🔗 세미나 링크가 복사되었습니다! 카톡에 공유하세요.");
-        }).catch(() => {
-          showToast("🔗 링크: " + url);
-        });
+            menuButton.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+          }
+        );
       });
-    }
 
-    const shareBtn = document.getElementById("shareKakaoBtn");
-    if (shareBtn) {
-      shareBtn.addEventListener("click", function () {
-        if (navigator.share) {
-          navigator.share({
-            title: "2026 HVAC Engineering Expert Seminar",
-            text: "2026 HVAC 전문가 세미나 아젠다 공지 및 출석체크 링크입니다.",
-            url: window.location.href,
-          }).catch(console.error);
-        } else {
-          navigator.clipboard.writeText(window.location.href).then(() => {
-            showToast("💬 링크가 복사되었습니다! 카카오톡에 붙여넣어 공유하세요.");
-          });
+    const menuLinks =
+      document.querySelectorAll(
+        'a[href^="#"]'
+      );
+
+    menuLinks.forEach(
+      function (link) {
+        link.addEventListener(
+          "click",
+          function (event) {
+            const targetSelector =
+              link.getAttribute("href");
+
+            if (
+              !targetSelector ||
+              targetSelector === "#"
+            ) {
+              return;
+            }
+
+            const target =
+              document.querySelector(
+                targetSelector
+              );
+
+            if (!target) {
+              return;
+            }
+
+            event.preventDefault();
+
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+          }
+        );
+      }
+    );
+
+    const revealObserver =
+      new IntersectionObserver(
+        function (entries) {
+          entries.forEach(
+            function (entry) {
+              if (
+                entry.isIntersecting
+              ) {
+                entry.target.classList.add(
+                  "visible"
+                );
+
+                revealObserver.unobserve(
+                  entry.target
+                );
+              }
+            }
+          );
+        },
+        {
+          threshold: 0.1
         }
-      });
-    }
+      );
+
+    document
+      .querySelectorAll(".reveal")
+      .forEach(
+        function (element) {
+          revealObserver.observe(
+            element
+          );
+        }
+      );
+
+    const topButton =
+      document.getElementById("topBtn");
+
+    window.addEventListener(
+      "scroll",
+      function () {
+        topButton.classList.toggle(
+          "show",
+          window.scrollY > 700
+        );
+      }
+    );
+
+    topButton.addEventListener(
+      "click",
+      function () {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
+    );
   </script>
 </body>
 </html>
