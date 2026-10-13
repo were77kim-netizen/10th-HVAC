@@ -306,7 +306,7 @@
       margin-top: 3px;
     }
 
-    /* 공통 영역 */
+    /* 공통 */
 
     section {
       padding: 90px 0;
@@ -520,37 +520,13 @@
       font-weight: 950;
     }
 
-    .venue-point {
-      display: grid;
-      grid-template-columns: 54px 1fr;
-      gap: 13px;
-      align-items: start;
-      padding: 14px 0;
-      border-top: 1px solid #2e2e32;
-    }
-
-    .venue-point:first-of-type {
-      border-top: 0;
-    }
-
-    .venue-icon {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: rgba(214, 0, 25, 0.18);
-      color: #ff6071;
-      font-weight: 950;
-    }
-
     .route-list {
       margin: 0;
       padding-left: 20px;
     }
 
     .route-list li + li {
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     /* 참석 안내 */
@@ -741,6 +717,11 @@
         content: "분";
       }
 
+      .minute:empty::before,
+      .minute:empty::after {
+        content: "";
+      }
+
       .topic {
         font-size: 16px;
         line-height: 1.45;
@@ -838,16 +819,16 @@
 <body>
   <header>
     <div class="wrap nav">
-      <a class="brand" href="#home">
+      #home
         <span class="brand-mark"></span>
         HVAC ENGINEERING EXPERT SEMINAR
       </a>
 
       <nav class="links" aria-label="주요 메뉴">
-        <a href="#agenda">일정표</a>
-        <a href="#speakers">강사 프로필</a>
-        <a href="#venue">오시는 길</a>
-        <a href="#notice">참석 안내</a>
+        #agenda일정표</a>
+        #speakers강사 프로필</a>
+        #venue오시는 길</a>
+        #notice참석 안내</a>
 
         <a
           class="cta"
@@ -883,10 +864,10 @@
       id="mobileMenu"
       aria-label="모바일 메뉴"
     >
-      <a href="#agenda">일정표</a>
-      <a href="#speakers">강사 프로필</a>
-      <a href="#venue">오시는 길</a>
-      <a href="#notice">참석 안내</a>
+      #agenda일정표</a>
+      #speakers강사 프로필</a>
+      #venue오시는 길</a>
+      #notice참석 안내</a>
 
       <a
         target="_blank"
@@ -928,11 +909,11 @@
         </p>
 
         <div class="actions">
-          <a class="btn primary" href="#agenda">
+          #agenda
             전체 일정 보기
           </a>
 
-          <a class="btn" href="#venue">
+          #venue
             오시는 길
           </a>
         </div>
@@ -1032,7 +1013,12 @@
           <div class="agenda-row session">
             <div class="time">11:40 ~ 12:30</div>
             <div class="minute">50</div>
-            <div 학교</div>
+            <div class="topic">
+              국내 전력시장 현황 및
+              AIDC 전력공급 방안
+            </div>
+            <div class="speaker">조홍종 교수</div>
+            <div class="note">단국대학교</div>
           </div>
 
           <div class="agenda-row meal">
@@ -1172,9 +1158,7 @@
             <ul>
               <li>현) 한국자원경제학회 회장</li>
               <li>현) 한국가스공사 비상임이사</li>
-              <li>
-                현) 수요예측실무위원회 위원장
-              </li>
+              <li>현) 수요예측실무위원회 위원장</li>
               <li>전) 에너지위원회 위원</li>
               <li>
                 전) 전력수급기본계획 총괄분과 위원
@@ -1196,8 +1180,8 @@
                 현) LH 토지주택연구원 수석연구원
               </li>
               <li>
-                제로에너지건축물, 공동주택
-                에너지시스템 및 분산에너지 전문가
+                제로에너지건축물과 공동주택
+                에너지시스템 분야 연구
               </li>
               <li>
                 수소도시 및 에너지자립도시
@@ -1225,9 +1209,7 @@
               </li>
               <li>전) 국립과천과학관 관장</li>
               <li>전) 서울시립과학관 관장</li>
-              <li>
-                전) 서대문자연사박물관 관장
-              </li>
+              <li>전) 서대문자연사박물관 관장</li>
               <li>
                 과학·역사·인문학을 연결하는
                 사례 중심의 강연 진행
@@ -1252,62 +1234,34 @@
               국민대학교 본부관 (별관) 학술회의장
             </p>
 
-            <div class="venue-point">
-              <div class="venue-icon">01</div>
-
-              <div>
-                <strong>길음역</strong><br>
-
-                <span>
-                  4호선 길음역 3번 출구 →
-                  국민대학교 정문행 버스,
-                  약 10분
-                </span>
-              </div>
-            </div>
-
-            <div class="venue-point">
-              <div class="venue-icon">02</div>
-
-              <div>
-                <strong>성신여대입구역</strong><br>
-
-                <span>
-                  4호선 성신여대입구역 →
-                  국민대학교행 버스,
-                  약 15분
-                </span>
-              </div>
-            </div>
-
-            <div class="venue-point">
-              <div class="venue-icon">03</div>
-
-              <div>
-                <strong>정릉역</strong><br>
-
-                <span>
-                  우이신설선 정릉역 →
-                  국민대학교 정문,
-                  도보 약 15분
-                </span>
-              </div>
-            </div>
+            <ul class="route-list">
+              <li>
+                4호선 길음역 3번 출구 →
+                국민대학교 정문행 버스, 약 10분
+              </li>
+              <li>
+                4호선 성신여대입구역 →
+                국민대학교행 버스, 약 15분
+              </li>
+              <li>
+                우이신설선 정릉역 →
+                국민대학교 정문, 도보 약 15분
+              </li>
+            </ul>
           </article>
 
           <article class="route-card reveal">
-            <h3>행사장 이동</h3>
+            <h3>행사장 이용 동선</h3>
 
             <ul class="route-list">
               <li>
                 국민대학교 정문 →
-                본부관 별관 1층 대강당:
+                본부관 별관 1층 대강당,
                 도보 약 6분
               </li>
-
               <li>
                 본부관 별관 →
-                법학관 5층 천하:
+                법학관 5층 천하,
                 도보 약 2~3분
               </li>
             </ul>
@@ -1444,15 +1398,13 @@
     const revealObserver =
       new IntersectionObserver(
         function (entries) {
-          entries.forEach(
-            function (entry) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add(
-                  "visible"
-                );
-              }
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add(
+                "visible"
+              );
             }
-          );
+          });
         },
         {
           threshold: 0.1
