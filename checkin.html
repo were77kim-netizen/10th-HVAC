@@ -1060,9 +1060,10 @@
             </div>
           </div>
           <ul class="menu-list">
-            <li class="menu-item" id="menuItemMissions">✨ 오늘의 퀴즈 미션</li>
+            <li class="menu-item" id="menuItemMissions">✨ 오늘의 퀴즈 챌린지</li>
+            <li class="menu-item" id="menuItemQna">✍️ 실시간 세션 Q&A</li>
             <li class="menu-item" id="menuItemTimetable">📅 행사 시간표 보기</li>
-            <li class="menu-item" id="menuItemKakao">💬 카카오톡 오픈 톡방</li>
+            <li class="menu-item" id="menuItemKakao">💬 카카오톡 공식 채널</li>
             <li class="menu-item" id="menuItemLogout" style="color: #ff5366;">⏻ 체크아웃 (재입력)</li>
           </ul>
           <div style="padding: 10px 18px 12px; font-size: 11px; color: rgba(255, 255, 255, 0.4); text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.08); line-height: 1.4;">
@@ -1634,7 +1635,7 @@
     });
 
     document.getElementById('btnMissionGo').addEventListener('click', () => {
-      window.location.href = './index.html#quiz';
+      window.location.href = './quiz.html';
     });
 
     // 2. 행사 시간표 모달 열기 / 닫기
@@ -1672,7 +1673,12 @@
     // 메뉴 항목들
     document.getElementById('menuItemMissions').addEventListener('click', () => {
       menuPopover.classList.remove('show');
-      window.location.href = './index.html#quiz';
+      window.location.href = './quiz.html';
+    });
+
+    document.getElementById('menuItemQna').addEventListener('click', () => {
+      menuPopover.classList.remove('show');
+      window.location.href = './qna.html';
     });
 
     document.getElementById('menuItemTimetable').addEventListener('click', () => {
@@ -1682,7 +1688,7 @@
 
     document.getElementById('menuItemKakao').addEventListener('click', () => {
       menuPopover.classList.remove('show');
-      window.open('https://open.kakao.com/o/sHVAC2026', '_blank');
+      window.open('https://pf.kakao.com/_DZkSX', '_blank');
     });
 
     // 체크아웃 (로그아웃 / 재체크인)

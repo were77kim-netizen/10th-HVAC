@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="2026 HVAC Engineering Expert Seminar 일정, 강사, 카카오톡 오픈톡방 및 세션별 퀴즈 안내">
-  <meta property="og:title" content="2026 HVAC Engineering Expert Seminar">
-  <meta property="og:description" content="실시간 아젠다 공지, 카카오톡 오픈톡방 소통, 스마트 출석체크 & 세션별 퀴즈 이벤트">
+  <meta name="description" content="2026 HVAC Engineering Seminar 일정, 강사, 카카오톡 채널 및 세션별 안내">
+  <meta property="og:title" content="2026 HVAC Engineering Seminar">
+  <meta property="og:description" content="실시간 아젠다 공지, 카카오톡 채널 소통, 스마트 출석체크 & 세션별 퀴즈 이벤트">
   <meta name="theme-color" content="#050505">
 
-  <title>2026 HVAC Engineering Expert Seminar</title>
+  <title>2026 HVAC Engineering Seminar</title>
 
   <style>
     :root {
@@ -546,170 +546,49 @@
     }
 
     /* =========================
-       2. 세션별 퀴즈 섹션 (Quiz Arena)
+       2. 세션별 퀴즈 배너 섹션 (quiz.html 분리 링크)
     ========================= */
-    .quiz-section {
-      background: radial-gradient(circle at 20% 30%, rgba(214, 0, 25, 0.14), transparent 45%), #070709;
+    .quiz-compact-section {
+      background: radial-gradient(circle at 20% 30%, rgba(214, 0, 25, 0.12), transparent 45%), #070709;
       border-bottom: 1px solid var(--line);
+      padding: 60px 0;
     }
 
-    .quiz-header-status {
+    .quiz-banner-card {
+      background: linear-gradient(135deg, rgba(131, 19, 53, 0.35) 0%, rgba(18, 18, 22, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius);
+      padding: 36px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      background: #121216;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px 24px;
-      margin-bottom: 30px;
-    }
-
-    .quiz-score-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      font-weight: 900;
-    }
-
-    .quiz-score-badge span {
-      color: var(--red-light);
-      font-size: 20px;
-    }
-
-    .quiz-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
       gap: 24px;
-    }
-
-    .quiz-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: border-color 0.2s;
-      position: relative;
-    }
-
-    .quiz-card:hover {
-      border-color: #555560;
-    }
-
-    .quiz-card.answered-correct {
-      border-color: #00d26a;
-      box-shadow: 0 0 20px rgba(0, 210, 106, 0.15);
-    }
-
-    .quiz-card.answered-wrong {
-      border-color: #ff4d61;
-    }
-
-    .quiz-session-tag {
-      font-size: 12px;
-      font-weight: 900;
-      color: #ff7080;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .quiz-card h4 {
-      margin: 0 0 16px;
-      font-size: 18px;
-      font-weight: 850;
-      line-height: 1.45;
-    }
-
-    .quiz-options {
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-      margin-bottom: 16px;
-    }
-
-    .quiz-option-btn {
-      text-align: left;
-      padding: 12px 16px;
-      background: #19191e;
-      border: 1px solid #33333a;
-      color: #e0e0e4;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 700;
-      transition: all 0.15s ease;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .quiz-option-btn:hover:not(:disabled) {
-      background: #25252c;
-      border-color: #555562;
-      color: #fff;
-    }
-
-    .quiz-option-btn.selected-correct {
-      background: rgba(0, 210, 106, 0.2);
-      border-color: #00d26a;
-      color: #00ff84;
-    }
-
-    .quiz-option-btn.selected-wrong {
-      background: rgba(255, 77, 97, 0.2);
-      border-color: #ff4d61;
-      color: #ff6e80;
-    }
-
-    .quiz-explanation {
-      display: none;
-      padding: 14px 16px;
-      background: #18181d;
-      border-radius: 10px;
-      border-left: 4px solid var(--red);
-      font-size: 13px;
-      line-height: 1.55;
-      color: #dcdce0;
-      margin-top: 8px;
-    }
-
-    .quiz-explanation.show {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .quiz-cta-banner {
-      margin-top: 36px;
-      padding: 24px;
-      background: linear-gradient(90deg, rgba(214, 0, 25, 0.2), #111114);
-      border: 1px solid rgba(214, 0, 25, 0.4);
-      border-radius: var(--radius);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       flex-wrap: wrap;
-      gap: 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
     }
 
-    .quiz-cta-banner strong {
-      font-size: 18px;
+    .quiz-banner-text {
+      max-width: 620px;
     }
 
-    .quiz-cta-banner p {
-      margin: 4px 0 0;
-      font-size: 14px;
+    .quiz-banner-text h2 {
+      font-size: 24px;
+      font-weight: 900;
+      margin: 8px 0 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .quiz-banner-text p {
+      margin: 0;
       color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.6;
+    }
+
+    .quiz-banner-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     /* =========================
@@ -1167,24 +1046,22 @@
     <div class="wrap nav">
       <a class="brand" href="#home">
         <span class="brand-mark"></span>
-        HVAC ENGINEERING EXPERT SEMINAR
+        2026 HVAC ENGINEERING SEMINAR
       </a>
 
       <nav class="links" aria-label="주요 메뉴">
         <a href="#agenda">일정표</a>
         <a href="#speakers">강사 프로필</a>
-        <a href="#kakao">카톡 오픈톡</a>
-        <a href="#quiz">세션 퀴즈</a>
+        <a href="#kakao">카카오 채널</a>
+        <a href="./quiz.html">세션 퀴즈</a>
+        <a href="./qna.html">실시간 Q&A</a>
         <a href="#venue">오시는 길</a>
         <a href="#notice">참석 안내</a>
-        <a class="cta kakao" target="_blank" rel="noopener noreferrer" href="https://open.kakao.com/o/sHVAC2026">
-          💬 오픈채팅방
+        <a class="cta" href="./checkin.html">
+          📱 모바일 체크인
         </a>
-        <a class="cta" target="_blank" rel="noopener noreferrer" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u">
-          만족도 설문
-        </a>
-        <a class="cta primary" target="_blank" rel="noopener noreferrer" href="https://forms.cloud.microsoft/r/kaugdHpUxh">
-          출석체크
+        <a class="cta primary" target="_blank" rel="noopener noreferrer" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u">
+          만족도 설문 ↗
         </a>
       </nav>
 
@@ -1197,18 +1074,16 @@
     <nav class="mobile-menu" id="mobileMenu" aria-label="모바일 메뉴">
       <a href="#agenda">일정표</a>
       <a href="#speakers">강사 프로필</a>
-      <a href="#kakao" class="kakao-link">💬 카카오톡 오픈 톡방</a>
-      <a href="#quiz">💡 세션별 퀴즈 풀기</a>
+      <a href="#kakao" class="kakao-link">💬 카카오톡 공식 채널</a>
+      <a href="./quiz.html">💡 세션별 퀴즈 풀기</a>
+      <a href="./qna.html">✍️ 실시간 세션 Q&A</a>
       <a href="#venue">오시는 길</a>
       <a href="#notice">참석 안내</a>
-      <a target="_blank" rel="noopener noreferrer" href="https://open.kakao.com/o/sHVAC2026" style="color: var(--kakao-yellow);">
-        💬 오픈채팅방 바로입장 ↗
+      <a href="./checkin.html" style="color: var(--red-light); font-weight: 850;">
+        📱 모바일 체크인 바로가기 ↗
       </a>
       <a target="_blank" rel="noopener noreferrer" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u">
         만족도 설문 ↗
-      </a>
-      <a target="_blank" rel="noopener noreferrer" href="https://forms.cloud.microsoft/r/kaugdHpUxh" style="color: #ff6677;">
-        출석체크 ↗
       </a>
     </nav>
   </header>
@@ -1218,33 +1093,35 @@
     <section class="hero" id="home">
       <div class="wrap hero-inner">
         <div class="eyebrow-wrap">
-          <div class="eyebrow">ENGINEERING INSIGHT DAY</div>
-          <a class="eyebrow-kakao" href="#kakao">💬 실시간 카카오톡 소통방 운영</a>
+          <div class="eyebrow">ENGINEERING INSIGHT DAY · 2026. 11. 12.</div>
         </div>
 
         <div class="year">2026</div>
 
         <h1>
           HVAC Engineering
-          <span>Expert Seminar</span>
+          <span>Seminar</span>
         </h1>
 
         <p class="hero-copy">
           국내 주거난방의 변천, 고밀도 AI 서버 액체냉각,
           AIDC 전력공급, 공동주택 공기열원 히트펌프,
           에너지컨설팅과 과학·인문학을 한자리에서 다루는
-          전문가 세미나입니다.
+          오프라인 현장 전문가 세미나입니다.
         </p>
 
         <div class="actions">
           <a class="btn primary" href="#agenda">
             📅 전체 일정 보기
           </a>
-          <a class="btn kakao" target="_blank" rel="noopener noreferrer" href="https://open.kakao.com/o/sHVAC2026">
-            💬 카톡 오픈톡 참여
+          <a class="btn" href="./checkin.html">
+            📱 모바일 체크인
           </a>
-          <a class="btn" href="#quiz">
-            💡 세션 퀴즈 도전
+          <a class="btn" href="./quiz.html">
+            ✨ 세션 퀴즈 도전
+          </a>
+          <a class="btn" href="./qna.html">
+            💬 실시간 Q&A
           </a>
         </div>
 
@@ -1485,43 +1362,43 @@
       </div>
     </section>
 
-    <!-- 4. 카카오톡 오픈 톡방 & 홍보 섹션 (신규 스마트 기능 1 & 2) -->
+    <!-- 4. 카카오톡 공식 채널 & 공유 안내 -->
     <section class="kakao-section" id="kakao">
       <div class="wrap">
         <div class="section-head">
-          <span class="badge" style="color: var(--kakao-yellow);">SMART INTERACTION</span>
-          <h2>카카오톡 오픈 톡방 소통 & 공유</h2>
-          <p>현장 실시간 질문, 중요 행사 공지, 발표자료를 카카오톡 오픈 톡방에서 확인하세요.</p>
+          <span class="badge" style="color: var(--kakao-yellow);">OFFICIAL COMMUNICATION</span>
+          <h2>카카오톡 공식 채널 & 실시간 소통</h2>
+          <p>공식 알림톡 및 행사 긴급 공지 수신, 1:1 질문·문의는 카카오톡 채널에서 이용하실 수 있습니다.</p>
         </div>
 
         <div class="kakao-grid">
-          <!-- 카카오톡 공식 오픈채팅방 카드 -->
+          <!-- 카카오톡 공식 채널 카드 -->
           <div class="kakao-card main-talk reveal">
-            <span class="kakao-tag">💬 세미나 공식 소통방</span>
-            <h3>2026 HVAC 세미나 오픈 톡방</h3>
+            <span class="kakao-tag">💬 공식 카카오톡 채널</span>
+            <h3>2026 HVAC 세미나 공식 채널</h3>
             <p>
-              약 200명의 엔지니어 참가자들과 실시간으로 소통하고,<br>
-              강연 중 떠오른 질문을 편하게 등록해 보세요.
+              카카오톡 채널 추가 후 중요 행사 알림톡 수신 및<br>
+              운영팀과의 1:1 실시간 문의가 가능합니다.
             </p>
 
             <ul class="kakao-features">
-              <li><strong>실시간 Q&A:</strong> 강연 중 궁금한 점을 톡방에 올리면 연사가 직접 답변</li>
-              <li><strong>스마트 출석체크:</strong> 톡방 상단 공지사항 링크로 10초 만에 출석 완료</li>
-              <li><strong>행사 긴급 공지:</strong> 식당 위치, 만찬 장소, 발표 자료 링크 실시간 안내</li>
+              <li><strong>공식 알림톡:</strong> 세션 시작 알림 및 중요 현장 안내 수신</li>
+              <li><strong>1:1 채팅 문의:</strong> 좌석, 주차, 시설 관련 실시간 1:1 문의</li>
+              <li><strong>자료 및 설문 안내:</strong> 세미나 발표자료 및 만족도 설문 링크 안내</li>
             </ul>
 
-            <a class="btn-kakao-enter" target="_blank" rel="noopener noreferrer" href="https://open.kakao.com/o/sHVAC2026">
-              <span>카카오톡 오픈 톡방 바로 입장하기 ↗</span>
+            <a class="btn-kakao-enter" target="_blank" rel="noopener noreferrer" href="https://pf.kakao.com/_DZkSX">
+              <span>카카오톡 채널 추가 & 1:1 채팅하기 ↗</span>
             </a>
           </div>
 
           <!-- 세미나 공유하기 카드 -->
           <div class="share-box reveal">
             <div>
-              <span class="badge" style="color: #ff9aa5;">VIRAL SHARE</span>
+              <span class="badge" style="color: #ff9aa5;">SHARE EVENT</span>
               <h3>동료에게 세미나 공유</h3>
               <p>
-                함께 참석하는 동료나 팀원들에게 세미나 일정표와 출석체크 링크를 카카오톡으로 전달하세요.
+                함께 참석하는 동료나 팀원들에게 세미나 일정표와 체크인 링크를 카카오톡으로 전달하세요.
               </p>
             </div>
 
@@ -1538,132 +1415,26 @@
       </div>
     </section>
 
-    <!-- 5. 세션별 인터랙티브 퀴즈 (신규 스마트 기능 3) -->
-    <section class="quiz-section" id="quiz">
+    <!-- 5. 세션별 인터랙티브 퀴즈 배너 (quiz.html 및 qna.html 분리 링크) -->
+    <section class="quiz-compact-section" id="quiz">
       <div class="wrap">
-        <div class="section-head">
-          <span class="badge">SESSION QUIZ ARENA</span>
-          <h2>세션별 퀴즈 & 럭키드로우</h2>
-          <p>각 강연의 핵심 인사이트를 퀴즈로 풀고, 만찬 시 진행되는 특별 경품 추첨 기회를 잡으세요!</p>
-        </div>
-
-        <!-- 퀴즈 현황 바 -->
-        <div class="quiz-header-status reveal">
-          <div class="quiz-score-badge">
-            현재 내 점수: <span id="quizScore">0</span> / 6점
+        <div class="quiz-banner-card reveal">
+          <div class="quiz-banner-text">
+            <span class="badge" style="color: #ff5366;">EVENT & LUCKY DRAW</span>
+            <h2>세션별 퀴즈 챌린지 & 실시간 Q&A</h2>
+            <p>
+              각 세션의 핵심 인사이트를 퀴즈로 풀고, 만찬 시 진행되는 특별 경품 럭키드로우 추첨 기회를 잡으세요!
+              강연자에게 궁금한 질문은 실시간 Q&A 보드에서 남기실 수 있습니다.
+            </p>
           </div>
-          <div style="font-size: 14px; color: var(--muted);">
-            💡 보기를 선택하면 즉시 정답 여부와 핵심 해설이 나타납니다.
+          <div class="quiz-banner-actions">
+            <a class="btn primary" href="./quiz.html">
+              💡 세션 퀴즈 풀러 가기 →
+            </a>
+            <a class="btn" href="./qna.html">
+              ✍️ 실시간 세션 Q&A →
+            </a>
           </div>
-        </div>
-
-        <div class="quiz-grid">
-          <!-- 퀴즈 1 (여명석 교수) -->
-          <article class="quiz-card reveal" data-quiz-id="1" data-correct="1">
-            <div>
-              <span class="quiz-session-tag">SESSION 1 · 주거난방</span>
-              <h4>Q1. 우리나라 전통 온돌 난방에서 발전한 현대 바닥 복사난방 방식의 가장 큰 장점은?</h4>
-              <div class="quiz-options">
-                <button class="quiz-option-btn" type="button" data-opt="1">① 바닥 전체를 축열체로 활용하여 높은 쾌적성과 실내 온도 안정성 유지</button>
-                <button class="quiz-option-btn" type="button" data-opt="2">② 공기만을 급격히 가열하여 실내 습도를 10% 이하로 낮춤</button>
-                <button class="quiz-option-btn" type="button" data-opt="3">③ 24시간 동안 보일러를 최고 출력으로만 연속 가동해야 함</button>
-              </div>
-            </div>
-            <div class="quiz-explanation">
-              <strong>[정답 해설: ①번]</strong> 바닥 복사난방은 바닥 구조체를 축열체로 활용해 균일하고 쾌적한 열환경을 제공하는 우리나라 고유의 친환경 난방 방식입니다.
-            </div>
-          </article>
-
-          <!-- 퀴즈 2 (이성혁 교수) -->
-          <article class="quiz-card reveal" data-quiz-id="2" data-correct="2">
-            <div>
-              <span class="quiz-session-tag">SESSION 2 · 데이터센터 액체냉각</span>
-              <h4>Q2. 고밀도 AI GPU 서버의 막대한 발열을 해결하기 위해 공랭식 대비 급부상한 차세대 냉각 기술은?</h4>
-              <div class="quiz-options">
-                <button class="quiz-option-btn" type="button" data-opt="1">① 대형 선풍기를 이용한 자연 환기 방식</button>
-                <button class="quiz-option-btn" type="button" data-opt="2">② 칩 표면에 냉각판을 직접 부착하는 Direct-to-Chip(D2C) 액체냉각</button>
-                <button class="quiz-option-btn" type="button" data-opt="3">③ 드라이아이스를 서버랙에 상시 투입하는 방식</button>
-              </div>
-            </div>
-            <div class="quiz-explanation">
-              <strong>[정답 해설: ②번]</strong> 고발열 AI 서버는 공기보다 열전달 계수가 월등히 높은 액체(냉각수)를 칩에 직접 순환시키는 D2C 액체냉각 및 액침냉각(Immersion)이 필수로 전환되고 있습니다.
-            </div>
-          </article>
-
-          <!-- 퀴즈 3 (조홍종 교수) -->
-          <article class="quiz-card reveal" data-quiz-id="3" data-correct="1">
-            <div>
-              <span class="quiz-session-tag">SESSION 3 · 전력시장 & AIDC</span>
-              <h4>Q3. AI 데이터센터 급증에 따른 전력 수급 이슈를 해결하기 위한 정부/시장의 핵심 정책 방향은?</h4>
-              <div class="quiz-options">
-                <button class="quiz-option-btn" type="button" data-opt="1">① 지역 분산형 전원 체계 구축 및 전력망(Grid) 유연성 강화</button>
-                <button class="quiz-option-btn" type="button" data-opt="2">② 수도권 1개 특정 변전소로 전력망을 모두 집중화</button>
-                <button class="quiz-option-btn" type="button" data-opt="3">③ 신규 발전소 건설을 전면 중단하고 데이터센터 가동 축소</button>
-              </div>
-            </div>
-            <div class="quiz-explanation">
-              <strong>[정답 해설: ①번]</strong> 대규모 AIDC 전력 수급을 위해 수도권 집중을 완화하고, 비수도권 분산에너지 활성화 및 송배전망 유연성 확보가 핵심 과제입니다.
-            </div>
-          </article>
-
-          <!-- 퀴즈 4 (유정현 수석) -->
-          <article class="quiz-card reveal" data-quiz-id="4" data-correct="3">
-            <div>
-              <span class="quiz-session-tag">SESSION 4 · 공기열원 히트펌프</span>
-              <h4>Q4. 공동주택 제로에너지건축물(ZEB) 구현 시 보일러를 대체/보완할 수 있는 친환경 고효율 열원설비는?</h4>
-              <div class="quiz-options">
-                <button class="quiz-option-btn" type="button" data-opt="1">① 재래식 기름보일러</button>
-                <button class="quiz-option-btn" type="button" data-opt="2">② 단순 전기 저항 히터 코일</button>
-                <button class="quiz-option-btn" type="button" data-opt="3">③ 공기열원 히트펌프 (Air-Source Heat Pump, AWHP)</button>
-              </div>
-            </div>
-            <div class="quiz-explanation">
-              <strong>[정답 해설: ③번]</strong> 공기열원 히트펌프는 대기 중의 열을 흡수하여 난방 및 온수를 생산하므로 화석연료 연소 대비 탄소 배출을 획기적으로 감축합니다.
-            </div>
-          </article>
-
-          <!-- 퀴즈 5 (오영훈 팀장) -->
-          <article class="quiz-card reveal" data-quiz-id="5" data-correct="2">
-            <div>
-              <span class="quiz-session-tag">SESSION 5 · 에너지컨설팅</span>
-              <h4>Q5. 건물 및 플랜트의 에너지 비용 절감과 최적 효율 설계를 위해 가장 먼저 선행되어야 하는 과정은?</h4>
-              <div class="quiz-options">
-                <button class="quiz-option-btn" type="button" data-opt="1">① 과거 10년 전 도면 데이터만으로 어림짐작하기</button>
-                <button class="quiz-option-btn" type="button" data-opt="2">② 정밀 계측을 통한 실시간 에너지 사용 패턴 분석 및 에너지 진단(Audit)</button>
-                <button class="quiz-option-btn" type="button" data-opt="3">③ 모든 공조기를 강제로 주간에 가동 중단하기</button>
-              </div>
-            </div>
-            <div class="quiz-explanation">
-              <strong>[정답 해설: ②번]</strong> 데이터 기반의 실시간 부하 계측과 종합 에너지 진단이 선행되어야 맞춤형 고효율 공조 솔루션을 도출할 수 있습니다.
-            </div>
-          </article>
-
-          <!-- 퀴즈 6 (이정모 관장) -->
-          <article class="quiz-card reveal" data-quiz-id="6" data-correct="1">
-            <div>
-              <span class="quiz-session-tag">SESSION 6 · 과학 & 인문학</span>
-              <h4>Q6. 급변하는 첨단 기술 및 AI 시대에 엔지니어와 사회 구성원 간의 소통을 위해 가장 필요한 태도는?</h4>
-              <div class="quiz-options">
-                <button class="quiz-option-btn" type="button" data-opt="1">① 당연한 것에 질문을 던지고, 오류를 두려워하지 않는 유연하고 열린 자세</button>
-                <button class="quiz-option-btn" type="button" data-opt="2">② 난해한 전문 용어만을 고집하여 설명하기</button>
-                <button class="quiz-option-btn" type="button" data-opt="3">③ 새로운 과학기술 변화에 일절 관심을 두지 않기</button>
-              </div>
-            </div>
-            <div class="quiz-explanation">
-              <strong>[정답 해설: ①번]</strong> 과학과 기술의 본질은 끊임없이 질문하고 협력하여 더 나은 답을 찾아가는 열린 탐구 정신에 있습니다.
-            </div>
-          </article>
-        </div>
-
-        <!-- 퀴즈 경품 응모 배너 -->
-        <div class="quiz-cta-banner reveal">
-          <div>
-            <strong>🎁 퀴즈를 모두 푸셨나요?</strong>
-            <p>만족도 설문에 퀴즈 점수 및 성함을 제출하시면 만찬 시 럭키드로우 추첨 대상이 됩니다!</p>
-          </div>
-          <a class="btn primary" target="_blank" rel="noopener noreferrer" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u">
-            경품 응모 & 설문 참여하기 →
-          </a>
         </div>
       </div>
     </section>
@@ -1720,13 +1491,13 @@
           </div>
 
           <div class="quick-links reveal">
-            <a class="quick-link kakao" target="_blank" rel="noopener noreferrer" href="https://open.kakao.com/o/sHVAC2026">
-              <span>💬 카카오톡 오픈 톡방 참여</span>
+            <a class="quick-link kakao" target="_blank" rel="noopener noreferrer" href="https://pf.kakao.com/_DZkSX">
+              <span>💬 카카오톡 공식 채널</span>
               <span>↗</span>
             </a>
-            <a class="quick-link" target="_blank" rel="noopener noreferrer" href="https://forms.cloud.microsoft/r/kaugdHpUxh">
-              <span>📝 출석체크 바로가기</span>
-              <span>↗</span>
+            <a class="quick-link" href="./checkin.html">
+              <span>📱 모바일 체크인</span>
+              <span>→</span>
             </a>
             <a class="quick-link" target="_blank" rel="noopener noreferrer" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u">
               <span>📊 만족도 설문 참여</span>
@@ -1749,11 +1520,8 @@
   <!-- 화면 하단 플로팅 버튼들 -->
   <div class="floating">
     <button class="top-btn" id="topBtn" type="button" aria-label="맨 위로 이동">↑</button>
-    <a class="kakao-float" target="_blank" rel="noopener noreferrer" href="https://open.kakao.com/o/sHVAC2026">
-      💬 오픈톡
-    </a>
-    <a target="_blank" rel="noopener noreferrer" href="https://forms.cloud.microsoft/r/kaugdHpUxh">
-      출석체크
+    <a href="./checkin.html" class="checkin-float" style="background: var(--red); color: #fff; padding: 10px 18px; border-radius: 99px; font-weight: 850; font-size: 13px; text-decoration: none; box-shadow: 0 8px 24px rgba(214, 0, 25, 0.4);">
+      📱 체크인
     </a>
   </div>
 
@@ -1853,53 +1621,6 @@
         }
       });
     }
-
-    // 6. 세션별 인터랙티브 퀴즈 로직
-    let score = 0;
-    const answeredCards = new Set();
-    const scoreDisplay = document.getElementById("quizScore");
-
-    document.querySelectorAll(".quiz-card").forEach(function (card) {
-      const quizId = card.getAttribute("data-quiz-id");
-      const correctOpt = card.getAttribute("data-correct");
-      const options = card.querySelectorAll(".quiz-option-btn");
-      const explanation = card.querySelector(".quiz-explanation");
-
-      options.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          if (answeredCards.has(quizId)) return; // 이미 풀었으면 무시
-
-          answeredCards.add(quizId);
-          const chosenOpt = btn.getAttribute("data-opt");
-
-          // 모든 선택지 비활성화
-          options.forEach(b => b.disabled = true);
-
-          if (chosenOpt === correctOpt) {
-            btn.classList.add("selected-correct");
-            card.classList.add("answered-correct");
-            score++;
-            scoreDisplay.textContent = score;
-            showToast("🎉 정답입니다! (+1점)");
-          } else {
-            btn.classList.add("selected-wrong");
-            card.classList.add("answered-wrong");
-            // 정답 버튼 표시
-            options.forEach(b => {
-              if (b.getAttribute("data-opt") === correctOpt) {
-                b.classList.add("selected-correct");
-              }
-            });
-            showToast("💡 아쉽네요! 정답 해설을 확인하세요.");
-          }
-
-          // 해설 표시
-          if (explanation) {
-            explanation.classList.add("show");
-          }
-        });
-      });
-    });
   </script>
 </body>
 </html>
