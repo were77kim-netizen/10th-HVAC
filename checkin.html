@@ -8,14 +8,18 @@
   <meta name="description" content="2026 HVAC Engineering Expert Seminar 모바일 출석 체크 및 세션 가이드">
   <meta property="og:title" content="2026 HVAC Engineering Expert Seminar 체크인">
   <meta property="og:description" content="현장 간편 출석체크 및 실시간 세션 안내">
-  <meta name="theme-color" content="#0b0407">
+  <meta name="theme-color" content="#040906">
 
   <style>
     :root {
-      --bg: #0b0407;
-      --burgundy: #831335;
-      --burgundy-bright: #a81c46;
-      --burgundy-glow: #e61f5c;
+      --bg: #040906;
+      --burgundy: #0e5e34;
+      --burgundy-bright: #108548;
+      --burgundy-glow: #22c55e;
+      --gold: #d4a017;
+      --gold-light: #f3c448;
+      --primary: #108548;
+      --primary-light: #22c55e;
       --text-muted: rgba(255, 255, 255, 0.65);
       --border-subtle: rgba(255, 255, 255, 0.14);
       --font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Noto Sans KR", "Malgun Gothic", sans-serif;
@@ -48,7 +52,7 @@
       min-height: 100vh;
       min-height: 100dvh;
       position: relative;
-      background-color: #0b0407;
+      background-color: #040906;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -69,7 +73,7 @@
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
-      background: #0b0407;
+      background: #040906;
     }
 
     .bg-gradient {
@@ -77,33 +81,33 @@
       inset: 0;
       background: conic-gradient(
         from 142.5deg at 50% 50%,
-        #080405 0deg,
-        #150409 20deg,
-        #490b1e 48deg,
-        #831335 78deg,
-        #9d163e 98deg,
-        #440919 140deg,
-        #080405 178deg,
-        #120408 190deg,
-        #360917 222deg,
-        #821334 260deg,
-        #9d163f 282deg,
-        #4f0c20 330deg,
-        #080405 360deg
+        #040906 0deg,
+        #08170e 20deg,
+        #0e3e23 48deg,
+        #126b3a 78deg,
+        #b88a18 98deg,
+        #0f502c 140deg,
+        #040906 178deg,
+        #06130b 190deg,
+        #0d361f 222deg,
+        #116135 260deg,
+        #c99a22 282deg,
+        #0b3a20 330deg,
+        #040906 360deg
       );
-      opacity: 0.92;
+      opacity: 0.95;
     }
 
     .bg-overlay-angle {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(8, 4, 5, 0.72) 45%, transparent 45.5%);
+      background: linear-gradient(135deg, rgba(4, 9, 6, 0.72) 45%, transparent 45.5%);
     }
 
     .bg-overlay-vignette {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 50% 50%, transparent 20%, rgba(11, 4, 7, 0.65) 100%);
+      background: radial-gradient(circle at 50% 50%, transparent 20%, rgba(4, 9, 6, 0.65) 100%);
     }
 
     /* 공통 화면 레이아웃 */
@@ -272,9 +276,9 @@
     }
 
     .app-input:focus {
-      border-color: #ffffff;
+      border-color: #f3c448;
       background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 0 16px rgba(168, 28, 70, 0.35);
+      box-shadow: 0 0 16px rgba(16, 133, 72, 0.4);
     }
 
     .input-hint {
@@ -304,7 +308,7 @@
 
     .btn-light {
       background: #e8e8ed;
-      color: #0b0407;
+      color: #040906;
     }
 
     .btn-light:hover {
@@ -344,8 +348,8 @@
     .confirm-card {
       width: 100%;
       max-width: 370px;
-      background: #141416;
-      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: #0b140e;
+      border: 1px solid rgba(243, 196, 72, 0.22);
       border-radius: 20px;
       padding: 26px 22px 22px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
@@ -424,7 +428,7 @@
       height: 48px;
       background: #ffffff;
       border: none;
-      color: #0b0407;
+      color: #040906;
       border-radius: 12px;
       font-weight: 900;
       cursor: pointer;
@@ -470,7 +474,8 @@
     .badge-dot {
       width: 7px;
       height: 7px;
-      background: #ff3b56;
+      background: #f3c448;
+      box-shadow: 0 0 6px #f3c448;
       border-radius: 50%;
       position: absolute;
       top: -2px;
@@ -629,7 +634,7 @@
       display: inline-block;
       padding: 2px 8px;
       background: rgba(255, 255, 255, 0.9);
-      color: #0b0407;
+      color: #040906;
       border-radius: 99px;
       font-size: 11px;
       font-weight: 900;
@@ -726,8 +731,8 @@
     .session-qna-sheet {
       width: 100%;
       max-width: 430px;
-      background: #15060d;
-      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      background: #09160e;
+      border-top: 1px solid rgba(243, 196, 72, 0.25);
       border-radius: 24px 24px 0 0;
       padding: 20px 20px 26px;
       position: relative;
@@ -739,8 +744,9 @@
       display: inline-block;
       font-size: 11px;
       font-weight: 850;
-      color: #ff9aa5;
-      background: rgba(255, 255, 255, 0.08);
+      color: #f3c448;
+      background: rgba(243, 196, 72, 0.12);
+      border: 1px solid rgba(243, 196, 72, 0.25);
       padding: 3px 8px;
       border-radius: 99px;
       margin-bottom: 4px;
@@ -797,7 +803,7 @@
     }
 
     .btn-send-qna {
-      background: linear-gradient(135deg, #a81c46, #e61f5c);
+      background: linear-gradient(135deg, #108548, #22c55e);
       color: #fff;
       border: none;
       padding: 8px 18px;
@@ -910,8 +916,8 @@
     }
 
     .timetable-sheet {
-      background: #141416;
-      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      background: #0b140e;
+      border-top: 1px solid rgba(243, 196, 72, 0.25);
       border-radius: 24px 24px 0 0;
       padding: 24px 20px 40px;
       max-height: 85vh;
@@ -958,7 +964,7 @@
     .tt-time {
       font-size: 14px;
       font-weight: 900;
-      color: #ff6172;
+      color: #f3c448;
       margin-bottom: 4px;
     }
 
@@ -995,8 +1001,8 @@
     .mission-card {
       width: 100%;
       max-width: 380px;
-      background: #141416;
-      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: #0b140e;
+      border: 1px solid rgba(243, 196, 72, 0.25);
       border-radius: 20px;
       padding: 26px 22px 20px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
@@ -1016,7 +1022,7 @@
     }
 
     .m-item {
-      background: #1c1c20;
+      background: #08100a;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
       padding: 14px 16px;
@@ -1029,7 +1035,7 @@
     .m-num {
       font-size: 20px;
       font-weight: 900;
-      color: #ff3b56;
+      color: #f3c448;
     }
 
     .m-info {
@@ -1512,7 +1518,7 @@
         <div class="map-loc-item">
           <div class="map-loc-icon">🚬</div>
           <div class="map-loc-content">
-            <strong style="color: #ff9aa5;">지정 흡연구역</strong>
+            <strong style="color: #f3c448;">지정 흡연구역</strong>
             <span>본부관 뒤편 야외 지정 흡연 부스 (※ 캠퍼스 전 구역 금연, 지정 부스만 이용)</span>
           </div>
         </div>
