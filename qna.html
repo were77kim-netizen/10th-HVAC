@@ -8,20 +8,20 @@
   <meta name="description" content="2026 HVAC Engineering Expert Seminar 세션별 실시간 질문 등록 및 질의응답 보드">
   <meta property="og:title" content="2026 HVAC Engineering Expert Seminar 실시간 Q&A">
   <meta property="og:description" content="세션별로 강연자에게 궁금한 점을 질문하고 다른 참가자들의 질문에 공감해 보세요.">
-  <meta name="theme-color" content="#0b0407">
+  <meta name="theme-color" content="#f0fdf4">
 
   <style>
     :root {
-      --bg: #0b0407;
-      --burgundy: #831335;
-      --burgundy-bright: #a81c46;
-      --burgundy-glow: #e61f5c;
-      --red-light: #ff5366;
+      --bg: #f5f8f5;
+      --burgundy: #059669;
+      --burgundy-bright: #10b981;
+      --burgundy-glow: #34d399;
+      --red-light: #d97706;
       --kakao-yellow: #fee500;
       --kakao-text: #391b1b;
-      --card-bg: #14080e;
-      --card-border: rgba(255, 255, 255, 0.12);
-      --text-muted: rgba(255, 255, 255, 0.65);
+      --card-bg: #ffffff;
+      --card-border: #dbe6dd;
+      --text-muted: #526659;
       --font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Noto Sans KR", "Malgun Gothic", sans-serif;
     }
 
@@ -34,7 +34,7 @@
 
     body {
       background-color: var(--bg);
-      color: #ffffff;
+      color: #112217;
       font-family: var(--font-family);
       min-height: 100vh;
       display: flex;
@@ -46,29 +46,18 @@
       padding-bottom: 70px;
     }
 
-    /* 시그니처 conic 배경 */
+    /* 시그니처 옐로우 & 그린 밝은 그라데이션 배경 */
     .bg-canvas {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      background: conic-gradient(
-        from 142.5deg at 50% 50%,
-        #080405 0deg,
-        #150409 20deg,
-        #490b1e 48deg,
-        #831335 78deg,
-        #9d163e 98deg,
-        #440919 140deg,
-        #080405 178deg,
-        #120408 190deg,
-        #360917 222deg,
-        #821334 260deg,
-        #9d163f 282deg,
-        #4f0c20 330deg,
-        #080405 360deg
-      );
-      opacity: 0.9;
+      background:
+        radial-gradient(circle at 82% 16%, rgba(251, 191, 36, 0.38), transparent 48%),
+        radial-gradient(circle at 10% 84%, rgba(52, 211, 153, 0.35), transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(254, 240, 138, 0.3), transparent 55%),
+        linear-gradient(135deg, #ecfdf5 0%, #fefce8 52%, #f0fdf4 100%);
+      opacity: 1;
     }
 
     .bg-overlay {
@@ -76,8 +65,8 @@
       inset: 0;
       pointer-events: none;
       z-index: 1;
-      background: radial-gradient(circle at 50% 10%, rgba(230, 31, 92, 0.15), transparent 70%),
-                  linear-gradient(180deg, rgba(8, 4, 5, 0.82) 0%, rgba(8, 4, 5, 0.96) 100%);
+      background: radial-gradient(circle at 50% 10%, rgba(5, 150, 105, 0.08), transparent 70%),
+                  linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(246, 249, 246, 0.85) 100%);
     }
 
     /* 상단 탑바 */
@@ -90,13 +79,14 @@
       width: 100%;
       max-width: 580px;
       padding: 14px 18px;
-      background: rgba(11, 4, 7, 0.88);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid #dbe6dd;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     }
 
     .nav-left {
@@ -106,9 +96,9 @@
     }
 
     .back-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #fff;
+      background: #f0f5f1;
+      border: 1px solid #cbdcd0;
+      color: #0c1a12;
       font-size: 16px;
       width: 36px;
       height: 36px;
@@ -123,7 +113,7 @@
     .nav-title {
       font-size: 15px;
       font-weight: 800;
-      color: #fff;
+      color: #0c1a12;
       letter-spacing: -0.02em;
     }
 
@@ -134,9 +124,9 @@
     }
 
     .btn-presenter-mode {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: rgba(255, 255, 255, 0.85);
+      background: #f0f5f1;
+      border: 1px solid #cbdcd0;
+      color: #1e2e24;
       padding: 6px 10px;
       border-radius: 8px;
       font-size: 12px;
@@ -145,8 +135,8 @@
     }
 
     .btn-presenter-mode.active {
-      background: #831335;
-      border-color: #ff5366;
+      background: #059669;
+      border-color: #059669;
       color: #fff;
     }
 
@@ -164,18 +154,21 @@
 
     /* 인트로 카드 */
     .qna-intro-card {
-      background: linear-gradient(135deg, rgba(131, 19, 53, 0.4) 0%, rgba(20, 8, 14, 0.75) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: #ffffff;
+      border: 1px solid #dbe6dd;
       border-radius: 18px;
       padding: 20px 18px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      color: #0c1a12;
     }
 
     .qna-badge {
       display: inline-block;
       font-size: 11px;
       font-weight: 900;
-      color: #ff9aa5;
-      background: rgba(255, 255, 255, 0.08);
+      color: #065f46;
+      background: #ecfdf5;
+      border: 1px solid rgba(5, 150, 105, 0.25);
       padding: 4px 10px;
       border-radius: 99px;
       margin-bottom: 8px;
@@ -186,6 +179,7 @@
       font-weight: 900;
       margin-bottom: 6px;
       letter-spacing: -0.02em;
+      color: #0c1a12;
     }
 
     .qna-intro-card p {
@@ -200,20 +194,20 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      background: rgba(254, 229, 0, 0.08);
-      border: 1px solid rgba(254, 229, 0, 0.3);
+      background: #fefce8;
+      border: 1px solid rgba(254, 229, 0, 0.45);
       border-radius: 14px;
       padding: 12px 14px;
     }
 
     .kakao-qna-text {
       font-size: 12.5px;
-      color: rgba(255, 255, 255, 0.9);
+      color: #1e2e24;
       line-height: 1.4;
     }
 
     .kakao-qna-text strong {
-      color: var(--kakao-yellow);
+      color: #78350f;
     }
 
     .btn-kakao-chat {
@@ -232,13 +226,15 @@
 
     /* 질문 작성 카드 */
     .ask-card {
-      background: rgba(20, 8, 14, 0.9);
+      background: #ffffff;
       border: 1px solid var(--card-border);
       border-radius: 18px;
       padding: 18px;
       display: flex;
       flex-direction: column;
       gap: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      color: #0c1a12;
     }
 
     .ask-card-title {
@@ -247,13 +243,14 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      color: #0c1a12;
     }
 
     .select-session {
       width: 100%;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
+      background: #f7faf8;
+      border: 1px solid #cbdcd0;
+      color: #0c1a12;
       padding: 10px 12px;
       border-radius: 10px;
       font-size: 13px;
@@ -262,15 +259,15 @@
     }
 
     .select-session option {
-      background: #14080e;
-      color: #fff;
+      background: #ffffff;
+      color: #0c1a12;
     }
 
     .textarea-question {
       width: 100%;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
+      background: #f7faf8;
+      border: 1px solid #cbdcd0;
+      color: #0c1a12;
       padding: 12px;
       border-radius: 12px;
       font-size: 13.5px;
@@ -282,7 +279,8 @@
     }
 
     .textarea-question:focus {
-      border-color: var(--red-light);
+      border-color: #059669;
+      background: #ffffff;
     }
 
     .ask-row-bottom {
@@ -299,9 +297,9 @@
     }
 
     .input-author {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
+      background: #f7faf8;
+      border: 1px solid #cbdcd0;
+      color: #0c1a12;
       padding: 8px 12px;
       border-radius: 8px;
       font-size: 12.5px;
@@ -314,12 +312,12 @@
       align-items: center;
       gap: 4px;
       font-size: 12px;
-      color: rgba(255, 255, 255, 0.7);
+      color: #526659;
       cursor: pointer;
     }
 
     .btn-submit-q {
-      background: linear-gradient(135deg, #a81c46, #e61f5c);
+      background: linear-gradient(135deg, #059669, #10b981);
       color: #fff;
       border: none;
       padding: 10px 20px;
@@ -327,6 +325,7 @@
       font-size: 13.5px;
       font-weight: 850;
       cursor: pointer;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);
       transition: all 0.2s;
     }
 
@@ -349,9 +348,9 @@
     }
 
     .tab-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: rgba(255, 255, 255, 0.75);
+      background: #ffffff;
+      border: 1px solid #dbe6dd;
+      color: #526659;
       padding: 8px 14px;
       border-radius: 99px;
       font-size: 12.5px;
@@ -362,8 +361,8 @@
     }
 
     .tab-btn.active {
-      background: #831335;
-      border-color: #ff5366;
+      background: #059669;
+      border-color: #059669;
       color: #ffffff;
       font-weight: 900;
     }
@@ -376,20 +375,20 @@
     }
 
     .qna-card {
-      background: rgba(20, 8, 14, 0.85);
+      background: #ffffff;
       border: 1px solid var(--card-border);
       border-radius: 16px;
       padding: 16px 18px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
       display: flex;
       flex-direction: column;
       gap: 10px;
       transition: all 0.2s;
+      color: #0c1a12;
     }
 
     .qna-card:hover {
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: #059669;
     }
 
     .qna-card-top {
@@ -401,15 +400,16 @@
     .qna-session-badge {
       font-size: 11px;
       font-weight: 800;
-      color: #ff9aa5;
-      background: rgba(255, 255, 255, 0.08);
+      color: #065f46;
+      background: #ecfdf5;
+      border: 1px solid rgba(5, 150, 105, 0.25);
       padding: 3px 8px;
       border-radius: 99px;
     }
 
     .qna-meta {
       font-size: 11.5px;
-      color: rgba(255, 255, 255, 0.45);
+      color: #8c9e92;
       display: flex;
       gap: 8px;
     }
@@ -417,7 +417,7 @@
     .qna-body {
       font-size: 14.5px;
       line-height: 1.5;
-      color: #ffffff;
+      color: #0c1a12;
     }
 
     .qna-footer {
@@ -425,13 +425,13 @@
       justify-content: space-between;
       align-items: center;
       padding-top: 6px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-top: 1px solid #e8f0ea;
     }
 
     .btn-like {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: rgba(255, 255, 255, 0.85);
+      background: #f7faf8;
+      border: 1px solid #cbdcd0;
+      color: #1e2e24;
       padding: 5px 12px;
       border-radius: 99px;
       font-size: 12px;
@@ -444,27 +444,28 @@
     }
 
     .btn-like:hover {
-      background: rgba(255, 255, 255, 0.15);
+      background: #eef5f0;
     }
 
     .btn-like.liked {
-      background: rgba(230, 31, 92, 0.25);
-      border-color: var(--red-light);
-      color: var(--red-light);
+      background: #ecfdf5;
+      border-color: #059669;
+      color: #059669;
     }
 
     .empty-state {
       text-align: center;
       padding: 40px 20px;
-      color: rgba(255, 255, 255, 0.5);
+      color: #8c9e92;
       font-size: 13.5px;
     }
 
     /* 발표자/전광판 모드 */
     body.presenter-mode .qna-card {
       padding: 24px 26px;
-      background: #1b0a13;
-      border-color: rgba(255, 255, 255, 0.25);
+      background: #ffffff;
+      border-color: #059669;
+      box-shadow: 0 10px 30px rgba(5, 150, 105, 0.1);
     }
 
     body.presenter-mode .qna-body {

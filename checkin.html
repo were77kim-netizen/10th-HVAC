@@ -8,20 +8,20 @@
   <meta name="description" content="2026 HVAC Engineering Expert Seminar 모바일 출석 체크 및 세션 가이드">
   <meta property="og:title" content="2026 HVAC Engineering Expert Seminar 체크인">
   <meta property="og:description" content="현장 간편 출석체크 및 실시간 세션 안내">
-  <meta name="theme-color" content="#040906">
+  <meta name="theme-color" content="#f0fdf4">
 
   <style>
     :root {
-      --bg: #040906;
-      --burgundy: #0e5e34;
-      --burgundy-bright: #108548;
-      --burgundy-glow: #22c55e;
-      --gold: #d4a017;
-      --gold-light: #f3c448;
-      --primary: #108548;
-      --primary-light: #22c55e;
-      --text-muted: rgba(255, 255, 255, 0.65);
-      --border-subtle: rgba(255, 255, 255, 0.14);
+      --bg: #f5f8f5;
+      --burgundy: #059669;
+      --burgundy-bright: #10b981;
+      --burgundy-glow: #34d399;
+      --gold: #d97706;
+      --gold-light: #f59e0b;
+      --primary: #059669;
+      --primary-light: #10b981;
+      --text-muted: #526659;
+      --border-subtle: #cbdcd0;
       --font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Noto Sans KR", "Malgun Gothic", sans-serif;
     }
 
@@ -34,7 +34,7 @@
 
     body {
       background-color: var(--bg);
-      color: #ffffff;
+      color: #112217;
       font-family: var(--font-family);
       min-height: 100vh;
       min-height: 100dvh;
@@ -52,62 +52,51 @@
       min-height: 100vh;
       min-height: 100dvh;
       position: relative;
-      background-color: #040906;
+      background-color: #ffffff;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.08);
     }
 
     @media (min-width: 480px) {
       .app-frame {
-        border-left: 1px solid rgba(255, 255, 255, 0.1);
-        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        border-left: 1px solid #dbe6dd;
+        border-right: 1px solid #dbe6dd;
       }
     }
 
-    /* 시그니처 conic-gradient 배경 & 기하학적 앵글 오버레이 */
+    /* 시그니처 옐로우 & 그린 밝은 그라데이션 배경 & 기하학적 앵글 오버레이 */
     .bg-canvas {
       position: absolute;
       inset: 0;
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
-      background: #040906;
+      background: #f6f9f6;
     }
 
     .bg-gradient {
       position: absolute;
       inset: 0;
-      background: conic-gradient(
-        from 142.5deg at 50% 50%,
-        #040906 0deg,
-        #08170e 20deg,
-        #0e3e23 48deg,
-        #126b3a 78deg,
-        #b88a18 98deg,
-        #0f502c 140deg,
-        #040906 178deg,
-        #06130b 190deg,
-        #0d361f 222deg,
-        #116135 260deg,
-        #c99a22 282deg,
-        #0b3a20 330deg,
-        #040906 360deg
-      );
-      opacity: 0.95;
+      background:
+        radial-gradient(circle at 82% 16%, rgba(251, 191, 36, 0.38), transparent 48%),
+        radial-gradient(circle at 10% 84%, rgba(52, 211, 153, 0.35), transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(254, 240, 138, 0.3), transparent 55%),
+        linear-gradient(135deg, #ecfdf5 0%, #fefce8 52%, #f0fdf4 100%);
+      opacity: 1;
     }
 
     .bg-overlay-angle {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(4, 9, 6, 0.72) 45%, transparent 45.5%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 45%, transparent 45.5%);
     }
 
     .bg-overlay-vignette {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 50% 50%, transparent 20%, rgba(4, 9, 6, 0.65) 100%);
+      background: radial-gradient(circle at 50% 50%, transparent 20%, rgba(240, 253, 244, 0.45) 100%);
     }
 
     /* 공통 화면 레이아웃 */
@@ -146,8 +135,8 @@
     .lg-logo-svg {
       height: 22px;
       width: auto;
-      fill: #ffffff;
-      opacity: 0.95;
+      fill: #064e3b;
+      opacity: 1;
     }
 
     .intro-center {
@@ -159,9 +148,9 @@
     .event-badge {
       display: inline-block;
       font-size: 14px;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: 0.18em;
-      color: rgba(255, 255, 255, 0.8);
+      color: #059669;
       margin-bottom: 14px;
       text-transform: uppercase;
     }
@@ -172,21 +161,24 @@
       line-height: 1.25;
       letter-spacing: -0.04em;
       margin-bottom: 8px;
+      color: #0c1a12;
     }
 
     .intro-sub {
       font-size: 26px;
       font-weight: 800;
       line-height: 1.32;
-      color: #ffffff;
       letter-spacing: -0.03em;
       margin-bottom: 22px;
+      background: linear-gradient(135deg, #059669 0%, #d97706 70%, #b45309 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .intro-meta {
       font-size: 15px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.68);
+      color: #526659;
       letter-spacing: -0.01em;
     }
 
@@ -209,7 +201,7 @@
     .back-btn {
       background: none;
       border: none;
-      color: #fff;
+      color: #0c1a12;
       font-size: 22px;
       cursor: pointer;
       display: flex;
@@ -220,21 +212,21 @@
     .step-count {
       font-size: 13px;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.6);
+      color: #526659;
       letter-spacing: 0.05em;
     }
 
     .progress-track {
       width: 100%;
       height: 3px;
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(5, 150, 105, 0.15);
       border-radius: 99px;
       overflow: hidden;
     }
 
     .progress-fill {
       height: 100%;
-      background: #ffffff;
+      background: linear-gradient(90deg, #059669, #f59e0b);
       transition: width 0.3s ease;
     }
 
@@ -248,6 +240,7 @@
       font-weight: 900;
       letter-spacing: -0.03em;
       margin-bottom: 24px;
+      color: #0c1a12;
     }
 
     .input-wrapper {
@@ -258,10 +251,10 @@
     .app-input {
       width: 100%;
       height: 58px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1.5px solid var(--border-subtle);
+      background: #ffffff;
+      border: 1.5px solid #cbdcd0;
       border-radius: 14px;
-      color: #ffffff;
+      color: #0c1a12;
       font-size: 16px;
       font-weight: 600;
       padding: 0 18px;
@@ -270,20 +263,20 @@
     }
 
     .app-input::placeholder {
-      color: rgba(255, 255, 255, 0.38);
+      color: #8c9e92;
       font-weight: 500;
       font-size: 15px;
     }
 
     .app-input:focus {
-      border-color: #f3c448;
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 0 16px rgba(16, 133, 72, 0.4);
+      border-color: #059669;
+      background: #ffffff;
+      box-shadow: 0 0 16px rgba(5, 150, 105, 0.25);
     }
 
     .input-hint {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.45);
+      color: #526659;
       padding-left: 4px;
       line-height: 1.4;
     }
@@ -307,18 +300,20 @@
     }
 
     .btn-light {
-      background: #e8e8ed;
-      color: #040906;
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.28);
     }
 
     .btn-light:hover {
-      background: #ffffff;
+      background: linear-gradient(135deg, #047857, #059669);
       transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(5, 150, 105, 0.38);
     }
 
     .btn-disabled {
-      background: rgba(255, 255, 255, 0.26);
-      color: rgba(255, 255, 255, 0.5);
+      background: #e2ebe4;
+      color: #9ab0a2;
       cursor: not-allowed;
       pointer-events: none;
     }
@@ -330,7 +325,7 @@
       position: fixed;
       inset: 0;
       z-index: 100;
-      background: rgba(0, 0, 0, 0.72);
+      background: rgba(12, 26, 18, 0.5);
       backdrop-filter: blur(8px);
       display: none;
       align-items: center;
@@ -348,12 +343,13 @@
     .confirm-card {
       width: 100%;
       max-width: 370px;
-      background: #0b140e;
-      border: 1px solid rgba(243, 196, 72, 0.22);
+      background: #ffffff;
+      border: 1px solid #dbe6dd;
       border-radius: 20px;
       padding: 26px 22px 22px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
       animation: popIn 0.25s ease;
+      color: #0c1a12;
     }
 
     @keyframes popIn {
@@ -365,18 +361,19 @@
       font-size: 21px;
       font-weight: 900;
       margin-bottom: 6px;
+      color: #0c1a12;
     }
 
     .confirm-card p.sub {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.65);
+      color: #526659;
       margin-bottom: 20px;
       line-height: 1.45;
     }
 
     .field-box {
-      background: #1e1e22;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #f7faf8;
+      border: 1px solid #dbe6dd;
       border-radius: 14px;
       padding: 13px 16px;
       margin-bottom: 10px;
@@ -384,7 +381,7 @@
 
     .field-box .lbl {
       font-size: 11px;
-      color: rgba(255, 255, 255, 0.45);
+      color: #526659;
       font-weight: 700;
       margin-bottom: 3px;
     }
@@ -398,12 +395,12 @@
     .field-box .val {
       font-size: 17px;
       font-weight: 900;
-      color: #fff;
+      color: #0c1a12;
     }
 
     .field-box .badge-lock {
       font-size: 11px;
-      color: rgba(255, 255, 255, 0.4);
+      color: #8c9e92;
     }
 
     .confirm-btns {
@@ -415,9 +412,9 @@
     .btn-modal-cancel {
       flex: 1;
       height: 48px;
-      background: #232328;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      color: #fff;
+      background: #f0f5f1;
+      border: 1px solid #cbdcd0;
+      color: #1e2e24;
       border-radius: 12px;
       font-weight: 800;
       cursor: pointer;
@@ -426,12 +423,13 @@
     .btn-modal-confirm {
       flex: 1;
       height: 48px;
-      background: #ffffff;
+      background: linear-gradient(135deg, #059669, #10b981);
       border: none;
-      color: #040906;
+      color: #ffffff;
       border-radius: 12px;
       font-weight: 900;
       cursor: pointer;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);
     }
 
     /* -------------------------------------------------------------
@@ -452,6 +450,7 @@
       letter-spacing: -0.02em;
       line-height: 1.25;
       max-width: 290px;
+      color: #0c1a12;
     }
 
     .dash-header-actions {
@@ -463,7 +462,7 @@
     .icon-btn {
       background: none;
       border: none;
-      color: #fff;
+      color: #0c1a12;
       font-size: 20px;
       cursor: pointer;
       display: flex;
@@ -474,8 +473,8 @@
     .badge-dot {
       width: 7px;
       height: 7px;
-      background: #f3c448;
-      box-shadow: 0 0 6px #f3c448;
+      background: #f59e0b;
+      box-shadow: 0 0 6px #f59e0b;
       border-radius: 50%;
       position: absolute;
       top: -2px;
@@ -488,14 +487,15 @@
       top: 64px;
       right: 18px;
       width: 250px;
-      background: #151518;
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: #ffffff;
+      border: 1px solid #dbe6dd;
       border-radius: 18px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
       z-index: 50;
       display: none;
       animation: popIn 0.2s ease;
       overflow: hidden;
+      color: #0c1a12;
     }
 
     .menu-popover.show {
@@ -504,18 +504,19 @@
 
     .menu-profile-box {
       padding: 16px 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid #e8f0ea;
       display: flex;
       align-items: center;
       gap: 12px;
-      background: rgba(255, 255, 255, 0.02);
+      background: #f6f9f7;
     }
 
     .profile-avatar {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.12);
+      background: #e2ebe4;
+      color: #0c1a12;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -526,11 +527,12 @@
       display: block;
       font-size: 15px;
       font-weight: 900;
+      color: #0c1a12;
     }
 
     .profile-info small {
       display: block;
-      color: rgba(255, 255, 255, 0.5);
+      color: #64776b;
       font-size: 12px;
     }
 
@@ -546,14 +548,14 @@
       padding: 12px 18px;
       font-size: 14px;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.85);
+      color: #1e2e24;
       cursor: pointer;
       transition: background 0.15s;
     }
 
     .menu-item:hover {
-      background: rgba(255, 255, 255, 0.06);
-      color: #fff;
+      background: #f0fdf4;
+      color: #059669;
     }
 
     /* 세션 뷰어 레이아웃 & 스와이프 제스처 */
@@ -605,6 +607,7 @@
       font-size: 26px;
       font-weight: 950;
       letter-spacing: -0.02em;
+      color: #059669;
     }
 
     .location-badge {
@@ -612,18 +615,18 @@
       align-items: center;
       gap: 4px;
       padding: 5px 12px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #f0fdf4;
+      border: 1px solid rgba(5, 150, 105, 0.25);
       border-radius: 99px;
       font-size: 12px;
       font-weight: 800;
-      color: rgba(255, 255, 255, 0.9);
+      color: #065f46;
     }
 
     .session-sublabel {
       font-size: 15px;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.6);
+      color: #526659;
       margin-bottom: 22px;
       display: flex;
       align-items: center;
@@ -633,8 +636,9 @@
     .status-pill {
       display: inline-block;
       padding: 2px 8px;
-      background: rgba(255, 255, 255, 0.9);
-      color: #040906;
+      background: #fef08a;
+      color: #854d0e;
+      border: 1px solid rgba(234, 179, 8, 0.4);
       border-radius: 99px;
       font-size: 11px;
       font-weight: 900;
@@ -646,12 +650,13 @@
       line-height: 1.35;
       letter-spacing: -0.03em;
       margin-bottom: 6px;
+      color: #0c1a12;
     }
 
     .session-speaker {
       font-size: 16px;
       font-weight: 800;
-      color: rgba(255, 255, 255, 0.75);
+      color: #4a5d51;
       margin-bottom: 18px;
     }
 
@@ -667,14 +672,14 @@
       padding-left: 16px;
       font-size: 14px;
       line-height: 1.55;
-      color: rgba(255, 255, 255, 0.78);
+      color: #27382e;
     }
 
     .session-bullets li::before {
       content: "•";
       position: absolute;
       left: 2px;
-      color: rgba(255, 255, 255, 0.45);
+      color: #059669;
       font-size: 16px;
     }
 
@@ -691,7 +696,7 @@
       width: 8px;
       height: 8px;
       border-radius: 99px;
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(5, 150, 105, 0.25);
       cursor: pointer;
       transition: all 0.25s ease;
     }
@@ -699,15 +704,15 @@
     .dot.active {
       width: 24px;
       height: 8px;
-      background: #ffffff;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+      background: #059669;
+      box-shadow: 0 0 10px rgba(5, 150, 105, 0.4);
     }
 
     /* 하단 액션 버튼 (세션 질문하기) */
     .btn-participate {
       width: 100%;
       height: 56px;
-      background: #46464c;
+      background: linear-gradient(135deg, #059669, #10b981);
       color: #ffffff;
       border: none;
       border-radius: 16px;
@@ -718,11 +723,13 @@
       justify-content: center;
       gap: 6px;
       cursor: pointer;
-      transition: background 0.2s;
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.28);
+      transition: all 0.2s;
     }
 
     .btn-participate:hover {
-      background: #55555c;
+      background: linear-gradient(135deg, #047857, #059669);
+      box-shadow: 0 8px 24px rgba(5, 150, 105, 0.38);
     }
 
     /* -------------------------------------------------------------
@@ -731,22 +738,23 @@
     .session-qna-sheet {
       width: 100%;
       max-width: 430px;
-      background: #09160e;
-      border-top: 1px solid rgba(243, 196, 72, 0.25);
+      background: #ffffff;
+      border-top: 1px solid #dbe6dd;
       border-radius: 24px 24px 0 0;
       padding: 20px 20px 26px;
       position: relative;
       animation: slideUp 0.28s ease;
-      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+      color: #0c1a12;
     }
 
     .qna-session-badge {
       display: inline-block;
       font-size: 11px;
       font-weight: 850;
-      color: #f3c448;
-      background: rgba(243, 196, 72, 0.12);
-      border: 1px solid rgba(243, 196, 72, 0.25);
+      color: #065f46;
+      background: #ecfdf5;
+      border: 1px solid rgba(5, 150, 105, 0.25);
       padding: 3px 8px;
       border-radius: 99px;
       margin-bottom: 4px;
@@ -754,8 +762,8 @@
 
     .qna-input-box {
       margin: 14px 0 18px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: #f7faf8;
+      border: 1px solid #dbe6dd;
       border-radius: 16px;
       padding: 12px;
     }
@@ -765,7 +773,7 @@
       min-height: 84px;
       background: transparent;
       border: none;
-      color: #ffffff;
+      color: #0c1a12;
       font-size: 14px;
       font-family: inherit;
       line-height: 1.5;
@@ -774,7 +782,7 @@
     }
 
     .qna-textarea::placeholder {
-      color: rgba(255, 255, 255, 0.35);
+      color: #8c9e92;
     }
 
     .qna-meta-row {
@@ -782,12 +790,12 @@
       justify-content: space-between;
       align-items: center;
       padding-top: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid #e8f0ea;
     }
 
     .qna-user-tag {
       font-size: 12px;
-      color: rgba(255, 255, 255, 0.7);
+      color: #526659;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -795,7 +803,7 @@
 
     .qna-anon-label {
       font-size: 11.5px;
-      color: rgba(255, 255, 255, 0.55);
+      color: #526659;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -803,7 +811,7 @@
     }
 
     .btn-send-qna {
-      background: linear-gradient(135deg, #108548, #22c55e);
+      background: linear-gradient(135deg, #059669, #10b981);
       color: #fff;
       border: none;
       padding: 8px 18px;
@@ -811,6 +819,7 @@
       font-size: 13px;
       font-weight: 850;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
       transition: opacity 0.2s;
     }
 
@@ -830,9 +839,9 @@
       align-items: center;
       padding: 11px 0;
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: rgba(255, 255, 255, 0.9);
+      background: #f0f5f1;
+      border: 1px solid #cbdcd0;
+      color: #1e2e24;
       font-size: 12.5px;
       font-weight: 750;
       text-decoration: none;
@@ -840,21 +849,22 @@
     }
 
     .qna-link-btn.kakao {
-      background: rgba(254, 229, 0, 0.1);
-      border-color: rgba(254, 229, 0, 0.3);
-      color: #fee500;
+      background: #fefce8;
+      border-color: rgba(254, 229, 0, 0.4);
+      color: #78350f;
     }
 
     /* -------------------------------------------------------------
        모달: 행사장 안내 약도 (Campus Map)
     ------------------------------------------------------------- */
     .map-schematic-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #f7faf8;
+      border: 1px solid #dbe6dd;
       border-radius: 16px;
       padding: 16px;
       text-align: center;
       margin-bottom: 16px;
+      color: #0c1a12;
     }
 
     .map-locations-list {
@@ -868,8 +878,8 @@
       align-items: flex-start;
       gap: 12px;
       padding: 12px 14px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #ffffff;
+      border: 1px solid #dbe6dd;
       border-radius: 12px;
     }
 
@@ -883,14 +893,14 @@
       display: block;
       font-size: 14px;
       font-weight: 850;
-      color: #ffffff;
+      color: #0c1a12;
       margin-bottom: 3px;
     }
 
     .map-loc-content span {
       display: block;
       font-size: 12px;
-      color: rgba(255, 255, 255, 0.65);
+      color: #526659;
       line-height: 1.45;
     }
 
@@ -901,7 +911,7 @@
       position: fixed;
       inset: 0;
       z-index: 150;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(12, 26, 18, 0.55);
       backdrop-filter: blur(10px);
       display: none;
       flex-direction: column;
@@ -916,13 +926,15 @@
     }
 
     .timetable-sheet {
-      background: #0b140e;
-      border-top: 1px solid rgba(243, 196, 72, 0.25);
+      background: #ffffff;
+      border-top: 1px solid #dbe6dd;
       border-radius: 24px 24px 0 0;
       padding: 24px 20px 40px;
       max-height: 85vh;
       overflow-y: auto;
       animation: slideUp 0.25s ease;
+      color: #0c1a12;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
     }
 
     @keyframes slideUp {
@@ -940,15 +952,16 @@
     .timetable-header-row h3 {
       font-size: 20px;
       font-weight: 900;
+      color: #0c1a12;
     }
 
     .close-sheet-btn {
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: #25252a;
+      background: #e2ebe4;
       border: none;
-      color: #fff;
+      color: #0c1a12;
       font-size: 16px;
       cursor: pointer;
       display: flex;
@@ -958,13 +971,13 @@
 
     .tt-item {
       padding: 16px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid #e8f0ea;
     }
 
     .tt-time {
       font-size: 14px;
       font-weight: 900;
-      color: #f3c448;
+      color: #059669;
       margin-bottom: 4px;
     }
 
@@ -972,11 +985,12 @@
       font-size: 16px;
       font-weight: 850;
       margin-bottom: 2px;
+      color: #0c1a12;
     }
 
     .tt-speaker {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.6);
+      color: #64776b;
     }
 
     /* -------------------------------------------------------------
@@ -986,7 +1000,7 @@
       position: fixed;
       inset: 0;
       z-index: 120;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(12, 26, 18, 0.55);
       backdrop-filter: blur(8px);
       display: none;
       align-items: center;
@@ -1001,29 +1015,31 @@
     .mission-card {
       width: 100%;
       max-width: 380px;
-      background: #0b140e;
-      border: 1px solid rgba(243, 196, 72, 0.25);
+      background: #ffffff;
+      border: 1px solid #dbe6dd;
       border-radius: 20px;
       padding: 26px 22px 20px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      color: #0c1a12;
     }
 
     .mission-card h3 {
       font-size: 20px;
       font-weight: 900;
       margin-bottom: 6px;
+      color: #0c1a12;
     }
 
     .mission-card p.desc {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.65);
+      color: #526659;
       margin-bottom: 20px;
       line-height: 1.45;
     }
 
     .m-item {
-      background: #08100a;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #f7faf8;
+      border: 1px solid #dbe6dd;
       border-radius: 14px;
       padding: 14px 16px;
       margin-bottom: 10px;
@@ -1035,7 +1051,7 @@
     .m-num {
       font-size: 20px;
       font-weight: 900;
-      color: #f3c448;
+      color: #d97706;
     }
 
     .m-info {
@@ -1046,7 +1062,7 @@
       display: block;
       font-size: 10px;
       font-weight: 800;
-      color: rgba(255, 255, 255, 0.4);
+      color: #8c9e92;
       letter-spacing: 0.05em;
     }
 

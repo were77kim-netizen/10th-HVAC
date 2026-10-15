@@ -8,18 +8,18 @@
   <meta name="description" content="2026 HVAC Engineering Expert Seminar 세션별 인터랙티브 퀴즈 풀기 및 럭키드로우 경품 응모">
   <meta property="og:title" content="2026 HVAC Engineering Expert Seminar 퀴즈 챌린지">
   <meta property="og:description" content="각 세션 핵심 내용 퀴즈를 풀고 만찬 럭키드로우 경품에 도전하세요!">
-  <meta name="theme-color" content="#0b0407">
+  <meta name="theme-color" content="#f0fdf4">
 
   <style>
     :root {
-      --bg: #0b0407;
-      --burgundy: #831335;
-      --burgundy-bright: #a81c46;
-      --burgundy-glow: #e61f5c;
-      --red-light: #ff5366;
-      --card-bg: #14080e;
-      --card-border: rgba(255, 255, 255, 0.12);
-      --text-muted: rgba(255, 255, 255, 0.65);
+      --bg: #f5f8f5;
+      --burgundy: #059669;
+      --burgundy-bright: #10b981;
+      --burgundy-glow: #34d399;
+      --red-light: #d97706;
+      --card-bg: #ffffff;
+      --card-border: #dbe6dd;
+      --text-muted: #526659;
       --font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Noto Sans KR", "Malgun Gothic", sans-serif;
     }
 
@@ -32,7 +32,7 @@
 
     body {
       background-color: var(--bg);
-      color: #ffffff;
+      color: #112217;
       font-family: var(--font-family);
       min-height: 100vh;
       display: flex;
@@ -44,29 +44,18 @@
       padding-bottom: 60px;
     }
 
-    /* 시그니처 conic-gradient 배경 */
+    /* 시그니처 옐로우 & 그린 밝은 그라데이션 배경 */
     .bg-canvas {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      background: conic-gradient(
-        from 142.5deg at 50% 50%,
-        #080405 0deg,
-        #150409 20deg,
-        #490b1e 48deg,
-        #831335 78deg,
-        #9d163e 98deg,
-        #440919 140deg,
-        #080405 178deg,
-        #120408 190deg,
-        #360917 222deg,
-        #821334 260deg,
-        #9d163f 282deg,
-        #4f0c20 330deg,
-        #080405 360deg
-      );
-      opacity: 0.9;
+      background:
+        radial-gradient(circle at 82% 16%, rgba(251, 191, 36, 0.38), transparent 48%),
+        radial-gradient(circle at 10% 84%, rgba(52, 211, 153, 0.35), transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(254, 240, 138, 0.3), transparent 55%),
+        linear-gradient(135deg, #ecfdf5 0%, #fefce8 52%, #f0fdf4 100%);
+      opacity: 1;
     }
 
     .bg-overlay {
@@ -74,8 +63,8 @@
       inset: 0;
       pointer-events: none;
       z-index: 1;
-      background: radial-gradient(circle at 50% 10%, rgba(230, 31, 92, 0.15), transparent 70%),
-                  linear-gradient(180deg, rgba(8, 4, 5, 0.8) 0%, rgba(8, 4, 5, 0.95) 100%);
+      background: radial-gradient(circle at 50% 10%, rgba(5, 150, 105, 0.08), transparent 70%),
+                  linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(246, 249, 246, 0.85) 100%);
     }
 
     /* 상단 탑바 */
@@ -88,13 +77,14 @@
       width: 100%;
       max-width: 540px;
       padding: 14px 18px;
-      background: rgba(11, 4, 7, 0.88);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid #dbe6dd;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     }
 
     .nav-left {
@@ -104,9 +94,9 @@
     }
 
     .back-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #fff;
+      background: #f0f5f1;
+      border: 1px solid #cbdcd0;
+      color: #0c1a12;
       font-size: 16px;
       width: 36px;
       height: 36px;
@@ -120,23 +110,23 @@
     }
 
     .back-btn:hover {
-      background: rgba(255, 255, 255, 0.18);
+      background: #e2ede5;
     }
 
     .nav-title {
       font-size: 14px;
       font-weight: 800;
-      color: rgba(255, 255, 255, 0.9);
+      color: #0c1a12;
       letter-spacing: -0.02em;
     }
 
     .nav-right a {
       font-size: 12px;
       font-weight: 700;
-      color: var(--red-light);
+      color: #059669;
       text-decoration: none;
-      background: rgba(230, 31, 92, 0.12);
-      border: 1px solid rgba(230, 31, 92, 0.3);
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
       padding: 6px 12px;
       border-radius: 99px;
       display: inline-flex;
@@ -158,11 +148,11 @@
 
     /* 퀴즈 헤더 카드 */
     .quiz-hero-card {
-      background: linear-gradient(135deg, rgba(131, 19, 53, 0.4) 0%, rgba(20, 8, 14, 0.7) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 60%, #fefce8 100%);
+      border: 1px solid #d1fae5;
       border-radius: 20px;
       padding: 22px 20px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 25px rgba(5, 150, 105, 0.08);
     }
 
     .event-badge {
@@ -170,8 +160,9 @@
       font-size: 11px;
       font-weight: 900;
       letter-spacing: 0.08em;
-      color: #ff9aa5;
-      background: rgba(255, 255, 255, 0.08);
+      color: #059669;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
       padding: 4px 10px;
       border-radius: 99px;
       margin-bottom: 10px;
@@ -180,6 +171,7 @@
     .quiz-hero-title {
       font-size: 22px;
       font-weight: 900;
+      color: #0c1a12;
       line-height: 1.3;
       margin-bottom: 8px;
       letter-spacing: -0.02em;
@@ -187,20 +179,21 @@
 
     .quiz-hero-desc {
       font-size: 13px;
-      color: var(--text-muted);
+      color: #526659;
       line-height: 1.5;
       margin-bottom: 16px;
     }
 
     /* 스코어 보드 */
     .score-banner {
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #ffffff;
+      border: 1px solid #dbe6dd;
       border-radius: 14px;
       padding: 14px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
     .score-info {
@@ -212,25 +205,25 @@
     .score-label {
       font-size: 13px;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.75);
+      color: #526659;
     }
 
     .score-number {
       font-size: 26px;
       font-weight: 950;
-      color: var(--red-light);
+      color: #059669;
     }
 
     .score-total {
       font-size: 14px;
       font-weight: 800;
-      color: rgba(255, 255, 255, 0.5);
+      color: #8c9e93;
     }
 
     .progress-bar {
       width: 120px;
       height: 8px;
-      background: rgba(255, 255, 255, 0.12);
+      background: #e2ede5;
       border-radius: 99px;
       overflow: hidden;
       position: relative;
@@ -239,31 +232,30 @@
     .progress-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #831335, #ff5366);
+      background: linear-gradient(90deg, #10b981, #f59e0b);
       border-radius: 99px;
       transition: width 0.35s ease;
     }
 
     /* 퀴즈 문제 카드 */
     .quiz-card {
-      background: rgba(20, 8, 14, 0.85);
-      border: 1px solid var(--card-border);
+      background: #ffffff;
+      border: 1px solid #dbe6dd;
       border-radius: 20px;
       padding: 22px 20px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
       transition: all 0.25s ease;
       position: relative;
     }
 
     .quiz-card.answered-correct {
-      border-color: rgba(46, 204, 113, 0.6);
-      background: rgba(14, 28, 20, 0.85);
+      border-color: #10b981;
+      background: #f0fdf4;
     }
 
     .quiz-card.answered-wrong {
-      border-color: rgba(231, 76, 60, 0.6);
-      background: rgba(30, 12, 16, 0.85);
+      border-color: #f87171;
+      background: #fef2f2;
     }
 
     .quiz-header {
@@ -276,8 +268,9 @@
     .quiz-session-tag {
       font-size: 11px;
       font-weight: 800;
-      color: rgba(255, 255, 255, 0.7);
-      background: rgba(255, 255, 255, 0.08);
+      color: #059669;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
       padding: 4px 10px;
       border-radius: 99px;
       letter-spacing: -0.01em;
@@ -293,19 +286,20 @@
 
     .quiz-card.answered-correct .quiz-status-pill {
       display: inline-block;
-      background: rgba(46, 204, 113, 0.2);
-      color: #2ecc71;
+      background: #dcfce7;
+      color: #15803d;
     }
 
     .quiz-card.answered-wrong .quiz-status-pill {
       display: inline-block;
-      background: rgba(231, 76, 60, 0.2);
-      color: #ff5366;
+      background: #fee2e2;
+      color: #b91c1c;
     }
 
     .quiz-question {
       font-size: 16px;
       font-weight: 850;
+      color: #0c1a12;
       line-height: 1.45;
       margin-bottom: 16px;
       letter-spacing: -0.02em;
@@ -320,9 +314,9 @@
     .quiz-option-btn {
       width: 100%;
       text-align: left;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: rgba(255, 255, 255, 0.88);
+      background: #f8faf8;
+      border: 1px solid #cbdcd0;
+      color: #1e2e24;
       padding: 13px 14px;
       border-radius: 12px;
       font-size: 13.5px;
@@ -333,8 +327,9 @@
     }
 
     .quiz-option-btn:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.09);
-      border-color: rgba(255, 255, 255, 0.25);
+      background: #f0fdf4;
+      border-color: #10b981;
+      color: #065f46;
     }
 
     .quiz-option-btn:disabled {
@@ -343,17 +338,17 @@
     }
 
     .quiz-option-btn.selected-correct {
-      background: rgba(46, 204, 113, 0.2) !important;
-      border-color: #2ecc71 !important;
-      color: #ffffff !important;
+      background: #dcfce7 !important;
+      border-color: #10b981 !important;
+      color: #065f46 !important;
       font-weight: 850;
       opacity: 1 !important;
     }
 
     .quiz-option-btn.selected-wrong {
-      background: rgba(231, 76, 60, 0.2) !important;
-      border-color: #e74c3c !important;
-      color: #ff9aa5 !important;
+      background: #fee2e2 !important;
+      border-color: #ef4444 !important;
+      color: #991b1b !important;
       font-weight: 850;
       opacity: 1 !important;
     }
@@ -363,11 +358,11 @@
       display: none;
       margin-top: 14px;
       padding: 12px 14px;
-      background: rgba(0, 0, 0, 0.4);
-      border-left: 3px solid #ff5366;
+      background: #f8faf8;
+      border-left: 3px solid #059669;
       border-radius: 0 10px 10px 0;
       font-size: 12.5px;
-      color: rgba(255, 255, 255, 0.8);
+      color: #4b5563;
       line-height: 1.5;
       animation: fadeIn 0.3s ease;
     }
@@ -377,7 +372,7 @@
     }
 
     .quiz-explanation strong {
-      color: #ffffff;
+      color: #0c1a12;
       display: block;
       margin-bottom: 3px;
     }
@@ -389,12 +384,13 @@
 
     /* 경품 응모 & 설문 배너 */
     .lucky-draw-banner {
-      background: linear-gradient(135deg, rgba(230, 31, 92, 0.25) 0%, rgba(131, 19, 53, 0.35) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: linear-gradient(135deg, #059669 0%, #047857 50%, #d97706 100%);
+      border: 1px solid #10b981;
       border-radius: 20px;
       padding: 22px 20px;
       text-align: center;
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 10px 25px rgba(5, 150, 105, 0.25);
+      color: #ffffff;
     }
 
     .lucky-draw-banner h3 {
@@ -402,11 +398,12 @@
       font-weight: 900;
       margin-bottom: 8px;
       letter-spacing: -0.02em;
+      color: #ffffff;
     }
 
     .lucky-draw-banner p {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.9);
       line-height: 1.5;
       margin-bottom: 16px;
     }
@@ -415,19 +412,19 @@
       display: block;
       width: 100%;
       background: #ffffff;
-      color: #0b0407;
+      color: #065f46;
       text-decoration: none;
       font-size: 15px;
       font-weight: 900;
       padding: 15px 0;
       border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
       transition: all 0.2s;
     }
 
     .btn-submit-draw:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(255, 255, 255, 0.35);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
     }
 
     /* 하단 보조 링크 */
@@ -441,12 +438,12 @@
     .bottom-links a {
       font-size: 13px;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.55);
+      color: #6b7280;
       text-decoration: none;
     }
 
     .bottom-links a:hover {
-      color: #fff;
+      color: #059669;
     }
 
     /* 토스트 알림 */
@@ -455,12 +452,12 @@
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%) translateY(20px);
-      background: #1c0e15;
+      background: #0c1a12;
       color: #fff;
       padding: 11px 22px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      border: 1px solid #34d399;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
       font-size: 13.5px;
       font-weight: 800;
       opacity: 0;
