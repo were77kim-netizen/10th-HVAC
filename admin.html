@@ -1,0 +1,2955 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>운영 관리자 센터 - 2026 HVAC Engineering Expert Seminar</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#060d09">
+
+  <!-- Kakao JavaScript SDK -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #060d09;
+      --card-bg: #0d1a12;
+      --card-border: #1a3324;
+      --card-hover: #13261a;
+      --primary: #059669;
+      --primary-bright: #10b981;
+      --primary-glow: rgba(16, 185, 129, 0.25);
+      --gold: #d97706;
+      --gold-bright: #f59e0b;
+      --red: #ef4444;
+      --red-bright: #f87171;
+      --blue: #3b82f6;
+      --text: #eaf3ed;
+      --text-muted: #839d8d;
+      --font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-family);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      word-break: keep-all;
+    }
+
+    /* =========================================================
+       1. 보안 게이트웨이 (암호화 인증 락스크린)
+       ========================================================= */
+    #lockScreen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: radial-gradient(circle at 50% 20%, #0d2618 0%, #040906 80%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      transition: opacity 0.35s ease, visibility 0.35s;
+    }
+
+    #lockScreen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .lock-box {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(13, 26, 18, 0.95);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 20px;
+      padding: 36px 30px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 40px rgba(5, 150, 105, 0.15);
+      text-align: center;
+      position: relative;
+    }
+
+    .lock-icon-wrap {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, rgba(5, 150, 105, 0.3), rgba(217, 119, 6, 0.2));
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 0 24px rgba(16, 185, 129, 0.3);
+    }
+
+    .lock-title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    .lock-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .lock-input-group {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .lock-input {
+      width: 100%;
+      background: #060e08;
+      border: 1.5px solid #1a3826;
+      border-radius: 12px;
+      padding: 14px 44px 14px 16px;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .lock-input:focus {
+      border-color: var(--primary-bright);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .lock-toggle-pwd {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .lock-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.35);
+    }
+
+    .lock-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.45);
+    }
+
+    .lock-msg {
+      font-size: 12px;
+      margin-top: 14px;
+      min-height: 18px;
+      font-weight: 700;
+    }
+
+    .lock-msg.error {
+      color: var(--red-bright);
+      animation: shake 0.35s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .lock-footer-info {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* =========================================================
+       2. 상단 헤더 & 네비게이션
+       ========================================================= */
+    .admin-header {
+      background: rgba(13, 26, 18, 0.95);
+      border-bottom: 1px solid var(--card-border);
+      backdrop-filter: blur(14px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--primary) 100%);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-header {
+      background: #102117;
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-header:hover {
+      background: #173022;
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-header.danger {
+      color: var(--red-bright);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-header.danger:hover {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: var(--red);
+    }
+
+    /* 탭 바 */
+    .tab-nav {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .tab-btn {
+      padding: 13px 18px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: #fff;
+    }
+
+    .tab-btn.active {
+      color: var(--primary-bright);
+      border-bottom-color: var(--primary-bright);
+      background: linear-gradient(180deg, transparent 70%, rgba(16, 185, 129, 0.1) 100%);
+    }
+
+    .tab-count {
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2px 7px;
+      border-radius: 99px;
+      color: inherit;
+    }
+
+    .tab-btn.active .tab-count {
+      background: rgba(16, 185, 129, 0.25);
+      color: #fff;
+    }
+
+    /* =========================================================
+       3. 메인 레이아웃 & 공통 컴포넌트
+       ========================================================= */
+    .admin-main {
+      flex: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 통계 대시보드 그리드 */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--primary-bright);
+    }
+
+    .stat-icon.gold {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.3);
+      color: var(--gold-bright);
+    }
+
+    .stat-icon.red {
+      background: rgba(239, 68, 68, 0.12);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: var(--red-bright);
+    }
+
+    .stat-icon.blue {
+      background: rgba(59, 130, 246, 0.12);
+      border-color: rgba(59, 130, 246, 0.3);
+      color: #60a5fa;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 26px;
+      font-weight: 950;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .stat-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* 컨트롤 툴바 */
+    .toolbar {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      background: #060e08;
+      border: 1px solid var(--card-border);
+      border-radius: 99px;
+      padding: 9px 16px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+      min-width: 220px;
+      transition: all 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-glow);
+    }
+
+    .filter-select {
+      background: #060e08;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .btn-act {
+      background: #14281c;
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-act:hover {
+      background: #1c3626;
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-act.primary {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      border-color: #10b981;
+      color: #fff;
+    }
+
+    .btn-act.primary:hover {
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-act.danger {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: var(--red-bright);
+    }
+
+    .btn-act.danger:hover {
+      background: var(--red);
+      color: #fff;
+    }
+
+    /* =========================================================
+       4. 탭 1: Q&A 관리 카드 리스트
+       ========================================================= */
+    .qna-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .admin-qna-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .admin-qna-card:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: var(--card-hover);
+    }
+
+    .admin-qna-card.starred {
+      border-color: rgba(245, 158, 11, 0.6);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, var(--card-bg) 60%);
+    }
+
+    .admin-qna-card.answered {
+      opacity: 0.65;
+    }
+
+    .qna-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .qna-card-tags {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-session {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--primary-bright);
+    }
+
+    .badge-star {
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 99px;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--gold-bright);
+      display: none;
+    }
+
+    .admin-qna-card.starred .badge-star {
+      display: inline-block;
+    }
+
+    .badge-done {
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 99px;
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: #93c5fd;
+      display: none;
+    }
+
+    .admin-qna-card.answered .badge-done {
+      display: inline-block;
+    }
+
+    .qna-meta-info {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 12px;
+    }
+
+    .qna-content-text {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #ffffff;
+      margin-bottom: 16px;
+      white-space: pre-wrap;
+    }
+
+    .qna-card-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .qna-likes-display {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--gold-bright);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .qna-btn-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-card-sm {
+      background: #060e08;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 6px 11px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+
+    .btn-card-sm:hover {
+      background: #102117;
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .btn-card-sm.btn-star:hover,
+    .admin-qna-card.starred .btn-card-sm.btn-star {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: var(--gold-bright);
+      color: var(--gold-bright);
+    }
+
+    .btn-card-sm.btn-del:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: var(--red);
+      color: var(--red-bright);
+    }
+
+    /* =========================================================
+       5. 탭 2: 사회자(MC) 전용 뷰 (프레젠터/텔레프롬프터 모드)
+       ========================================================= */
+    .moderator-shell {
+      background: #030805;
+      border: 1px solid #1a3826;
+      border-radius: 20px;
+      padding: 26px;
+      min-height: 600px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    .moderator-shell.fullscreen {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      border-radius: 0;
+      overflow-y: auto;
+      padding: 40px min(5vw, 60px);
+    }
+
+    .mc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 18px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .mc-title-wrap h2 {
+      font-size: 24px;
+      font-weight: 950;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mc-title-wrap p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .mc-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* 타이머 위젯 */
+    .mc-timer-box {
+      background: #0a1710;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 12px;
+      padding: 6px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mc-timer-time {
+      font-size: 26px;
+      font-family: monospace;
+      font-weight: 950;
+      color: var(--gold-bright);
+    }
+
+    .mc-timer-time.urgent {
+      color: var(--red-bright);
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .btn-timer {
+      background: #173022;
+      border: none;
+      color: #fff;
+      padding: 5px 9px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .mc-cards-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .mc-q-card {
+      background: #09130d;
+      border: 2px solid #1a3324;
+      border-radius: 16px;
+      padding: 24px 26px;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .mc-q-card.vip {
+      border-color: var(--gold);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, #09130d 70%);
+      box-shadow: 0 8px 30px rgba(245, 158, 11, 0.15);
+    }
+
+    .mc-q-card.done {
+      opacity: 0.4;
+      border-color: #16241b;
+      text-decoration: line-through;
+    }
+
+    .mc-q-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .mc-q-badge {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--gold-bright);
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 4px 12px;
+      border-radius: 99px;
+    }
+
+    .mc-q-body {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.6;
+      color: #ffffff;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .moderator-shell.font-lg .mc-q-body {
+      font-size: 25px;
+    }
+
+    .moderator-shell.font-xl .mc-q-body {
+      font-size: 30px;
+    }
+
+    .mc-q-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .btn-mc-ask {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      border: none;
+      color: #fff;
+      padding: 9px 20px;
+      border-radius: 99px;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-mc-ask.done {
+      background: #2a3a30;
+      box-shadow: none;
+      color: #8fa597;
+    }
+
+    /* =========================================================
+       6. 탭 3: 출석 체크 모니터링 & 이상 인원 강퇴/삭제
+       ========================================================= */
+    .table-container {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow-x: auto;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13.5px;
+    }
+
+    .admin-table th {
+      background: #07120a;
+      padding: 14px 16px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--card-border);
+      white-space: nowrap;
+    }
+
+    .admin-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    .admin-table tr:hover {
+      background: rgba(16, 185, 129, 0.04);
+    }
+
+    .admin-table tr.row-mismatch {
+      background: rgba(245, 158, 11, 0.07);
+    }
+
+    .admin-table tr.row-blocked {
+      background: rgba(239, 68, 68, 0.07);
+      opacity: 0.6;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11.5px;
+      font-weight: 850;
+      padding: 3px 9px;
+      border-radius: 99px;
+    }
+
+    .status-pill.matched {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: var(--primary-bright);
+    }
+
+    .status-pill.mismatch {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--gold-bright);
+    }
+
+    .status-pill.unregistered {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: var(--red-bright);
+    }
+
+    .status-pill.blocked {
+      background: #2a1418;
+      border: 1px solid var(--red);
+      color: #ff9aa5;
+    }
+
+    .btn-tbl {
+      background: #060e08;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 5px 9px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-tbl:hover {
+      background: #162c1e;
+      color: #fff;
+    }
+
+    .btn-tbl.btn-kick {
+      color: var(--red-bright);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-tbl.btn-kick:hover {
+      background: var(--red);
+      color: #fff;
+    }
+
+    /* =========================================================
+       7. 탭 4: 카카오톡 세션 공지 멘트 전송 센터
+       ========================================================= */
+    .kakao-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .kakao-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .kakao-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .preset-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .preset-item {
+      background: #07120a;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .preset-item:hover,
+    .preset-item.active {
+      border-color: var(--primary-bright);
+      background: #102417;
+    }
+
+    .preset-title {
+      font-size: 14px;
+      font-weight: 850;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .preset-time {
+      font-size: 11px;
+      color: var(--gold-bright);
+    }
+
+    .preset-snippet {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* 카카오톡 프리뷰 & 에디터 */
+    .kakao-editor-box {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .kakao-textarea {
+      width: 100%;
+      height: 220px;
+      background: #060e08;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px;
+      color: #ffffff;
+      font-size: 14px;
+      font-family: var(--font-family);
+      line-height: 1.6;
+      resize: vertical;
+      outline: none;
+    }
+
+    .kakao-textarea:focus {
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+    }
+
+    .emoji-bar {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn-emoji {
+      background: #0c1a12;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .btn-emoji:hover {
+      background: #193323;
+    }
+
+    /* 카카오 말풍선 미리보기 */
+    .phone-preview-shell {
+      background: #b2c7d9;
+      border-radius: 16px;
+      padding: 16px 14px;
+      margin-top: 10px;
+      color: #000;
+    }
+
+    .chat-bubble {
+      background: #fee500;
+      border-radius: 12px;
+      padding: 12px 14px;
+      max-width: 90%;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #191919;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      white-space: pre-wrap;
+      position: relative;
+    }
+
+    .chat-bubble::before {
+      content: "";
+      position: absolute;
+      top: 12px;
+      left: -8px;
+      border-width: 4px 8px 4px 0;
+      border-style: solid;
+      border-color: transparent #fee500 transparent transparent;
+    }
+
+    .kakao-action-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-kakao-main {
+      flex: 1;
+      background: #fee500;
+      color: #191919;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(254, 229, 0, 0.3);
+    }
+
+    .btn-kakao-main:hover {
+      background: #ffd900;
+      transform: translateY(-1px);
+    }
+
+    /* =========================================================
+       8. 모달 & 토스트 알림
+       ========================================================= */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .modal-backdrop.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 520px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 26px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      background: #060e08;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+    }
+
+    .modal-foot {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* 토스트 알림 */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #0d2116;
+      border: 1px solid var(--primary);
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      font-size: 13.5px;
+      font-weight: 800;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 999999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       1. 보안 인증 락스크린 (SHA-256 인증)
+       ========================================================= -->
+  <div id="lockScreen">
+    <div class="lock-box">
+      <div class="lock-icon-wrap">🔒</div>
+      <h1 class="lock-title">세미나 운영 관리자 시스템</h1>
+      <p class="lock-desc">
+        2026 HVAC Engineering Expert Seminar<br>
+        관리자 권한 확인을 위해 패스워드를 입력해 주세요.
+      </p>
+
+      <form id="lockForm" onsubmit="handleAuthSubmit(event)">
+        <div class="lock-input-group">
+          <input
+            type="password"
+            id="adminPwdInput"
+            class="lock-input"
+            placeholder="관리자 암호 입력"
+            autocomplete="current-password"
+            required
+            autofocus
+          >
+          <button type="button" class="lock-toggle-pwd" id="btnTogglePwd" aria-label="비밀번호 보기">👁️</button>
+        </div>
+
+        <button type="submit" class="lock-btn">
+          시스템 로그인 ➔
+        </button>
+        <div id="lockMsg" class="lock-msg"></div>
+      </form>
+
+      <div class="lock-footer-info">
+        🛡️ SHA-256 단방향 암호화 인증 (기본 암호: <code>eng10</code>)<br>
+        일반 참가자 페이지는 비밀번호 없이 접속 가능합니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       2. 관리자 메인 헤더
+       ========================================================= -->
+  <header class="admin-header">
+    <div class="header-inner">
+      <div class="brand-wrap">
+        <span class="brand-badge">ADMIN CONSOLE</span>
+        <div>
+          <div class="brand-title">2026 HVAC Expert Seminar 운영실</div>
+          <div class="brand-subtitle">실시간 현장 세션·출석·Q&A 제어 시스템</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a class="btn-header" href="./index.html" target="_blank">🏠 메인 페이지 ↗</a>
+        <a class="btn-header" href="./checkin.html" target="_blank">📱 체크인 ↗</a>
+        <a class="btn-header" href="./qna.html" target="_blank">💬 Q&A 피드 ↗</a>
+        <button class="btn-header" onclick="openPwdChangeModal()">🔑 암호 변경</button>
+        <button class="btn-header danger" onclick="handleLogout()">⏻ 로그아웃</button>
+      </div>
+    </div>
+
+    <!-- 탭 네비게이션 -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="tabQna" onclick="switchTab('tabQna')">
+        💬 세션 Q&A 관리 <span class="tab-count" id="countBadgeQna">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tabMc" onclick="switchTab('tabMc')">
+        🎤 사회자(MC) 전용 뷰 <span class="tab-count" id="countBadgeMc">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tabCheckin" onclick="switchTab('tabCheckin')">
+        👥 출석 & 이상인원 검증 <span class="tab-count" id="countBadgeCheckin">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tabKakao" onclick="switchTab('tabKakao')">
+        📢 카카오톡 공지 센터
+      </button>
+    </nav>
+  </header>
+
+  <!-- =========================================================
+       3. 메인 작업 영역
+       ========================================================= -->
+  <main class="admin-main">
+
+    <!-- -----------------------------------------------------
+         [TAB 1] 세션별 Q&A 사항 모아보기 / 수정 / 삭제
+         ----------------------------------------------------- -->
+    <section id="tabQna" class="tab-panel active">
+      <!-- 상단 요약 지표 -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">💬</div>
+          <div>
+            <div class="stat-label">전체 등록 질문</div>
+            <div class="stat-value" id="statTotalQna">0</div>
+            <div class="stat-sub">실시간 누적 질의</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon gold">⭐</div>
+          <div>
+            <div class="stat-label">사회자 채택 질문</div>
+            <div class="stat-value" id="statStarredQna">0</div>
+            <div class="stat-sub">무대 질문 후보</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue">✔️</div>
+          <div>
+            <div class="stat-label">답변 완료 처리</div>
+            <div class="stat-value" id="statDoneQna">0</div>
+            <div class="stat-sub">진행 완료된 질의</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon red">👍</div>
+          <div>
+            <div class="stat-label">총 청중 공감수</div>
+            <div class="stat-value" id="statTotalLikes">0</div>
+            <div class="stat-sub">좋아요 반응 총합</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q&A 툴바 -->
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <input
+            type="text"
+            id="qnaSearchInput"
+            class="search-input"
+            placeholder="작성자 또는 질문 검색..."
+            oninput="renderQnaList()"
+          >
+          <select id="qnaSessionFilter" class="filter-select" onchange="renderQnaList()">
+            <option value="all">전체 세션 보기</option>
+            <option value="k1">Keynote 1 · 주거난방</option>
+            <option value="k2">Keynote 2 · 액체냉각</option>
+            <option value="k3">Keynote 3 · AIDC 전력망</option>
+            <option value="i1">Insight 1 · 히트펌프</option>
+            <option value="i2">Insight 2 · 에너지컨설팅</option>
+            <option value="sl">Special · 과학인문학</option>
+          </select>
+
+          <select id="qnaSortFilter" class="filter-select" onchange="renderQnaList()">
+            <option value="likes">👍 공감순 (많은 순)</option>
+            <option value="newest">🕒 시간순 (최신순)</option>
+            <option value="oldest">⏳ 시간순 (등록순)</option>
+          </select>
+
+          <select id="qnaStatusFilter" class="filter-select" onchange="renderQnaList()">
+            <option value="all">전체 상태</option>
+            <option value="starred">⭐ 채택된 질문만</option>
+            <option value="pending">⏳ 답변 대기 질문만</option>
+            <option value="done">✔️ 답변 완료 질문만</option>
+          </select>
+        </div>
+
+        <div class="toolbar-right">
+          <button class="btn-act primary" onclick="openAddQnaModal()">+ 현장 질문 대리 등록</button>
+          <button class="btn-act" onclick="exportQnaCsv()">📥 CSV 내보내기</button>
+          <button class="btn-act" onclick="exportQnaJson()">💾 JSON 백업</button>
+        </div>
+      </div>
+
+      <!-- 질문 카드 피드 목록 -->
+      <div id="qnaCardGrid" class="qna-grid">
+        <!-- JS 동적 렌더링 -->
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------
+         [TAB 2] 사회자(MC) 전용 뷰 (사회자 진행용 대형 화면)
+         ----------------------------------------------------- -->
+    <section id="tabMc" class="tab-panel">
+      <div class="moderator-shell" id="mcShell">
+        <div class="mc-header">
+          <div class="mc-title-wrap">
+            <h2>🎤 사회자(MC) 질의응답 진행 화면</h2>
+            <p>무대나 포디움에서 사회자가 질문을 읽고 즉시 질의응답을 진행할 수 있는 고가독성 뷰입니다.</p>
+          </div>
+
+          <div class="mc-controls">
+            <!-- 질의응답 타이머 -->
+            <div class="mc-timer-box">
+              <span style="font-size: 11.5px; font-weight: 800; color: var(--text-muted);">Q&A 타이머</span>
+              <span id="mcTimerDisplay" class="mc-timer-time">05:00</span>
+              <button class="btn-timer" onclick="startTimer(180)">3분</button>
+              <button class="btn-timer" onclick="startTimer(300)">5분</button>
+              <button class="btn-timer" onclick="toggleTimer()" id="btnTimerToggle">시작</button>
+              <button class="btn-timer" onclick="resetTimer()">리셋</button>
+            </div>
+
+            <!-- 글자 크기 조정 -->
+            <button class="btn-act" onclick="changeFontSize('sm')">A-</button>
+            <button class="btn-act" onclick="changeFontSize('md')">A</button>
+            <button class="btn-act" onclick="changeFontSize('lg')">A+</button>
+            <button class="btn-act primary" onclick="toggleFullScreen()">🖥️ 전체화면</button>
+          </div>
+        </div>
+
+        <!-- 세션 탭 필터 (사회자용) -->
+        <div style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 6px;">
+          <button class="btn-tbl active" id="mcTabAll" onclick="filterMcSession('all')">전체 세션</button>
+          <button class="btn-tbl" id="mcTabK1" onclick="filterMcSession('k1')">Keynote 1 주거난방</button>
+          <button class="btn-tbl" id="mcTabK2" onclick="filterMcSession('k2')">Keynote 2 액체냉각</button>
+          <button class="btn-tbl" id="mcTabK3" onclick="filterMcSession('k3')">Keynote 3 전력망</button>
+          <button class="btn-tbl" id="mcTabI1" onclick="filterMcSession('i1')">Insight 1 히트펌프</button>
+          <button class="btn-tbl" id="mcTabI2" onclick="filterMcSession('i2')">Insight 2 에너지</button>
+        </div>
+
+        <!-- 사회자 카드 목록 -->
+        <div id="mcCardsGrid" class="mc-cards-grid">
+          <!-- JS 동적 렌더링 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------
+         [TAB 3] 출석 체크 인원 모니터링 & 이상 인원 관리
+         ----------------------------------------------------- -->
+    <section id="tabCheckin" class="tab-panel">
+      <!-- 출석 통계 지표 -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div>
+            <div class="stat-label">총 출석 체크 인원</div>
+            <div class="stat-value" id="statTotalCheckin">0</div>
+            <div class="stat-sub">현재 접속 등록자</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🟢</div>
+          <div>
+            <div class="stat-label">정상 매칭 인원</div>
+            <div class="stat-value" id="statMatchedCheckin">0</div>
+            <div class="stat-sub">사전 등록 명부 일치</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon gold">⚠️</div>
+          <div>
+            <div class="stat-label">불일치/이상 의심</div>
+            <div class="stat-value" id="statMismatchCheckin">0</div>
+            <div class="stat-sub">이름/ID 오타 또는 미등록</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon red">🚫</div>
+          <div>
+            <div class="stat-label">강퇴 및 차단 계정</div>
+            <div class="stat-value" id="statBlockedCheckin">0</div>
+            <div class="stat-sub">블랙리스트 격리</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 출석부 툴바 -->
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <input
+            type="text"
+            id="checkinSearchInput"
+            class="search-input"
+            placeholder="이름 또는 이메일 검색..."
+            oninput="renderCheckinTable()"
+          >
+          <select id="checkinFilterSelect" class="filter-select" onchange="renderCheckinTable()">
+            <option value="all">전체 인원 보기</option>
+            <option value="mismatch">⚠️ 이상/불일치 인원만 보기</option>
+            <option value="matched">🟢 정상 매칭 인원만 보기</option>
+            <option value="blocked">🚫 강퇴/차단 인원만 보기</option>
+          </select>
+        </div>
+
+        <div class="toolbar-right">
+          <button class="btn-act primary" onclick="openAddCheckinModal()">+ 수동 출석자 추가</button>
+          <button class="btn-act" onclick="openRosterModal()">📋 사전 등록 명부 관리</button>
+          <button class="btn-act" onclick="exportCheckinCsv()">📥 출석부 CSV 다운로드</button>
+          <button class="btn-act danger" onclick="purgeMismatchedUsers()">⚠️ 이상 인원 일괄 정리</button>
+        </div>
+      </div>
+
+      <!-- 출석자 테이블 -->
+      <div class="table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">No</th>
+              <th style="width: 130px;">상태</th>
+              <th style="width: 120px;">한글 성명</th>
+              <th>이메일 아이디</th>
+              <th>사전 명부 대조 정보</th>
+              <th style="width: 110px;">체크인 시간</th>
+              <th style="width: 170px; text-align: center;">관리 액션</th>
+            </tr>
+          </thead>
+          <tbody id="checkinTableBody">
+            <!-- JS 동적 렌더링 -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------
+         [TAB 4] 각 세션별 카카오톡 채널 안내 멘트 발송 센터
+         ----------------------------------------------------- -->
+    <section id="tabKakao" class="tab-panel">
+      <!-- 카카오 안내 헤더 -->
+      <div style="background: rgba(254, 229, 0, 0.08); border: 1px solid rgba(254, 229, 0, 0.25); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 24px;">
+        <h3 style="color: #ffd900; font-size: 16px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+          💬 카카오톡 공식 채널 실시간 세션 공지 센터
+        </h3>
+        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+          각 세션 종료 및 주요 시점마다 청중들에게 전달할 표준 멘트를 원클릭으로 카카오 채널 관리자센터로 복사·전송하거나, 카카오톡 메시지 공유 API를 통해 운영진 단체방에 전달할 수 있습니다.
+        </p>
+      </div>
+
+      <div class="kakao-grid">
+        <!-- 좌측: 세션별 프리셋 멘트 라이브러리 -->
+        <div class="kakao-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="font-size: 15px; font-weight: 900; color: #ffffff;">📋 세션별 공지 멘트 라이브러리</h4>
+            <span style="font-size: 11.5px; color: var(--text-muted);">클릭 시 즉시 적용</span>
+          </div>
+
+          <div class="preset-list" id="presetList">
+            <!-- JS 동적 렌더링 -->
+          </div>
+        </div>
+
+        <!-- 우측: 멘트 편집기 & 실시간 스마트폰 카카오톡 프리뷰 -->
+        <div class="kakao-panel">
+          <div class="kakao-editor-box">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h4 style="font-size: 15px; font-weight: 900; color: #ffffff;">✍️ 공지 멘트 편집 & 미리보기</h4>
+              <span id="charCount" style="font-size: 12px; color: var(--text-muted);">0자</span>
+            </div>
+
+            <!-- 이모지 빠른 삽입 -->
+            <div class="emoji-bar">
+              <button class="btn-emoji" onclick="insertEmoji('💬')">💬</button>
+              <button class="btn-emoji" onclick="insertEmoji('💡')">💡</button>
+              <button class="btn-emoji" onclick="insertEmoji('📱')">📱</button>
+              <button class="btn-emoji" onclick="insertEmoji('🍽️')">🍽️</button>
+              <button class="btn-emoji" onclick="insertEmoji('🏆')">🏆</button>
+              <button class="btn-emoji" onclick="insertEmoji('📍')">📍</button>
+              <button class="btn-emoji" onclick="insertEmoji('⏰')">⏰</button>
+              <button class="btn-emoji" onclick="insertEmoji('✨')">✨</button>
+              <button class="btn-emoji" onclick="insertEmoji('📢')">📢</button>
+              <button class="btn-emoji" onclick="insertEmoji('👉')">👉</button>
+            </div>
+
+            <textarea
+              id="kakaoMsgText"
+              class="kakao-textarea"
+              placeholder="카카오톡 채널에 발송할 멘트를 입력하세요..."
+              oninput="updateKakaoPreview()"
+            ></textarea>
+
+            <!-- 스마트폰 카카오톡 프리뷰 -->
+            <div class="phone-preview-shell">
+              <div style="font-size: 11px; font-weight: 800; color: #475569; margin-bottom: 8px;">
+                💬 카카오톡 채널 수신 화면 미리보기
+              </div>
+              <div class="chat-bubble" id="kakaoPreviewBubble">
+                멘트를 선택하거나 입력해 주세요.
+              </div>
+            </div>
+
+            <!-- 전송 & 복사 액션 버튼 -->
+            <div class="kakao-action-row">
+              <button class="btn-kakao-main" onclick="copyAndOpenKakaoCenter()">
+                🚀 멘트 복사 & 카카오 관리자센터 열기
+              </button>
+              <button class="btn-act" onclick="shareViaKakaoLink()">
+                📱 카톡 메시지 공유
+              </button>
+              <button class="btn-act" onclick="copyMsgOnly()">
+                📋 텍스트 복사
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       모달 다이얼로그 모음
+       ========================================================= -->
+
+  <!-- 1. 질문 수정 모달 -->
+  <div class="modal-backdrop" id="modalEditQna">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 class="modal-title">✏️ Q&A 질문 수정</h3>
+        <button class="modal-close" onclick="closeModal('modalEditQna')">&times;</button>
+      </div>
+      <form onsubmit="handleSaveQnaEdit(event)">
+        <div class="modal-body">
+          <input type="hidden" id="editQnaId">
+          <div class="form-group">
+            <label>세션 선택</label>
+            <select id="editQnaSession" class="form-control">
+              <option value="k1">Keynote 1 · 주거난방</option>
+              <option value="k2">Keynote 2 · 액체냉각</option>
+              <option value="k3">Keynote 3 · AIDC 전력망</option>
+              <option value="i1">Insight 1 · 히트펌프</option>
+              <option value="i2">Insight 2 · 에너지컨설팅</option>
+              <option value="sl">Special · 과학인문학</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>작성자</label>
+            <input type="text" id="editQnaAuthor" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>질문 내용</label>
+            <textarea id="editQnaContent" class="form-control" rows="5" required></textarea>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn-act" onclick="closeModal('modalEditQna')">취소</button>
+          <button type="submit" class="btn-act primary">저장 완료</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. 현장 질문 신규 대리 등록 모달 -->
+  <div class="modal-backdrop" id="modalAddQna">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 class="modal-title">+ 현장 질문 대리 등록</h3>
+        <button class="modal-close" onclick="closeModal('modalAddQna')">&times;</button>
+      </div>
+      <form onsubmit="handleAddQnaSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>세션 선택</label>
+            <select id="addQnaSession" class="form-control">
+              <option value="k1">Keynote 1 · 주거난방 (여명석 교수)</option>
+              <option value="k2">Keynote 2 · 액체냉각 (정성호 교수)</option>
+              <option value="k3">Keynote 3 · AIDC 전력망 (박상민 교수)</option>
+              <option value="i1">Insight 1 · 차세대 히트펌프 (LG전자)</option>
+              <option value="i2">Insight 2 · 빌딩 에너지컨설팅 (LG전자)</option>
+              <option value="sl">Special · 과학인문학 (이독실 작가)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>작성자명 (또는 '현장 질문')</label>
+            <input type="text" id="addQnaAuthor" class="form-control" value="현장 질문(오프라인)" required>
+          </div>
+          <div class="form-group">
+            <label>질문 내용</label>
+            <textarea id="addQnaContent" class="form-control" rows="4" placeholder="질문 내용을 입력하세요..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn-act" onclick="closeModal('modalAddQna')">취소</button>
+          <button type="submit" class="btn-act primary">등록하기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. 출석자 정보 수정 모달 -->
+  <div class="modal-backdrop" id="modalEditCheckin">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 class="modal-title">✏️ 출석자 정보 수정</h3>
+        <button class="modal-close" onclick="closeModal('modalEditCheckin')">&times;</button>
+      </div>
+      <form onsubmit="handleSaveCheckinEdit(event)">
+        <div class="modal-body">
+          <input type="hidden" id="editCheckinIndex">
+          <div class="form-group">
+            <label>한글 성명</label>
+            <input type="text" id="editCheckinName" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>이메일 아이디</label>
+            <input type="text" id="editCheckinEmail" class="form-control" required>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn-act" onclick="closeModal('modalEditCheckin')">취소</button>
+          <button type="submit" class="btn-act primary">수정 저장</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. 수동 출석자 추가 모달 -->
+  <div class="modal-backdrop" id="modalAddCheckin">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 class="modal-title">+ 수동 출석자 등록</h3>
+        <button class="modal-close" onclick="closeModal('modalAddCheckin')">&times;</button>
+      </div>
+      <form onsubmit="handleAddCheckinSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>한글 성명</label>
+            <input type="text" id="addCheckinName" class="form-control" placeholder="예: 홍길동" required>
+          </div>
+          <div class="form-group">
+            <label>이메일 아이디</label>
+            <input type="text" id="addCheckinEmail" class="form-control" placeholder="예: gildong.hong" required>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn-act" onclick="closeModal('modalAddCheckin')">취소</button>
+          <button type="submit" class="btn-act primary">출석 등록</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. 사전 등록 명부(Roster) 관리 모달 -->
+  <div class="modal-backdrop" id="modalRoster">
+    <div class="modal-box" style="max-width: 640px;">
+      <div class="modal-head">
+        <h3 class="modal-title">📋 사전 등록자 명부 (Master Roster)</h3>
+        <button class="modal-close" onclick="closeModal('modalRoster')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+          출석 체크 시 자동 매칭을 진행할 사전 등록 명부입니다. 한 줄에 <strong>이메일ID, 이름</strong> 형식으로 입력하세요.
+        </p>
+        <textarea id="rosterTextInput" class="form-control" rows="10" style="font-family: monospace; font-size: 13px;"></textarea>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn-act" onclick="resetDefaultRoster()">기본 명부로 복원</button>
+        <button type="button" class="btn-act" onclick="closeModal('modalRoster')">닫기</button>
+        <button type="button" class="btn-act primary" onclick="saveRosterList()">명부 저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 관리자 암호 변경 모달 -->
+  <div class="modal-backdrop" id="modalPwdChange">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 class="modal-title">🔑 관리자 비밀번호 변경</h3>
+        <button class="modal-close" onclick="closeModal('modalPwdChange')">&times;</button>
+      </div>
+      <form onsubmit="handlePwdChangeSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>현재 비밀번호</label>
+            <input type="password" id="pwdCurrent" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>새 비밀번호 (4자 이상)</label>
+            <input type="password" id="pwdNew" class="form-control" required minlength="4">
+          </div>
+          <div class="form-group">
+            <label>새 비밀번호 확인</label>
+            <input type="password" id="pwdNewConfirm" class="form-control" required minlength="4">
+          </div>
+          <div id="pwdChangeMsg" style="font-size: 12px; font-weight: 700;"></div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn-act" onclick="closeModal('modalPwdChange')">취소</button>
+          <button type="submit" class="btn-act primary">비밀번호 변경</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 토스트 알림 컴포넌트 -->
+  <div id="toast" class="toast"></div>
+
+  <!-- =========================================================
+       9. 핵심 자바스크립트 로직
+       ========================================================= -->
+  <script>
+    // =========================================================
+    // 0. 보안 인증 & SHA-256 해시 엔진
+    // =========================================================
+    // "eng10"의 SHA-256 해시값:
+    // 4140f65e67e83230b73d00e204969fd4ed1b04b9b3baab565fa450062d693681
+    const DEFAULT_PWD_HASH = '4140f65e67e83230b73d00e204969fd4ed1b04b9b3baab565fa450062d693681';
+
+    async function sha256(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function checkAuth() {
+      const isAuth = sessionStorage.getItem('hvac_admin_auth') === 'true';
+      const lockScreen = document.getElementById('lockScreen');
+      if (isAuth) {
+        lockScreen.classList.add('hidden');
+        initDashboard();
+      } else {
+        lockScreen.classList.remove('hidden');
+        document.getElementById('adminPwdInput').focus();
+      }
+    }
+
+    async function handleAuthSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('adminPwdInput').value.trim();
+      const msgEl = document.getElementById('lockMsg');
+      msgEl.textContent = '';
+      msgEl.className = 'lock-msg';
+
+      const hashed = await sha256(input);
+      const savedHash = localStorage.getItem('hvac_admin_password_hash') || DEFAULT_PWD_HASH;
+
+      if (hashed === savedHash) {
+        sessionStorage.setItem('hvac_admin_auth', 'true');
+        document.getElementById('lockScreen').classList.add('hidden');
+        showToast('🔓 관리자 인증 성공! 환영합니다.');
+        initDashboard();
+      } else {
+        msgEl.className = 'lock-msg error';
+        msgEl.textContent = '❌ 비밀번호가 올바르지 않습니다. 다시 입력해 주세요.';
+        document.getElementById('adminPwdInput').value = '';
+        document.getElementById('adminPwdInput').focus();
+      }
+    }
+
+    function handleLogout() {
+      if (confirm('운영 관리자 세션을 종료하시겠습니까?')) {
+        sessionStorage.removeItem('hvac_admin_auth');
+        location.reload();
+      }
+    }
+
+    // 비밀번호 보기/숨기기 토글
+    document.getElementById('btnTogglePwd').addEventListener('click', () => {
+      const input = document.getElementById('adminPwdInput');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    });
+
+    // =========================================================
+    // 1. 사전 등록 명부 (Master Roster)
+    // =========================================================
+    const DEFAULT_ROSTER = [
+      { email: 'youngsoo.lee', name: '이영수' },
+      { email: 'myeongseok.yeo', name: '여명석' },
+      { email: 'sungho.jeong', name: '정성호' },
+      { email: 'sangmin.park', name: '박상민' },
+      { email: 'cheolsoo.kim', name: '김철수' },
+      { email: 'minji.park', name: '박민지' },
+      { email: 'hyunjin.lee', name: '이현진' },
+      { email: 'doksill.lee', name: '이독실' },
+      { email: 'hvac.admin', name: '세미나운영진' }
+    ];
+
+    function getRoster() {
+      try {
+        const saved = localStorage.getItem('hvac_roster_list');
+        return saved ? JSON.parse(saved) : DEFAULT_ROSTER;
+      } catch (e) {
+        return DEFAULT_ROSTER;
+      }
+    }
+
+    // =========================================================
+    // 2. 초기화 & 전역 상태
+    // =========================================================
+    let qnaList = [];
+    let checkinList = [];
+    let blockedUsers = [];
+    let activeTab = 'tabQna';
+    let mcFilter = 'all';
+
+    // 세션 명칭 매핑
+    const sessionLabels = {
+      'all': '공통 질의',
+      'k1': 'Keynote 1 · 주거난방 (여명석 교수)',
+      'k2': 'Keynote 2 · 액체냉각 (정성호 교수)',
+      'k3': 'Keynote 3 · AIDC 전력망 (박상민 교수)',
+      'i1': 'Insight 1 · 차세대 히트펌프 (LG전자)',
+      'i2': 'Insight 2 · 빌딩 에너지컨설팅 (LG전자)',
+      'sl': 'Special · 과학인문학 (이독실 작가)'
+    };
+
+    function initDashboard() {
+      loadData();
+      renderQnaList();
+      renderMcCards();
+      renderCheckinTable();
+      initKakaoPresets();
+      updateAllStats();
+    }
+
+    function loadData() {
+      // 1) Q&A 질문 목록 로드
+      try {
+        const qSaved = localStorage.getItem('hvac_qna_list');
+        qnaList = qSaved ? JSON.parse(qSaved) : [];
+      } catch (e) { qnaList = []; }
+
+      // 기본 질문이 없을 경우 샘플 시딩
+      if (qnaList.length === 0) {
+        qnaList = [
+          {
+            id: 1,
+            session: 'k1',
+            sessionName: 'Keynote 1 · 주거난방',
+            author: '이영수',
+            content: '개별난방 대비 지역난방 공동주택의 공기열원 히트펌프 적용 시 동파 방지 배관 설계 기준이 궁금합니다.',
+            time: '오전 09:35',
+            likes: 15,
+            isStarred: true,
+            isAnswered: false
+          },
+          {
+            id: 2,
+            session: 'k2',
+            sessionName: 'Keynote 2 · 액체냉각',
+            author: '김철수',
+            content: '기설 데이터센터의 공랭식을 액체냉각(CDU)으로 개보수할 때 층고 및 바닥 하중 기준은 어떻게 되나요?',
+            time: '오전 10:45',
+            likes: 12,
+            isStarred: true,
+            isAnswered: false
+          },
+          {
+            id: 3,
+            session: 'k3',
+            sessionName: 'Keynote 3 · AIDC 전력망',
+            author: '박민지',
+            content: 'AIDC 피크 전력 수요 대응을 위해 마이크로그리드 BESS와 히트펌프 칠러 연계 시 응답속도는 어느 정도 필요한가요?',
+            time: '오후 01:20',
+            likes: 8,
+            isStarred: false,
+            isAnswered: false
+          }
+        ];
+        saveQna();
+      }
+
+      // 2) 출석자 목록 로드
+      try {
+        const cSaved = localStorage.getItem('hvac_checkin_list');
+        checkinList = cSaved ? JSON.parse(cSaved) : [];
+      } catch (e) { checkinList = []; }
+
+      // 출석자가 비어있으면 초기 시딩
+      if (checkinList.length === 0) {
+        checkinList = [
+          { name: '이영수', email: 'youngsoo.lee', checkinTime: '오전 08:42', date: '2026-11-16' },
+          { name: '여명석', email: 'myeongseok.yeo', checkinTime: '오전 08:50', date: '2026-11-16' },
+          { name: '정성호', email: 'sungho.jeong', checkinTime: '오전 08:55', date: '2026-11-16' },
+          { name: '박상민', email: 'sangmin.park', checkinTime: '오전 09:02', date: '2026-11-16' },
+          { name: '김철수', email: 'cheolsoo.kim', checkinTime: '오전 09:10', date: '2026-11-16' },
+          { name: '김철수', email: 'unknown_guest99@gmail.com', checkinTime: '오전 09:12', date: '2026-11-16' }, // 미등록 의심
+          { name: '오타입력자', email: 'minji.park', checkinTime: '오전 09:15', date: '2026-11-16' } // 이름 불일치 의심
+        ];
+        saveCheckin();
+      }
+
+      // 3) 차단된 블랙리스트 로드
+      try {
+        const bSaved = localStorage.getItem('hvac_blocked_users');
+        blockedUsers = bSaved ? JSON.parse(bSaved) : [];
+      } catch (e) { blockedUsers = []; }
+    }
+
+    function saveQna() {
+      try { localStorage.setItem('hvac_qna_list', JSON.stringify(qnaList)); } catch (e) {}
+    }
+
+    function saveCheckin() {
+      try { localStorage.setItem('hvac_checkin_list', JSON.stringify(checkinList)); } catch (e) {}
+    }
+
+    function saveBlocked() {
+      try { localStorage.setItem('hvac_blocked_users', JSON.stringify(blockedUsers)); } catch (e) {}
+    }
+
+    // =========================================================
+    // 3. 탭 전환
+    // =========================================================
+    function switchTab(tabId) {
+      activeTab = tabId;
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+      });
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.toggle('active', panel.id === tabId);
+      });
+      if (tabId === 'tabMc') renderMcCards();
+    }
+
+    // =========================================================
+    // 4. [TAB 1] Q&A 질문 관리
+    // =========================================================
+    function renderQnaList() {
+      const container = document.getElementById('qnaCardGrid');
+      const search = document.getElementById('qnaSearchInput').value.trim().toLowerCase();
+      const session = document.getElementById('qnaSessionFilter').value;
+      const sort = document.getElementById('qnaSortFilter').value;
+      const status = document.getElementById('qnaStatusFilter').value;
+
+      let filtered = qnaList.filter(q => {
+        // 검색 필터
+        if (search) {
+          const matchAuthor = (q.author || '').toLowerCase().includes(search);
+          const matchContent = (q.content || '').toLowerCase().includes(search);
+          if (!matchAuthor && !matchContent) return false;
+        }
+        // 세션 필터
+        if (session !== 'all' && q.session !== session) return false;
+        // 상태 필터
+        if (status === 'starred' && !q.isStarred) return false;
+        if (status === 'pending' && q.isAnswered) return false;
+        if (status === 'done' && !q.isAnswered) return false;
+        return true;
+      });
+
+      // 정렬
+      if (sort === 'likes') {
+        filtered.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+      } else if (sort === 'newest') {
+        filtered.sort((a, b) => b.id - a.id);
+      } else if (sort === 'oldest') {
+        filtered.sort((a, b) => a.id - b.id);
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 60px 20px; background: var(--card-bg); border-radius: var(--radius); border: 1px dashed var(--card-border);">
+            <div style="font-size: 36px; margin-bottom: 10px;">🔍</div>
+            <div style="font-size: 16px; font-weight: 800; color: #fff;">일치하는 질문이 없습니다.</div>
+            <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">검색어 또는 필터 조건을 변경해 보세요.</div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(q => `
+        <article class="admin-qna-card ${q.isStarred ? 'starred' : ''} ${q.isAnswered ? 'answered' : ''}" id="card-${q.id}">
+          <div class="qna-card-head">
+            <div class="qna-card-tags">
+              <span class="badge-session">${q.sessionName || sessionLabels[q.session] || '세미나 질의'}</span>
+              <span class="badge-star">⭐ 사회자 채택</span>
+              <span class="badge-done">✔️ 답변 완료</span>
+            </div>
+            <div class="qna-meta-info">
+              <span>👤 <strong>${escapeHtml(q.author)}</strong></span>
+              <span>🕒 ${q.time || '실시간'}</span>
+            </div>
+          </div>
+
+          <div class="qna-content-text">${escapeHtml(q.content)}</div>
+
+          <div class="qna-card-actions">
+            <div class="qna-likes-display">
+              👍 공감 <strong>${q.likes || 0}</strong>
+            </div>
+            <div class="qna-btn-group">
+              <button class="btn-card-sm btn-star" onclick="toggleStarQna(${q.id})">
+                ${q.isStarred ? '⭐ 채택 취소' : '⭐ 사회자 채택'}
+              </button>
+              <button class="btn-card-sm" onclick="toggleAnsweredQna(${q.id})">
+                ${q.isAnswered ? '↩️ 대기로 변경' : '✔️ 답변 완료'}
+              </button>
+              <button class="btn-card-sm" onclick="openEditQnaModal(${q.id})">
+                ✏️ 수정
+              </button>
+              <button class="btn-card-sm btn-del" onclick="deleteQna(${q.id})">
+                🗑️ 삭제
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      updateAllStats();
+    }
+
+    function toggleStarQna(id) {
+      const item = qnaList.find(q => q.id === id);
+      if (item) {
+        item.isStarred = !item.isStarred;
+        saveQna();
+        renderQnaList();
+        renderMcCards();
+        showToast(item.isStarred ? '⭐ 사회자 질문으로 채택되었습니다!' : '채택이 해제되었습니다.');
+      }
+    }
+
+    function toggleAnsweredQna(id) {
+      const item = qnaList.find(q => q.id === id);
+      if (item) {
+        item.isAnswered = !item.isAnswered;
+        saveQna();
+        renderQnaList();
+        renderMcCards();
+        showToast(item.isAnswered ? '✔️ 답변 완료 처리되었습니다.' : '대기 상태로 복원되었습니다.');
+      }
+    }
+
+    function deleteQna(id) {
+      if (confirm('이 질문을 삭제하시겠습니까?\n삭제된 질문은 복구할 수 없습니다.')) {
+        qnaList = qnaList.filter(q => q.id !== id);
+        saveQna();
+        renderQnaList();
+        renderMcCards();
+        showToast('🗑️ 질문이 삭제되었습니다.');
+      }
+    }
+
+    // 질문 수정 모달
+    function openEditQnaModal(id) {
+      const item = qnaList.find(q => q.id === id);
+      if (!item) return;
+      document.getElementById('editQnaId').value = item.id;
+      document.getElementById('editQnaSession').value = item.session || 'k1';
+      document.getElementById('editQnaAuthor').value = item.author;
+      document.getElementById('editQnaContent').value = item.content;
+      openModal('modalEditQna');
+    }
+
+    function handleSaveQnaEdit(e) {
+      e.preventDefault();
+      const id = parseInt(document.getElementById('editQnaId').value, 10);
+      const session = document.getElementById('editQnaSession').value;
+      const author = document.getElementById('editQnaAuthor').value.trim();
+      const content = document.getElementById('editQnaContent').value.trim();
+
+      const item = qnaList.find(q => q.id === id);
+      if (item) {
+        item.session = session;
+        item.sessionName = sessionLabels[session] || '세미나 질의';
+        item.author = author;
+        item.content = content;
+        saveQna();
+        renderQnaList();
+        renderMcCards();
+        closeModal('modalEditQna');
+        showToast('✏️ 질문이 수정되었습니다.');
+      }
+    }
+
+    // 신규 질문 등록 모달
+    function openAddQnaModal() {
+      document.getElementById('addQnaContent').value = '';
+      openModal('modalAddQna');
+    }
+
+    function handleAddQnaSubmit(e) {
+      e.preventDefault();
+      const session = document.getElementById('addQnaSession').value;
+      const author = document.getElementById('addQnaAuthor').value.trim();
+      const content = document.getElementById('addQnaContent').value.trim();
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+
+      const newQ = {
+        id: Date.now(),
+        session: session,
+        sessionName: sessionLabels[session] || '세미나 질의',
+        author: author,
+        content: content,
+        time: timeStr,
+        likes: 1,
+        isStarred: true, // 관리자 직접 등록은 즉시 채택
+        isAnswered: false
+      };
+
+      qnaList.unshift(newQ);
+      saveQna();
+      renderQnaList();
+      renderMcCards();
+      closeModal('modalAddQna');
+      showToast('🎉 질문이 성공적으로 등록되었습니다.');
+    }
+
+    // =========================================================
+    // 5. [TAB 2] 사회자(MC) 모더레이터 전용 뷰
+    // =========================================================
+    function filterMcSession(sess) {
+      mcFilter = sess;
+      ['All', 'K1', 'K2', 'K3', 'I1', 'I2'].forEach(name => {
+        const btn = document.getElementById('mcTab' + name);
+        if (btn) btn.classList.remove('active');
+      });
+      const activeBtn = document.getElementById('mcTab' + (sess === 'all' ? 'All' : sess.toUpperCase()));
+      if (activeBtn) activeBtn.classList.add('active');
+      renderMcCards();
+    }
+
+    function renderMcCards() {
+      const container = document.getElementById('mcCardsGrid');
+      let filtered = qnaList.filter(q => mcFilter === 'all' || q.session === mcFilter);
+
+      // 정렬 우선순위: 채택된 질문(isStarred) 먼저, 그 다음 공감수 많은 순
+      filtered.sort((a, b) => {
+        if (a.isStarred && !b.isStarred) return -1;
+        if (!a.isStarred && b.isStarred) return 1;
+        return (b.likes || 0) - (a.likes || 0);
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 60px 20px; color: var(--text-muted);">
+            <div style="font-size: 40px; margin-bottom: 12px;">✋</div>
+            <div style="font-size: 18px; font-weight: 800; color: #fff;">현재 진행할 질문이 없습니다.</div>
+            <div style="font-size: 14px; margin-top: 6px;">[Q&A 관리] 탭에서 질문을 채택(⭐)해 보세요.</div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map((q, idx) => `
+        <div class="mc-q-card ${q.isStarred ? 'vip' : ''} ${q.isAnswered ? 'done' : ''}">
+          <div class="mc-q-top">
+            <span class="mc-q-badge">${q.isStarred ? '⭐ 사회자 추천 질문' : '일반 질문'} · ${q.sessionName}</span>
+            <span style="font-size: 14px; font-weight: 900; color: var(--gold-bright);">👍 공감 ${q.likes || 0}</span>
+          </div>
+
+          <div class="mc-q-body">
+            "${escapeHtml(q.content)}"
+          </div>
+
+          <div class="mc-q-footer">
+            <span>질문자: <strong>${escapeHtml(q.author)}</strong> (${q.time})</span>
+            <button class="btn-mc-ask ${q.isAnswered ? 'done' : ''}" onclick="toggleAnsweredQna(${q.id})">
+              ${q.isAnswered ? '✔️ 질문 완료됨' : '🎙️ 이 질문 진행하기'}
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 사회자 타이머
+    let timerSec = 300;
+    let timerInterval = null;
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60).toString().padStart(2, '0');
+      const s = (sec % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function startTimer(seconds) {
+      clearInterval(timerInterval);
+      timerSec = seconds;
+      document.getElementById('mcTimerDisplay').textContent = formatTime(timerSec);
+      document.getElementById('mcTimerDisplay').classList.remove('urgent');
+      document.getElementById('btnTimerToggle').textContent = '일시정지';
+      timerInterval = setInterval(() => {
+        timerSec--;
+        const disp = document.getElementById('mcTimerDisplay');
+        disp.textContent = formatTime(timerSec);
+        if (timerSec <= 60) disp.classList.add('urgent');
+        if (timerSec <= 0) {
+          clearInterval(timerInterval);
+          disp.textContent = '00:00';
+          showToast('⏰ 세션 질의응답 시간이 종료되었습니다!');
+        }
+      }, 1000);
+    }
+
+    function toggleTimer() {
+      const btn = document.getElementById('btnTimerToggle');
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        btn.textContent = '재개';
+      } else {
+        if (timerSec <= 0) timerSec = 300;
+        startTimer(timerSec);
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerSec = 300;
+      document.getElementById('mcTimerDisplay').textContent = '05:00';
+      document.getElementById('mcTimerDisplay').classList.remove('urgent');
+      document.getElementById('btnTimerToggle').textContent = '시작';
+    }
+
+    function changeFontSize(size) {
+      const shell = document.getElementById('mcShell');
+      shell.classList.remove('font-lg', 'font-xl');
+      if (size === 'lg') shell.classList.add('font-lg');
+      if (size === 'xl') shell.classList.add('font-xl');
+    }
+
+    function toggleFullScreen() {
+      const shell = document.getElementById('mcShell');
+      shell.classList.toggle('fullscreen');
+      if (shell.classList.contains('fullscreen')) {
+        showToast('🖥️ 전체화면 모드 시작 (ESC 또는 버튼으로 종료)');
+      }
+    }
+
+    // =========================================================
+    // 6. [TAB 3] 출석 체크 인원 모니터링 & 이상 인원 관리
+    // =========================================================
+    function getAttendeeValidation(att) {
+      const roster = getRoster();
+      const cleanEmail = (att.email || '').toLowerCase().replace('@lge.com', '').trim();
+      const cleanName = (att.name || '').trim();
+
+      // 1) 차단 여부
+      if (blockedUsers.includes(cleanEmail) || blockedUsers.includes(att.email)) {
+        return { status: 'blocked', label: '차단/강퇴', text: '운영자에 의해 차단됨', isProblem: true };
+      }
+
+      // 2) 사전 등록 명부 검색
+      const foundInRoster = roster.find(r => r.email.toLowerCase() === cleanEmail);
+
+      if (foundInRoster) {
+        if (foundInRoster.name === cleanName) {
+          return { status: 'matched', label: '정상 매칭', text: '사전 명부 일치', isProblem: false };
+        } else {
+          return {
+            status: 'mismatch',
+            label: '이름 불일치',
+            text: `명부상 이름(${foundInRoster.name})과 다름`,
+            isProblem: true
+          };
+        }
+      }
+
+      // 3) 이메일 형식 체크 (LGE 사번/이메일 규칙: 영문.이름)
+      const isLgePattern = /^[a-z0-9]+\.[a-z0-9]+$/i.test(cleanEmail);
+      if (!isLgePattern) {
+        return { status: 'unregistered', label: '형식 이상', text: '비표준 이메일 아이디', isProblem: true };
+      }
+
+      return { status: 'unregistered', label: '미등록 인원', text: '사전 등록 명부 없음', isProblem: true };
+    }
+
+    function renderCheckinTable() {
+      const tbody = document.getElementById('checkinTableBody');
+      const search = document.getElementById('checkinSearchInput').value.trim().toLowerCase();
+      const filter = document.getElementById('checkinFilterSelect').value;
+
+      let filtered = checkinList.map((att, idx) => {
+        return { ...att, originalIndex: idx, validation: getAttendeeValidation(att) };
+      });
+
+      if (search) {
+        filtered = filtered.filter(item =>
+          item.name.toLowerCase().includes(search) ||
+          item.email.toLowerCase().includes(search)
+        );
+      }
+
+      if (filter === 'mismatch') {
+        filtered = filtered.filter(item => item.validation.isProblem && item.validation.status !== 'blocked');
+      } else if (filter === 'matched') {
+        filtered = filtered.filter(item => item.validation.status === 'matched');
+      } else if (filter === 'blocked') {
+        filtered = filtered.filter(item => item.validation.status === 'blocked');
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align: center; padding: 40px; color: var(--text-muted);">
+              조건에 일치하는 출석자가 없습니다.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map((item, idx) => {
+        const val = item.validation;
+        return `
+          <tr class="${val.isProblem ? (val.status === 'blocked' ? 'row-blocked' : 'row-mismatch') : ''}">
+            <td style="color: var(--text-muted); font-size: 12px;">${idx + 1}</td>
+            <td>
+              <span class="status-pill ${val.status}">
+                ${val.status === 'matched' ? '🟢' : (val.status === 'blocked' ? '🚫' : '⚠️')}
+                ${val.label}
+              </span>
+            </td>
+            <td><strong>${escapeHtml(item.name)}</strong></td>
+            <td><code>${escapeHtml(item.email)}</code></td>
+            <td style="font-size: 12.5px; color: ${val.isProblem ? 'var(--gold-bright)' : 'var(--text-muted)'};">
+              ${val.text}
+            </td>
+            <td style="font-size: 12px; color: var(--text-muted);">${item.checkinTime || '-'}</td>
+            <td style="text-align: center;">
+              <div style="display: inline-flex; gap: 4px;">
+                <button class="btn-tbl" onclick="openEditCheckinModal(${item.originalIndex})">✏️ 수정</button>
+                <button class="btn-tbl" onclick="deleteCheckin(${item.originalIndex})">🗑️ 삭제</button>
+                ${val.status !== 'blocked' ? `
+                  <button class="btn-tbl btn-kick" onclick="kickAndBlockCheckin(${item.originalIndex})">🚫 강퇴</button>
+                ` : `
+                  <button class="btn-tbl" onclick="unblockUser('${item.email}')">🔓 차단해제</button>
+                `}
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      updateAllStats();
+    }
+
+    // 출석자 수정 모달
+    function openEditCheckinModal(idx) {
+      const item = checkinList[idx];
+      if (!item) return;
+      document.getElementById('editCheckinIndex').value = idx;
+      document.getElementById('editCheckinName').value = item.name;
+      document.getElementById('editCheckinEmail').value = item.email;
+      openModal('modalEditCheckin');
+    }
+
+    function handleSaveCheckinEdit(e) {
+      e.preventDefault();
+      const idx = parseInt(document.getElementById('editCheckinIndex').value, 10);
+      const name = document.getElementById('editCheckinName').value.trim();
+      const email = document.getElementById('editCheckinEmail').value.trim();
+
+      if (checkinList[idx]) {
+        checkinList[idx].name = name;
+        checkinList[idx].email = email;
+        saveCheckin();
+        renderCheckinTable();
+        closeModal('modalEditCheckin');
+        showToast('✏️ 출석자 정보가 수정되었습니다.');
+      }
+    }
+
+    // 출석자 수동 추가
+    function openAddCheckinModal() {
+      document.getElementById('addCheckinName').value = '';
+      document.getElementById('addCheckinEmail').value = '';
+      openModal('modalAddCheckin');
+    }
+
+    function handleAddCheckinSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('addCheckinName').value.trim();
+      const email = document.getElementById('addCheckinEmail').value.trim();
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+
+      checkinList.unshift({
+        name,
+        email,
+        checkinTime: timeStr,
+        date: now.toISOString().slice(0, 10)
+      });
+
+      saveCheckin();
+      renderCheckinTable();
+      closeModal('modalAddCheckin');
+      showToast('🎉 출석자가 수동으로 등록되었습니다.');
+    }
+
+    // 출석자 삭제
+    function deleteCheckin(idx) {
+      const target = checkinList[idx];
+      if (!target) return;
+      if (confirm(`'${target.name} (${target.email})' 님을 출석부에서 삭제하시겠습니까?`)) {
+        checkinList.splice(idx, 1);
+        saveCheckin();
+        renderCheckinTable();
+        showToast('🗑️ 출석부에서 삭제되었습니다.');
+      }
+    }
+
+    // 출석자 강퇴 및 블랙리스트 등록
+    function kickAndBlockCheckin(idx) {
+      const target = checkinList[idx];
+      if (!target) return;
+      const cleanEmail = target.email.toLowerCase().replace('@lge.com', '');
+
+      if (confirm(`⚠️ 경고: '${target.name} (${target.email})' 님을 강퇴 및 차단하시겠습니까?\n\n차단된 계정은 출석 명부에서 즉시 제거되며, 다시 체크인을 시도할 수 없도록 블랙리스트에 등록됩니다.`)) {
+        if (!blockedUsers.includes(cleanEmail)) {
+          blockedUsers.push(cleanEmail);
+          saveBlocked();
+        }
+        checkinList.splice(idx, 1);
+        saveCheckin();
+        renderCheckinTable();
+        showToast(`🚫 '${target.name}' 님이 강퇴 및 차단되었습니다.`);
+      }
+    }
+
+    function unblockUser(email) {
+      const cleanEmail = email.toLowerCase().replace('@lge.com', '');
+      blockedUsers = blockedUsers.filter(b => b !== cleanEmail && b !== email);
+      saveBlocked();
+      renderCheckinTable();
+      showToast(`🔓 차단이 해제되었습니다.`);
+    }
+
+    // 이상 인원 일괄 정리
+    function purgeMismatchedUsers() {
+      const count = checkinList.filter(att => getAttendeeValidation(att).isProblem).length;
+      if (count === 0) {
+        alert('현재 이상/불일치 의심 인원이 없습니다.');
+        return;
+      }
+      if (confirm(`불일치 의심 및 미등록 인원 총 ${count}명을 출석부에서 일괄 삭제하시겠습니까?`)) {
+        checkinList = checkinList.filter(att => !getAttendeeValidation(att).isProblem);
+        saveCheckin();
+        renderCheckinTable();
+        showToast(`🧹 ${count}명의 이상 인원이 출석부에서 정리되었습니다.`);
+      }
+    }
+
+    // 사전 등록 명부 관리 모달
+    function openRosterModal() {
+      const roster = getRoster();
+      const lines = roster.map(r => `${r.email}, ${r.name}`).join('\n');
+      document.getElementById('rosterTextInput').value = lines;
+      openModal('modalRoster');
+    }
+
+    function saveRosterList() {
+      const text = document.getElementById('rosterTextInput').value;
+      const lines = text.split('\n');
+      const list = [];
+      lines.forEach(line => {
+        const parts = line.split(',');
+        if (parts.length >= 2) {
+          const email = parts[0].trim();
+          const name = parts[1].trim();
+          if (email && name) list.push({ email, name });
+        }
+      });
+      localStorage.setItem('hvac_roster_list', JSON.stringify(list));
+      closeModal('modalRoster');
+      renderCheckinTable();
+      showToast('📋 사전 등록 명부가 갱신되었습니다.');
+    }
+
+    function resetDefaultRoster() {
+      if (confirm('기본 사전 등록 명부로 초기화하시겠습니까?')) {
+        document.getElementById('rosterTextInput').value = DEFAULT_ROSTER.map(r => `${r.email}, ${r.name}`).join('\n');
+      }
+    }
+
+    // =========================================================
+    // 7. [TAB 4] 카카오톡 채널 세션 공지 멘트 전송 센터
+    // =========================================================
+    const kakaoPresets = [
+      {
+        id: 'p1',
+        title: '📢 [개회 및 세미나 시작]',
+        time: '09:00',
+        content: `[2026 HVAC Engineering Expert Seminar 개회 안내]
+
+반갑습니다, 참가자 여러분!
+2026 HVAC 전문가 세미나가 곧 시작됩니다.
+
+📍 장소: LG전자 R&D캠퍼스 컨벤션홀
+📱 현장 체크인: https://were77kim-netizen.github.io/10th-HVAC/checkin.html
+💬 실시간 질의응답: https://were77kim-netizen.github.io/10th-HVAC/qna.html
+
+현장 도착 후 모바일 체크인을 완료하시고 명찰 및 자료집을 수령해 주시기 바랍니다.`
+      },
+      {
+        id: 'p2',
+        title: '💡 [Keynote 1 종료 & 퀴즈 1 안내]',
+        time: '10:30',
+        content: `[Keynote 1 종료 및 15분 휴식 안내]
+
+서울대학교 여명석 교수님의 '국내 주거난방의 변천과 미래' 강연이 종료되었습니다.
+
+💡 방금 들으신 핵심 내용 퀴즈를 풀고 만찬 럭키드로우 경품에 도전하세요!
+👉 퀴즈 풀기: https://were77kim-netizen.github.io/10th-HVAC/quiz.html
+
+15분간의 커피 브레이크 후 Keynote 2 (액체냉각) 세션이 이어집니다.`
+      },
+      {
+        id: 'p3',
+        title: '🍽️ [Keynote 2 종료 & 오찬(점심) 안내]',
+        time: '12:00',
+        content: `[오전 세션 종료 및 뷔페 오찬 안내]
+
+정성호 교수님의 액체냉각 세션이 종료되었습니다. 유익한 인사이트를 얻으셨기를 바랍니다.
+
+🍽️ 점심 식사 안내:
+- 식사장소: 컨벤션홀 1층 VIP 다이닝룸 (뷔페)
+- 식사시간: 12:00 ~ 13:20 (80분)
+
+오후 13:20부터 고려대 박상민 교수님의 'AIDC 전력망 연계' 세션이 시작되오니 5분 전까지 착석 부탁드립니다.`
+      },
+      {
+        id: 'p4',
+        title: '⚡ [오후 세션 시작 안내]',
+        time: '13:15',
+        content: `[오후 세션 시작 5분 전 안내]
+
+참가자 여러분, 즐거운 점심 식사 되셨습니까?
+잠시 후 13:20부터 오후 세션이 재개됩니다.
+
+⚡ Keynote 3: 고려대 박상민 교수
+'AIDC 전력망 연계 열관리 솔루션'
+
+강연 중 궁금하신 사항은 실시간 Q&A에 남겨주시면 세션 종료 후 질의응답 시간에 답변드립니다!
+💬 질문 등록: https://were77kim-netizen.github.io/10th-HVAC/qna.html`
+      },
+      {
+        id: 'p5',
+        title: '🏆 [퀴즈 마감 15분 전 최종 리마인드]',
+        time: '16:45',
+        content: `[🚨 세션 퀴즈 마감 15분 전 안내]
+
+만찬 시 진행되는 특별 경품 럭키드로우 추첨 응모가 곧 마감됩니다!
+아직 퀴즈를 풀지 못하신 분들은 지금 바로 도전하세요.
+
+🎁 경품: 최신 프리미엄 가전, 무선 헤드폰, 호텔 식사권 등
+👉 지금 퀴즈 풀기: https://were77kim-netizen.github.io/10th-HVAC/quiz.html`
+      },
+      {
+        id: 'p6',
+        title: '✨ [만족도 설문 & 네트워킹 만찬 시작]',
+        time: '17:40',
+        content: `[만족도 설문 참여 및 만찬 럭키드로우 안내]
+
+오늘 하루 동안 열정적으로 참여해 주신 모든 참가자분들께 감사드립니다.
+
+더 나은 행사를 위해 1분 만족도 설문에 참여해 주세요:
+📝 설문 링크: https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u
+
+잠시 후 대망의 만찬 럭키드로우 추첨이 진행됩니다!`
+      }
+    ];
+
+    function initKakaoPresets() {
+      const container = document.getElementById('presetList');
+      container.innerHTML = kakaoPresets.map((p, idx) => `
+        <div class="preset-item ${idx === 0 ? 'active' : ''}" onclick="selectPreset('${p.id}')" id="preset-${p.id}">
+          <div class="preset-title">
+            <span>${p.title}</span>
+            <span class="preset-time">⏰ ${p.time}</span>
+          </div>
+          <div class="preset-snippet">${p.content.split('\n')[0]}</div>
+        </div>
+      `).join('');
+
+      selectPreset('p1');
+    }
+
+    function selectPreset(id) {
+      document.querySelectorAll('.preset-item').forEach(el => el.classList.remove('active'));
+      const activeEl = document.getElementById('preset-' + id);
+      if (activeEl) activeEl.classList.add('active');
+
+      const item = kakaoPresets.find(p => p.id === id);
+      if (item) {
+        document.getElementById('kakaoMsgText').value = item.content;
+        updateKakaoPreview();
+      }
+    }
+
+    function updateKakaoPreview() {
+      const text = document.getElementById('kakaoMsgText').value;
+      document.getElementById('kakaoPreviewBubble').textContent = text || '멘트를 입력하세요.';
+      document.getElementById('charCount').textContent = text.length + '자';
+    }
+
+    function insertEmoji(emoji) {
+      const area = document.getElementById('kakaoMsgText');
+      const start = area.selectionStart;
+      const end = area.selectionEnd;
+      area.value = area.value.substring(0, start) + emoji + area.value.substring(end);
+      area.selectionStart = area.selectionEnd = start + emoji.length;
+      area.focus();
+      updateKakaoPreview();
+    }
+
+    // 멘트 복사 & 카카오 채널 관리자센터 열기
+    function copyAndOpenKakaoCenter() {
+      const text = document.getElementById('kakaoMsgText').value;
+      if (!text.trim()) {
+        alert('공지할 멘트를 먼저 입력해 주세요.');
+        return;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 멘트가 복사되었습니다! 카카오 관리자센터로 이동합니다.');
+        setTimeout(() => {
+          // 카카오톡 채널 관리자센터 포스트/1:1채팅 화면 팝업 오픈
+          window.open('https://center-pf.kakao.com/', '_blank');
+        }, 600);
+      }).catch(() => {
+        showToast('복사에 실패했습니다. 텍스트를 직접 복사해 주세요.');
+      });
+    }
+
+    function copyMsgOnly() {
+      const text = document.getElementById('kakaoMsgText').value;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 공지 멘트가 클립보드에 복사되었습니다.');
+      });
+    }
+
+    // 카카오톡 공유 API (Kakao.Share)
+    function shareViaKakaoLink() {
+      const text = document.getElementById('kakaoMsgText').value;
+      if (!text.trim()) {
+        alert('공지할 멘트를 입력해 주세요.');
+        return;
+      }
+
+      try {
+        if (window.Kakao && !window.Kakao.isInitialized()) {
+          // 데모용 앱키 (실제 카카오 디벨로퍼스 JS키 등록 시 즉시 동작)
+          window.Kakao.init('ba0567a57a1768a356396e622b78160c');
+        }
+
+        if (window.Kakao && window.Kakao.isInitialized()) {
+          window.Kakao.Share.sendDefault({
+            objectType: 'text',
+            text: text,
+            link: {
+              mobileWebUrl: 'https://were77kim-netizen.github.io/10th-HVAC/index.html',
+              webUrl: 'https://were77kim-netizen.github.io/10th-HVAC/index.html'
+            }
+          });
+          showToast('📱 카카오톡 공유 창이 호출되었습니다.');
+          return;
+        }
+      } catch (e) {}
+
+      // 브라우저 클립보드 fallback
+      copyAndOpenKakaoCenter();
+    }
+
+    // =========================================================
+    // 8. 통계 지표 업데이트
+    // =========================================================
+    function updateAllStats() {
+      // 1) Q&A 지표
+      const totalQ = qnaList.length;
+      const starredQ = qnaList.filter(q => q.isStarred).length;
+      const doneQ = qnaList.filter(q => q.isAnswered).length;
+      const totalLikes = qnaList.reduce((acc, cur) => acc + (cur.likes || 0), 0);
+
+      document.getElementById('statTotalQna').textContent = totalQ;
+      document.getElementById('statStarredQna').textContent = starredQ;
+      document.getElementById('statDoneQna').textContent = doneQ;
+      document.getElementById('statTotalLikes').textContent = totalLikes;
+      document.getElementById('countBadgeQna').textContent = totalQ;
+      document.getElementById('countBadgeMc').textContent = starredQ;
+
+      // 2) 출석부 지표
+      const totalC = checkinList.length;
+      let matchedC = 0;
+      let mismatchC = 0;
+
+      checkinList.forEach(att => {
+        const val = getAttendeeValidation(att);
+        if (val.status === 'matched') matchedC++;
+        else if (val.isProblem && val.status !== 'blocked') mismatchC++;
+      });
+
+      document.getElementById('statTotalCheckin').textContent = totalC;
+      document.getElementById('statMatchedCheckin').textContent = matchedC;
+      document.getElementById('statMismatchCheckin').textContent = mismatchC;
+      document.getElementById('statBlockedCheckin').textContent = blockedUsers.length;
+      document.getElementById('countBadgeCheckin').textContent = totalC;
+    }
+
+    // =========================================================
+    // 9. 데이터 내보내기 (CSV / JSON)
+    // =========================================================
+    function exportQnaCsv() {
+      let csv = '\uFEFF번호,세션코드,세션명,작성자,공감수,사회자채택,답변완료,작성시간,질문내용\n';
+      qnaList.forEach((q, idx) => {
+        const contentSafe = (q.content || '').replace(/"/g, '""');
+        csv += `${idx + 1},"${q.session}","${q.sessionName}","${q.author}",${q.likes || 0},"${q.isStarred ? 'Y' : 'N'}","${q.isAnswered ? 'Y' : 'N'}","${q.time}","${contentSafe}"\n`;
+      });
+      downloadFile(csv, `hvac_qna_export_${new Date().toISOString().slice(0, 10)}.csv`, 'text/csv;charset=utf-8;');
+      showToast('📥 Q&A 목록이 CSV 파일로 다운로드되었습니다.');
+    }
+
+    function exportQnaJson() {
+      const json = JSON.stringify(qnaList, null, 2);
+      downloadFile(json, `hvac_qna_backup_${new Date().toISOString().slice(0, 10)}.json`, 'application/json');
+      showToast('💾 Q&A 데이터가 JSON 파일로 백업되었습니다.');
+    }
+
+    function exportCheckinCsv() {
+      let csv = '\uFEFF번호,상태,한글성명,이메일,매칭정보,체크인일시\n';
+      checkinList.forEach((c, idx) => {
+        const val = getAttendeeValidation(c);
+        csv += `${idx + 1},"${val.label}","${c.name}","${c.email}","${val.text}","${c.date || ''} ${c.checkinTime || ''}"\n`;
+      });
+      downloadFile(csv, `hvac_attendance_export_${new Date().toISOString().slice(0, 10)}.csv`, 'text/csv;charset=utf-8;');
+      showToast('📥 출석 명부가 CSV 파일로 다운로드되었습니다.');
+    }
+
+    function downloadFile(content, fileName, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // =========================================================
+    // 10. 관리자 암호 변경
+    // =========================================================
+    function openPwdChangeModal() {
+      document.getElementById('pwdCurrent').value = '';
+      document.getElementById('pwdNew').value = '';
+      document.getElementById('pwdNewConfirm').value = '';
+      document.getElementById('pwdChangeMsg').textContent = '';
+      openModal('modalPwdChange');
+    }
+
+    async function handlePwdChangeSubmit(e) {
+      e.preventDefault();
+      const current = document.getElementById('pwdCurrent').value.trim();
+      const pwdNew = document.getElementById('pwdNew').value.trim();
+      const pwdNewConfirm = document.getElementById('pwdNewConfirm').value.trim();
+      const msgEl = document.getElementById('pwdChangeMsg');
+
+      if (pwdNew !== pwdNewConfirm) {
+        msgEl.style.color = 'var(--red-bright)';
+        msgEl.textContent = '❌ 새 비밀번호가 서로 일치하지 않습니다.';
+        return;
+      }
+
+      const curHash = await sha256(current);
+      const savedHash = localStorage.getItem('hvac_admin_password_hash') || DEFAULT_PWD_HASH;
+
+      if (curHash !== savedHash) {
+        msgEl.style.color = 'var(--red-bright)';
+        msgEl.textContent = '❌ 현재 비밀번호가 올바르지 않습니다.';
+        return;
+      }
+
+      const newHash = await sha256(pwdNew);
+      localStorage.setItem('hvac_admin_password_hash', newHash);
+      closeModal('modalPwdChange');
+      showToast('🔑 관리자 비밀번호가 성공적으로 변경되었습니다!');
+    }
+
+    // =========================================================
+    // 11. 공통 헬퍼
+    // =========================================================
+    function openModal(id) {
+      document.getElementById(id).classList.add('show');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('show');
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // ESC 키로 모달 닫기
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-backdrop.show').forEach(m => m.classList.remove('show'));
+        const mc = document.getElementById('mcShell');
+        if (mc.classList.contains('fullscreen')) mc.classList.remove('fullscreen');
+      }
+    });
+
+    // 시작 시 인증 체크
+    window.addEventListener('DOMContentLoaded', () => {
+      checkAuth();
+    });
+  </script>
+</body>
+</html>

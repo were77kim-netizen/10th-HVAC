@@ -1782,10 +1782,31 @@
       const now = new Date();
       const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
 
+      // 관리자 차단(블랙리스트) 여부 확인
+      try {
+        const blocked = JSON.parse(localStorage.getItem('hvac_blocked_users') || '[]');
+        const cleanEmail = email.toLowerCase().replace('@lge.com', '');
+        if (blocked.some(b => b.toLowerCase().replace('@lge.com', '') === cleanEmail)) {
+          alert('⚠️ 운영 관리자에 의해 출석 체크가 제한된 사용자입니다.\n안내 데스크로 문의해 주시기 바랍니다.');
+          return;
+        }
+      } catch (e) {}
+
       // 로컬 스토리지에 체크인 기록 영구 저장
       const checkinData = { email, name, checkinTime: timeStr, date: now.toISOString().slice(0, 10) };
       try {
         localStorage.setItem('hvac_user_checked', JSON.stringify(checkinData));
+
+        // 전체 출석자 누적 리스트(hvac_checkin_list)에 기록 (어드민 연동)
+        let list = JSON.parse(localStorage.getItem('hvac_checkin_list') || '[]');
+        const cleanEmail = email.toLowerCase().replace('@lge.com', '');
+        const existingIdx = list.findIndex(item => item.email.toLowerCase().replace('@lge.com', '') === cleanEmail);
+        if (existingIdx >= 0) {
+          list[existingIdx] = checkinData;
+        } else {
+          list.unshift(checkinData);
+        }
+        localStorage.setItem('hvac_checkin_list', JSON.stringify(list));
       } catch (e) {}
 
       // 대시보드 프로필 갱신
@@ -2075,6 +2096,17 @@
         if (saved) {
           const parsed = JSON.parse(saved);
           if (parsed && parsed.name) {
+            // 관리자에 의해 강퇴/차단되었는지 확인
+            const blocked = JSON.parse(localStorage.getItem('hvac_blocked_users') || '[]');
+            const cleanEmail = parsed.email ? parsed.email.toLowerCase().replace('@lge.com', '') : '';
+            if (blocked.some(b => b.toLowerCase().replace('@lge.com', '') === cleanEmail)) {
+              localStorage.removeItem('hvac_user_checked');
+              alert('⚠️ 안내: 관리자 권한에 의해 출석 등록이 초기화되었습니다.\n안내 데스크로 문의해 주세요.');
+              showScreen('intro');
+              renderSession(0);
+              return;
+            }
+
             document.getElementById('menuUserName').textContent = parsed.name;
             document.getElementById('menuUserEmail').textContent = parsed.email.includes('@') ? parsed.email : parsed.email + '@lge.com';
             showScreen('dash');
