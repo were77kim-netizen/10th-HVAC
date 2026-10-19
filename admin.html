@@ -1258,6 +1258,183 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+    /* =========================================================
+       8. 탭 5: 링크 및 테마 설정
+       ========================================================= */
+    .settings-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .settings-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .settings-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .settings-title {
+      font-size: 17px;
+      font-weight: 900;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .link-row {
+      display: grid;
+      grid-template-columns: 190px 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    @media (max-width: 768px) {
+      .link-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+    }
+
+    .link-label {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-muted);
+    }
+
+    .preset-theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 16px 0 24px;
+    }
+
+    .theme-card {
+      background: #08120b;
+      border: 2px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .theme-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary-bright);
+    }
+
+    .theme-card.active {
+      border-color: var(--primary-bright);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+      background: #0e2417;
+    }
+
+    .theme-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .theme-name {
+      font-size: 15px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .theme-swatches {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .theme-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .theme-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .color-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .color-picker-item {
+      background: #07120a;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .color-picker-label {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--text-muted);
+    }
+
+    .color-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .color-input {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 32px;
+      height: 32px;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .color-input::-webkit-color-swatch {
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .color-hex-text {
+      font-size: 12px;
+      font-family: monospace;
+      color: #fff;
+    }
+
+    .theme-preview-box {
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 22px;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
   </style>
 </head>
 <body>
@@ -1336,6 +1513,9 @@
       </button>
       <button class="tab-btn" data-tab="tabKakao" onclick="switchTab('tabKakao')">
         📢 카카오톡 공지 센터
+      </button>
+      <button class="tab-btn" data-tab="tabSettings" onclick="switchTab('tabSettings')">
+        ⚙️ 링크 & 테마 설정
       </button>
     </nav>
   </header>
@@ -1649,6 +1829,214 @@
       </div>
     </section>
 
+    <!-- -----------------------------------------------------
+         [TAB 5] 링크 관리 & 웹사이트 테마 프리셋 설정
+         ----------------------------------------------------- -->
+    <section id="tabSettings" class="tab-panel">
+      <div class="settings-grid">
+        <!-- 1. 사이트 주요 링크 관리 카드 -->
+        <div class="settings-card">
+          <div class="settings-card-head">
+            <h3 class="settings-title">🔗 세미나 공식 외부 링크 관리</h3>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn-act" onclick="resetDefaultLinks()">기본값으로 복원</button>
+              <button class="btn-act primary" onclick="saveSiteLinks()">💾 링크 전체 저장</button>
+            </div>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">
+            카카오톡 채널, 만족도 설문, 출석체크 등 세미나 사이트 전반에 연결된 링크를 이곳에서 일괄 변경할 수 있습니다. 저장 시 사이트 전체에 즉시 동기화 적용됩니다.
+          </p>
+
+          <div class="link-row">
+            <div class="link-label">카카오톡 채널 홈 URL</div>
+            <input type="url" id="linkKakaoChannel" class="form-control" placeholder="https://pf.kakao.com/_hvac2026">
+            <button class="btn-tbl" onclick="testLink('linkKakaoChannel')">열기 ↗</button>
+          </div>
+
+          <div class="link-row">
+            <div class="link-label">카카오톡 1:1 상담 채팅 URL</div>
+            <input type="url" id="linkKakaoChat" class="form-control" placeholder="https://pf.kakao.com/_hvac2026/chat">
+            <button class="btn-tbl" onclick="testLink('linkKakaoChat')">열기 ↗</button>
+          </div>
+
+          <div class="link-row">
+            <div class="link-label">행사 만족도 설문 URL</div>
+            <input type="url" id="linkSurveyForm" class="form-control" placeholder="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?...">
+            <button class="btn-tbl" onclick="testLink('linkSurveyForm')">열기 ↗</button>
+          </div>
+
+          <div class="link-row">
+            <div class="link-label">공식 출석체크 Forms URL</div>
+            <input type="url" id="linkAttendanceForm" class="form-control" placeholder="https://forms.cloud.microsoft/r/kaugdHpUxh">
+            <button class="btn-tbl" onclick="testLink('linkAttendanceForm')">열기 ↗</button>
+          </div>
+
+          <div class="link-row" style="border-bottom: none;">
+            <div class="link-label">오시는 길 지도 URL (네이버/카카오)</div>
+            <input type="url" id="linkMap" class="form-control" placeholder="https://map.naver.com 또는 카카오맵 링크">
+            <button class="btn-tbl" onclick="testLink('linkMap')">열기 ↗</button>
+          </div>
+        </div>
+
+        <!-- 2. 웹사이트 테마 프리셋 & 컬러 커스터마이징 카드 -->
+        <div class="settings-card">
+          <div class="settings-card-head">
+            <h3 class="settings-title">🎨 세미나 테마 프리셋 & 색상 커스터마이징</h3>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn-act" onclick="resetDefaultTheme()">기본 테마 복원</button>
+              <button class="btn-act primary" onclick="saveThemeSettings()">🎨 테마 즉시 적용 및 저장</button>
+            </div>
+          </div>
+          
+          <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 10px; padding: 14px 16px; margin-bottom: 18px; font-size: 13px; color: var(--text-muted); line-height: 1.55;">
+            💡 <strong>색상 구성 안내:</strong> 본 세미나 웹사이트의 배경과 요소들은 고정된 이미지 파일이 아닌, <strong>100% 순수 CSS 변수 및 수학적 그라데이션 코드</strong>로 분리되어 구현되어 있습니다. 따라서 이미지 재제작 없이 아래 프리셋 선택 또는 컬러 피커 조절만으로 전체 웹사이트 분위기를 즉시 커스터마이징할 수 있습니다.
+          </div>
+
+          <!-- 4대 테마 프리셋 카드 그리드 -->
+          <h4 style="font-size: 14px; font-weight: 900; color: #fff; margin-bottom: 10px;">🌟 대표 테마 프리셋 선택</h4>
+          <div class="preset-theme-grid">
+            <!-- 1. 딥 포레스트 (기본) -->
+            <div class="theme-card active" id="themeCardForest" onclick="selectThemePreset('forest')">
+              <div class="theme-card-head">
+                <span class="theme-name">🌿 딥 포레스트 & 골드</span>
+                <span style="font-size: 11px; color: var(--primary-bright); font-weight: 800;">기본 테마</span>
+              </div>
+              <div class="theme-swatches">
+                <div class="theme-dot" style="background: #040906;" title="배경색"></div>
+                <div class="theme-dot" style="background: #108548;" title="메인 그린"></div>
+                <div class="theme-dot" style="background: #f3c448;" title="앰버 골드"></div>
+                <div class="theme-dot" style="background: #08130c;" title="카드 배경"></div>
+              </div>
+              <p class="theme-desc">신뢰감과 깊이감을 주는 딥 포레스트 그린과 앰버 골드 키노트 감성 (HVAC 친환경 에너지 테마)</p>
+            </div>
+
+            <!-- 2. 클래식 다크 버건디 -->
+            <div class="theme-card" id="themeCardBurgundy" onclick="selectThemePreset('burgundy')">
+              <div class="theme-card-head">
+                <span class="theme-name">🍷 클래식 버건디 & 레드</span>
+                <span style="font-size: 11px; color: #ff5366; font-weight: 800;">다크 키노트</span>
+              </div>
+              <div class="theme-swatches">
+                <div class="theme-dot" style="background: #0b0407;" title="배경색"></div>
+                <div class="theme-dot" style="background: #831335;" title="버건디"></div>
+                <div class="theme-dot" style="background: #ff5366;" title="루비 레드"></div>
+                <div class="theme-dot" style="background: #14080e;" title="카드 배경"></div>
+              </div>
+              <p class="theme-desc">오리지널 애플 키노트 스타일의 강렬하고 중후한 다크 버건디 & 루비 레드 하이엔드 테마</p>
+            </div>
+
+            <!-- 3. 라이트 에메랄드 -->
+            <div class="theme-card" id="themeCardLight" onclick="selectThemePreset('light')">
+              <div class="theme-card-head">
+                <span class="theme-name">☀️ 라이트 에메랄드 & 샴페인</span>
+                <span style="font-size: 11px; color: #059669; font-weight: 800;">화사한 라이트</span>
+              </div>
+              <div class="theme-swatches">
+                <div class="theme-dot" style="background: #f5f8f5;" title="배경색"></div>
+                <div class="theme-dot" style="background: #059669;" title="에메랄드"></div>
+                <div class="theme-dot" style="background: #d97706;" title="샴페인 골드"></div>
+                <div class="theme-dot" style="background: #ffffff;" title="화이트 카드"></div>
+              </div>
+              <p class="theme-desc">소프트 펄 민트 화이트 베이스와 산뜻한 에메랄드 그린의 가독성 높은 밝은 라이트 테마</p>
+            </div>
+
+            <!-- 4. 미드나잇 블루 -->
+            <div class="theme-card" id="themeCardNavy" onclick="selectThemePreset('navy')">
+              <div class="theme-card-head">
+                <span class="theme-name">🌌 미드나잇 테크 & 블루</span>
+                <span style="font-size: 11px; color: #38bdf8; font-weight: 800;">데이터센터 IT</span>
+              </div>
+              <div class="theme-swatches">
+                <div class="theme-dot" style="background: #050914;" title="배경색"></div>
+                <div class="theme-dot" style="background: #2563eb;" title="일렉트릭 블루"></div>
+                <div class="theme-dot" style="background: #38bdf8;" title="사이버 틴트"></div>
+                <div class="theme-dot" style="background: #0b1324;" title="카드 배경"></div>
+              </div>
+              <p class="theme-desc">AIDC 액체냉각, 인공지능 데이터센터, 첨단 IT 인프라 감성의 사이버틱 딥 네이비 & 블루 테마</p>
+            </div>
+          </div>
+
+          <!-- 상세 컬러 피커 (미세 조정) -->
+          <h4 style="font-size: 14px; font-weight: 900; color: #fff; margin-bottom: 4px;">🎨 주요 색상 미세 조정 (Color Picker)</h4>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">선택한 프리셋의 세부 색상값을 원하는 톤으로 직접 변경할 수 있습니다.</p>
+
+          <div class="color-picker-grid">
+            <div class="color-picker-item">
+              <span class="color-picker-label">전체 배경색 (--bg)</span>
+              <div class="color-input-wrap">
+                <input type="color" id="pickerBg" class="color-input" onchange="onCustomColorChange()">
+                <span class="color-hex-text" id="hexBg">#040906</span>
+              </div>
+            </div>
+
+            <div class="color-picker-item">
+              <span class="color-picker-label">브랜드 주색상 (--primary)</span>
+              <div class="color-input-wrap">
+                <input type="color" id="pickerPrimary" class="color-input" onchange="onCustomColorChange()">
+                <span class="color-hex-text" id="hexPrimary">#108548</span>
+              </div>
+            </div>
+
+            <div class="color-picker-item">
+              <span class="color-picker-label">포인트 강조색 (--gold)</span>
+              <div class="color-input-wrap">
+                <input type="color" id="pickerGold" class="color-input" onchange="onCustomColorChange()">
+                <span class="color-hex-text" id="hexGold">#f3c448</span>
+              </div>
+            </div>
+
+            <div class="color-picker-item">
+              <span class="color-picker-label">카드 배경색 (--card-bg)</span>
+              <div class="color-input-wrap">
+                <input type="color" id="pickerCardBg" class="color-input" onchange="onCustomColorChange()">
+                <span class="color-hex-text" id="hexCardBg">#08130c</span>
+              </div>
+            </div>
+
+            <div class="color-picker-item">
+              <span class="color-picker-label">테두리선 색상 (--line)</span>
+              <div class="color-input-wrap">
+                <input type="color" id="pickerLine" class="color-input" onchange="onCustomColorChange()">
+                <span class="color-hex-text" id="hexLine">#14241a</span>
+              </div>
+            </div>
+
+            <div class="color-picker-item">
+              <span class="color-picker-label">본문 텍스트 색상 (--text)</span>
+              <div class="color-input-wrap">
+                <input type="color" id="pickerText" class="color-input" onchange="onCustomColorChange()">
+                <span class="color-hex-text" id="hexText">#ffffff</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 실시간 라이브 프리뷰 박스 -->
+          <div class="theme-preview-box" id="themePreviewBox">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <span id="prevBadge" style="font-size: 11px; font-weight: 900; padding: 4px 10px; border-radius: 99px;">
+                PREVIEW · 세미나 테마 실시간 미리보기
+              </span>
+              <span id="prevTime" style="font-size: 12px; font-weight: 800;">2026. 11. 16(월)</span>
+            </div>
+            <h3 id="prevTitle" style="font-size: 20px; font-weight: 900; margin-bottom: 8px;">
+              2026 HVAC Engineering Expert Seminar
+            </h3>
+            <p id="prevText" style="font-size: 13px; line-height: 1.5; margin-bottom: 16px;">
+              선택한 색상 및 그라데이션이 세미나 메인, 모바일 체크인, 실시간 Q&A, 퀴즈 페이지에 이와 같이 반영됩니다.
+            </p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button id="prevBtnPrimary" style="padding: 10px 18px; border-radius: 8px; font-weight: 900; font-size: 13px; border: none; cursor: pointer;">
+                메인 액션 버튼
+              </button>
+              <button id="prevBtnSub" style="padding: 10px 18px; border-radius: 8px; font-weight: 800; font-size: 13px; cursor: pointer;">
+                보조 버튼
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- =========================================================
@@ -1953,6 +2341,8 @@
       renderMcCards();
       renderCheckinTable();
       initKakaoPresets();
+      loadSiteLinks();
+      loadThemeSettings();
       updateAllStats();
     }
 
@@ -2944,6 +3334,299 @@
         if (mc.classList.contains('fullscreen')) mc.classList.remove('fullscreen');
       }
     });
+
+    // =========================================================
+    // 12. [TAB 5] 링크 설정 & 테마 프리셋 엔진
+    // =========================================================
+    const DEFAULT_SITE_LINKS = {
+      kakaoChannel: 'https://pf.kakao.com/_hvac2026',
+      kakaoChat: 'https://pf.kakao.com/_hvac2026/chat',
+      surveyForm: 'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u',
+      attendanceForm: 'https://forms.cloud.microsoft/r/kaugdHpUxh',
+      mapUrl: 'https://map.naver.com/p/search/%EA%B5%AD%EB%AF%BC%EB%8C%80%ED%95%99%EA%B5%90%20%EB%B3%B8%EB%B6%80%EA%B4%80'
+    };
+
+    function loadSiteLinks() {
+      try {
+        const saved = localStorage.getItem('hvac_site_links');
+        const links = saved ? JSON.parse(saved) : DEFAULT_SITE_LINKS;
+        document.getElementById('linkKakaoChannel').value = links.kakaoChannel || DEFAULT_SITE_LINKS.kakaoChannel;
+        document.getElementById('linkKakaoChat').value = links.kakaoChat || DEFAULT_SITE_LINKS.kakaoChat;
+        document.getElementById('linkSurveyForm').value = links.surveyForm || DEFAULT_SITE_LINKS.surveyForm;
+        document.getElementById('linkAttendanceForm').value = links.attendanceForm || DEFAULT_SITE_LINKS.attendanceForm;
+        document.getElementById('linkMap').value = links.mapUrl || DEFAULT_SITE_LINKS.mapUrl;
+      } catch (e) {}
+    }
+
+    function saveSiteLinks() {
+      const links = {
+        kakaoChannel: document.getElementById('linkKakaoChannel').value.trim() || DEFAULT_SITE_LINKS.kakaoChannel,
+        kakaoChat: document.getElementById('linkKakaoChat').value.trim() || DEFAULT_SITE_LINKS.kakaoChat,
+        surveyForm: document.getElementById('linkSurveyForm').value.trim() || DEFAULT_SITE_LINKS.surveyForm,
+        attendanceForm: document.getElementById('linkAttendanceForm').value.trim() || DEFAULT_SITE_LINKS.attendanceForm,
+        mapUrl: document.getElementById('linkMap').value.trim() || DEFAULT_SITE_LINKS.mapUrl
+      };
+      try {
+        localStorage.setItem('hvac_site_links', JSON.stringify(links));
+        showToast('💾 사이트 공식 링크가 성공적으로 저장 및 동기화되었습니다!');
+      } catch (e) {
+        alert('저장에 실패했습니다.');
+      }
+    }
+
+    function resetDefaultLinks() {
+      if (confirm('모든 링크를 초기 기본값으로 복원하시겠습니까?')) {
+        localStorage.removeItem('hvac_site_links');
+        loadSiteLinks();
+        showToast('🔗 링크가 기본값으로 복원되었습니다.');
+      }
+    }
+
+    function testLink(inputId) {
+      const val = document.getElementById(inputId).value.trim();
+      if (val) {
+        window.open(val, '_blank');
+      } else {
+        alert('URL을 입력해 주세요.');
+      }
+    }
+
+    // ---------------------------------------------------------
+    // 테마 프리셋 & 컬러 커스터마이징
+    // ---------------------------------------------------------
+    const THEME_PRESETS = {
+      forest: {
+        id: 'forest',
+        name: '딥 포레스트 & 골드',
+        cardId: 'themeCardForest',
+        vars: {
+          '--bg': '#040906',
+          '--panel': '#08130c',
+          '--card-bg': '#08130c',
+          '--card-border': '#14241a',
+          '--line': '#14241a',
+          '--primary': '#108548',
+          '--primary-bright': '#22c55e',
+          '--burgundy': '#0e5e34',
+          '--burgundy-bright': '#108548',
+          '--burgundy-glow': '#22c55e',
+          '--red': '#108548',
+          '--gold': '#f3c448',
+          '--gold-light': '#f3c448',
+          '--red-light': '#f3c448',
+          '--text': '#ffffff',
+          '--text-muted': '#8fa094'
+        },
+        gradient: 'radial-gradient(circle at 78% 18%, rgba(214, 160, 23, 0.46), transparent 42%), radial-gradient(circle at 8% 88%, rgba(16, 133, 72, 0.62), transparent 46%), linear-gradient(135deg, #040906 0%, #081b11 52%, #030704 100%)'
+      },
+      burgundy: {
+        id: 'burgundy',
+        name: '클래식 버건디 & 레드',
+        cardId: 'themeCardBurgundy',
+        vars: {
+          '--bg': '#0b0407',
+          '--panel': '#14080e',
+          '--card-bg': '#14080e',
+          '--card-border': 'rgba(255, 255, 255, 0.12)',
+          '--line': '#2d0e1c',
+          '--primary': '#831335',
+          '--primary-bright': '#a81c46',
+          '--burgundy': '#831335',
+          '--burgundy-bright': '#a81c46',
+          '--burgundy-glow': '#e61f5c',
+          '--red': '#eb0e26',
+          '--gold': '#ff5366',
+          '--gold-light': '#ff5366',
+          '--red-light': '#ff5366',
+          '--text': '#ffffff',
+          '--text-muted': 'rgba(255, 255, 255, 0.65)'
+        },
+        gradient: 'radial-gradient(circle at 78% 18%, rgba(230, 31, 92, 0.45), transparent 42%), radial-gradient(circle at 8% 88%, rgba(131, 19, 53, 0.65), transparent 46%), linear-gradient(135deg, #0b0407 0%, #1f050f 52%, #070204 100%)'
+      },
+      light: {
+        id: 'light',
+        name: '라이트 에메랄드 & 샴페인',
+        cardId: 'themeCardLight',
+        vars: {
+          '--bg': '#f5f8f5',
+          '--panel': '#ffffff',
+          '--card-bg': '#ffffff',
+          '--card-border': '#dbe6dd',
+          '--line': '#dbe6dd',
+          '--primary': '#059669',
+          '--primary-bright': '#10b981',
+          '--burgundy': '#059669',
+          '--burgundy-bright': '#10b981',
+          '--burgundy-glow': '#34d399',
+          '--red': '#059669',
+          '--gold': '#d97706',
+          '--gold-light': '#f59e0b',
+          '--red-light': '#d97706',
+          '--text': '#112217',
+          '--text-muted': '#526659'
+        },
+        gradient: 'radial-gradient(circle at 82% 16%, rgba(251, 191, 36, 0.38), transparent 48%), radial-gradient(circle at 10% 84%, rgba(52, 211, 153, 0.35), transparent 50%), linear-gradient(135deg, #ecfdf5 0%, #fefce8 52%, #f0fdf4 100%)'
+      },
+      navy: {
+        id: 'navy',
+        name: '미드나잇 테크 & 블루',
+        cardId: 'themeCardNavy',
+        vars: {
+          '--bg': '#050914',
+          '--panel': '#0b1324',
+          '--card-bg': '#0b1324',
+          '--card-border': '#1e293b',
+          '--line': '#1e293b',
+          '--primary': '#2563eb',
+          '--primary-bright': '#3b82f6',
+          '--burgundy': '#1d4ed8',
+          '--burgundy-bright': '#2563eb',
+          '--burgundy-glow': '#60a5fa',
+          '--red': '#2563eb',
+          '--gold': '#38bdf8',
+          '--gold-light': '#7dd3fc',
+          '--red-light': '#38bdf8',
+          '--text': '#f8fafc',
+          '--text-muted': '#94a3b8'
+        },
+        gradient: 'radial-gradient(circle at 78% 18%, rgba(56, 189, 248, 0.4), transparent 42%), radial-gradient(circle at 8% 88%, rgba(37, 99, 235, 0.55), transparent 46%), linear-gradient(135deg, #050914 0%, #0c1836 52%, #03060d 100%)'
+      }
+    };
+
+    let currentThemePreset = 'forest';
+    let currentCustomVars = { ...THEME_PRESETS.forest.vars };
+
+    function loadThemeSettings() {
+      try {
+        const saved = localStorage.getItem('hvac_theme_settings');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          currentThemePreset = parsed.presetId || 'custom';
+          currentCustomVars = { ...parsed.vars };
+        } else {
+          currentThemePreset = 'forest';
+          currentCustomVars = { ...THEME_PRESETS.forest.vars };
+        }
+      } catch (e) {
+        currentThemePreset = 'forest';
+        currentCustomVars = { ...THEME_PRESETS.forest.vars };
+      }
+      highlightActiveThemeCard();
+      syncPickersFromVars();
+      updateThemePreview();
+    }
+
+    function highlightActiveThemeCard() {
+      document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('active'));
+      if (currentThemePreset && THEME_PRESETS[currentThemePreset]) {
+        const card = document.getElementById(THEME_PRESETS[currentThemePreset].cardId);
+        if (card) card.classList.add('active');
+      }
+    }
+
+    function selectThemePreset(presetId) {
+      const preset = THEME_PRESETS[presetId];
+      if (!preset) return;
+      currentThemePreset = presetId;
+      currentCustomVars = { ...preset.vars };
+      highlightActiveThemeCard();
+      syncPickersFromVars();
+      updateThemePreview();
+      showToast(`🎨 '${preset.name}' 프리셋이 선택되었습니다. [저장]을 누르면 적용됩니다.`);
+    }
+
+    function syncPickersFromVars() {
+      const v = currentCustomVars;
+      document.getElementById('pickerBg').value = v['--bg'] || '#040906';
+      document.getElementById('hexBg').textContent = v['--bg'] || '#040906';
+
+      document.getElementById('pickerPrimary').value = v['--primary'] || '#108548';
+      document.getElementById('hexPrimary').textContent = v['--primary'] || '#108548';
+
+      document.getElementById('pickerGold').value = v['--gold'] || '#f3c448';
+      document.getElementById('hexGold').textContent = v['--gold'] || '#f3c448';
+
+      document.getElementById('pickerCardBg').value = v['--card-bg'] || '#08130c';
+      document.getElementById('hexCardBg').textContent = v['--card-bg'] || '#08130c';
+
+      document.getElementById('pickerLine').value = v['--line'] || '#14241a';
+      document.getElementById('hexLine').textContent = v['--line'] || '#14241a';
+
+      document.getElementById('pickerText').value = v['--text'] || '#ffffff';
+      document.getElementById('hexText').textContent = v['--text'] || '#ffffff';
+    }
+
+    function onCustomColorChange() {
+      currentCustomVars = {
+        '--bg': document.getElementById('pickerBg').value,
+        '--primary': document.getElementById('pickerPrimary').value,
+        '--gold': document.getElementById('pickerGold').value,
+        '--card-bg': document.getElementById('pickerCardBg').value,
+        '--line': document.getElementById('pickerLine').value,
+        '--text': document.getElementById('pickerText').value
+      };
+      document.getElementById('hexBg').textContent = currentCustomVars['--bg'];
+      document.getElementById('hexPrimary').textContent = currentCustomVars['--primary'];
+      document.getElementById('hexGold').textContent = currentCustomVars['--gold'];
+      document.getElementById('hexCardBg').textContent = currentCustomVars['--card-bg'];
+      document.getElementById('hexLine').textContent = currentCustomVars['--line'];
+      document.getElementById('hexText').textContent = currentCustomVars['--text'];
+
+      currentThemePreset = 'custom';
+      document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('active'));
+      updateThemePreview();
+    }
+
+    function updateThemePreview() {
+      const box = document.getElementById('themePreviewBox');
+      const v = currentCustomVars;
+
+      box.style.backgroundColor = v['--bg'] || '#040906';
+      box.style.borderColor = v['--line'] || '#14241a';
+      box.style.color = v['--text'] || '#ffffff';
+
+      const prevBadge = document.getElementById('prevBadge');
+      prevBadge.style.backgroundColor = (v['--primary'] || '#108548') + '22';
+      prevBadge.style.color = v['--gold'] || '#f3c448';
+      prevBadge.style.border = `1px solid ${(v['--gold'] || '#f3c448')}44`;
+
+      document.getElementById('prevTime').style.color = v['--gold'] || '#f3c448';
+      document.getElementById('prevTitle').style.color = v['--text'] || '#ffffff';
+      document.getElementById('prevText').style.color = (v['--text'] || '#ffffff') + 'cc';
+
+      const btnPrimary = document.getElementById('prevBtnPrimary');
+      btnPrimary.style.backgroundColor = v['--primary'] || '#108548';
+      btnPrimary.style.color = '#ffffff';
+
+      const btnSub = document.getElementById('prevBtnSub');
+      btnSub.style.backgroundColor = v['--card-bg'] || '#08130c';
+      btnSub.style.borderColor = v['--line'] || '#14241a';
+      btnSub.style.border = `1px solid ${v['--line'] || '#14241a'}`;
+      btnSub.style.color = v['--gold'] || '#f3c448';
+    }
+
+    function saveThemeSettings() {
+      const gradient = THEME_PRESETS[currentThemePreset]?.gradient || '';
+      const payload = {
+        presetId: currentThemePreset,
+        vars: currentCustomVars,
+        gradient: gradient
+      };
+      try {
+        localStorage.setItem('hvac_theme_settings', JSON.stringify(payload));
+        showToast('🎨 테마 설정이 저장되었습니다! 세미나 전체 웹페이지에 실시간 적용됩니다.');
+      } catch (e) {
+        alert('테마 저장에 실패했습니다.');
+      }
+    }
+
+    function resetDefaultTheme() {
+      if (confirm('테마를 기본 딥 포레스트 그린 & 앰버 골드 테마로 복원하시겠습니까?')) {
+        localStorage.removeItem('hvac_theme_settings');
+        selectThemePreset('forest');
+        showToast('🌿 기본 테마로 복원되었습니다.');
+      }
+    }
 
     // 시작 시 인증 체크
     window.addEventListener('DOMContentLoaded', () => {

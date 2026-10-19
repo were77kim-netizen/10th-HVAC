@@ -10,6 +10,58 @@
 
   <title>2026 HVAC Engineering Expert Seminar</title>
 
+  <!-- Dynamic Theme & Link Sync from Admin Settings -->
+  <script>
+    (function() {
+      try {
+        const theme = JSON.parse(localStorage.getItem('hvac_theme_settings') || 'null');
+        if (theme && theme.vars) {
+          let css = ':root {\n';
+          for (const [k, v] of Object.entries(theme.vars)) {
+            css += `  ${k}: ${v} !important;\n`;
+          }
+          css += '}\n';
+          if (theme.gradient) {
+            css += `body, .hero, .bg-canvas, .bg-gradient { background: ${theme.gradient} !important; }\n`;
+          }
+          const style = document.createElement('style');
+          style.id = 'hvac-custom-theme-style';
+          style.textContent = css;
+          document.head.appendChild(style);
+        }
+      } catch (e) {}
+
+      window.addEventListener('DOMContentLoaded', function() {
+        try {
+          const links = JSON.parse(localStorage.getItem('hvac_site_links') || 'null');
+          if (links) {
+            if (links.kakaoChannel) {
+              document.querySelectorAll('a[href*="pf.kakao.com"]').forEach(function(a) {
+                if (a.href.includes('/chat')) {
+                  a.href = links.kakaoChat || (links.kakaoChannel + '/chat');
+                } else {
+                  a.href = links.kakaoChannel;
+                }
+              });
+            }
+            if (links.surveyForm) {
+              document.querySelectorAll('a[href*="ResponsePage.aspx"], a[href*="forms.cloud.microsoft"]').forEach(function(a) {
+                if (!a.href.includes('/r/kaugdHpUxh')) {
+                  a.href = links.surveyForm;
+                }
+              });
+            }
+            if (links.attendanceForm) {
+              document.querySelectorAll('a[href*="/r/kaugdHpUxh"]').forEach(function(a) {
+                a.href = links.attendanceForm;
+              });
+            }
+          }
+        } catch (e) {}
+      });
+    })();
+  </script>
+
   <style>
     :root {
       --primary: #108548;
