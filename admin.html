@@ -1435,6 +1435,362 @@
       margin-top: 20px;
       transition: all 0.3s ease;
     }
+
+    /* =========================================================
+       9. 섹션 6: 🎁 럭키드로우 & 출석 순번 이벤트
+       ========================================================= */
+    .draw-subnav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 14px;
+      overflow-x: auto;
+    }
+
+    .draw-sub-btn {
+      padding: 10px 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .draw-sub-btn:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .draw-sub-btn.active {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: var(--primary-bright);
+      color: #fff;
+    }
+
+    /* 사회자 발표 무대 (Stage) */
+    .draw-stage-container {
+      background: radial-gradient(circle at 50% 20%, #0d2818 0%, #040906 75%);
+      border: 1px solid rgba(243, 196, 72, 0.3);
+      border-radius: 20px;
+      padding: 30px 24px;
+      position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .draw-stage-container.is-fullscreen {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      border-radius: 0;
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      padding: 36px 40px;
+      box-sizing: border-box;
+      background: radial-gradient(circle at 50% 25%, #0e3b22 0%, #030805 85%);
+    }
+
+    .stage-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 16px;
+    }
+
+    .stage-rank-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(243, 196, 72, 0.2), rgba(212, 160, 23, 0.1));
+      border: 1px solid rgba(243, 196, 72, 0.45);
+      color: #f3c448;
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 13.5px;
+      font-weight: 850;
+      letter-spacing: 0.02em;
+    }
+
+    .stage-center-box {
+      margin: auto 0;
+      text-align: center;
+      padding: 24px 0;
+      width: 100%;
+    }
+
+    .stage-prize-title {
+      font-size: 34px;
+      font-weight: 950;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+      text-shadow: 0 0 25px rgba(243, 196, 72, 0.4);
+      color: #ffffff;
+    }
+
+    .stage-prize-sub {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .stage-prize-name-tag {
+      color: #f3c448;
+      font-weight: 900;
+      background: rgba(243, 196, 72, 0.12);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(243, 196, 72, 0.25);
+    }
+
+    /* 슬롯머신 및 당첨자 그리드 */
+    .stage-slots-grid {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 20px auto 30px;
+      max-width: 1080px;
+    }
+
+    .stage-slot-card {
+      background: rgba(9, 22, 14, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 20px 22px;
+      min-width: 220px;
+      max-width: 290px;
+      flex: 1 1 220px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .stage-slot-card.is-rolling {
+      border-color: rgba(243, 196, 72, 0.6);
+      box-shadow: 0 0 30px rgba(243, 196, 72, 0.35);
+      animation: slotPulse 0.4s infinite alternate;
+    }
+
+    .stage-slot-card.is-winner {
+      border: 2px solid #f3c448;
+      background: linear-gradient(180deg, rgba(20, 50, 30, 0.9) 0%, rgba(10, 24, 15, 0.95) 100%);
+      box-shadow: 0 0 40px rgba(243, 196, 72, 0.45);
+      transform: translateY(-4px) scale(1.02);
+    }
+
+    @keyframes slotPulse {
+      0% { transform: scale(0.99); }
+      100% { transform: scale(1.02); }
+    }
+
+    .slot-num-badge {
+      font-size: 11px;
+      font-weight: 850;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .slot-name {
+      font-size: 24px;
+      font-weight: 950;
+      color: #ffffff;
+      margin-bottom: 4px;
+      letter-spacing: -0.02em;
+    }
+
+    .slot-id-pill {
+      font-family: monospace;
+      font-size: 13px;
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.15);
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .slot-email {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      word-break: break-all;
+    }
+
+    .btn-slot-redraw {
+      margin-top: 12px;
+      padding: 5px 10px;
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.7);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-slot-redraw:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+      color: #ff8080;
+    }
+
+    /* 하단 컨트롤러 바 */
+    .stage-bottom-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 16px;
+    }
+
+    .btn-stage-draw-start {
+      background: linear-gradient(135deg, #f3c448 0%, #d4a017 100%);
+      color: #040906;
+      border: none;
+      font-size: 20px;
+      font-weight: 950;
+      padding: 16px 38px;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(243, 196, 72, 0.45);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-stage-draw-start:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(243, 196, 72, 0.6);
+    }
+
+    .btn-stage-nav {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-stage-nav:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .btn-stage-nav.primary {
+      background: var(--primary);
+      border-color: var(--primary-bright);
+    }
+
+    .btn-stage-nav.primary:hover {
+      background: var(--primary-bright);
+    }
+
+    /* Confetti Canvas 오버레이 */
+    #confettiCanvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100000;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 등수 설정 카드 & 스텝퍼 */
+    .tier-list-container {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .tier-card-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px 18px;
+      flex-wrap: wrap;
+    }
+
+    .tier-badge-label {
+      width: 100px;
+      font-size: 14px;
+      font-weight: 850;
+      color: var(--gold-bright);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stepper-box {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .btn-stepper {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-stepper:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .stepper-val {
+      padding: 0 10px;
+      font-size: 13.5px;
+      font-weight: 800;
+      min-width: 44px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -1510,6 +1866,9 @@
       </button>
       <button class="tab-btn" data-tab="tabCheckin" onclick="switchTab('tabCheckin')">
         👥 출석 & 이상인원 검증 <span class="tab-count" id="countBadgeCheckin">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tabDraw" onclick="switchTab('tabDraw')">
+        🎁 럭키드로우 & 이벤트 <span class="tab-count" id="countBadgeDraw">0</span>
       </button>
       <button class="tab-btn" data-tab="tabKakao" onclick="switchTab('tabKakao')">
         📢 카카오톡 공지 센터
@@ -1697,6 +2056,14 @@
             <div class="stat-sub">블랙리스트 격리</div>
           </div>
         </div>
+        <div class="stat-card">
+          <div class="stat-icon gold">🎁</div>
+          <div>
+            <div class="stat-label">순번 이벤트 당첨</div>
+            <div class="stat-value" id="statMilestoneCheckin">0</div>
+            <div class="stat-sub">10·50·77·100번째</div>
+          </div>
+        </div>
       </div>
 
       <!-- 출석부 툴바 -->
@@ -1711,6 +2078,7 @@
           >
           <select id="checkinFilterSelect" class="filter-select" onchange="renderCheckinTable()">
             <option value="all">전체 인원 보기</option>
+            <option value="milestone">🎁 N번째 순번 당첨자만 보기</option>
             <option value="mismatch">⚠️ 이상/불일치 인원만 보기</option>
             <option value="matched">🟢 정상 매칭 인원만 보기</option>
             <option value="blocked">🚫 강퇴/차단 인원만 보기</option>
@@ -1730,13 +2098,14 @@
         <table class="admin-table">
           <thead>
             <tr>
-              <th style="width: 50px;">No</th>
-              <th style="width: 130px;">상태</th>
-              <th style="width: 120px;">한글 성명</th>
+              <th style="width: 90px;">순번 / ID</th>
+              <th style="width: 120px;">상태</th>
+              <th style="width: 110px;">한글 성명</th>
               <th>이메일 아이디</th>
               <th>사전 명부 대조 정보</th>
-              <th style="width: 110px;">체크인 시간</th>
-              <th style="width: 170px; text-align: center;">관리 액션</th>
+              <th style="width: 130px;">이벤트 당첨</th>
+              <th style="width: 105px;">체크인 시간</th>
+              <th style="width: 165px; text-align: center;">관리 액션</th>
             </tr>
           </thead>
           <tbody id="checkinTableBody">
@@ -1747,8 +2116,286 @@
     </section>
 
     <!-- -----------------------------------------------------
-         [TAB 4] 각 세션별 카카오톡 채널 안내 멘트 발송 센터
+         [TAB 6] 🎁 럭키드로우 & 출석 순번 이벤트 센터
          ----------------------------------------------------- -->
+    <section id="tabDraw" class="tab-panel">
+      <!-- 럭키드로우 서브 네비게이션 -->
+      <div class="draw-subnav">
+        <button class="draw-sub-btn active" id="btnSubDrawStage" onclick="switchDrawSubTab('stage')">
+          🏆 클로징 럭키드로우 발표 무대 (사회자용)
+        </button>
+        <button class="draw-sub-btn" id="btnSubDrawConfig" onclick="switchDrawSubTab('config')">
+          ⚙️ 럭키드로우 등수 & 경품 설정
+        </button>
+        <button class="draw-sub-btn" id="btnSubDrawMilestone" onclick="switchDrawSubTab('milestone')">
+          🎯 N번째 체크인 당첨 이벤트 관리
+        </button>
+        <button class="draw-sub-btn" id="btnSubDrawWinners" onclick="switchDrawSubTab('winners')">
+          📋 전체 당첨자 명단 & CSV 다운로드
+        </button>
+      </div>
+
+      <!-- [SUB-TAB 1] 사회자 무대 발표기 -->
+      <div id="subTabDrawStage" class="draw-sub-panel active">
+        <div class="draw-stage-container" id="drawStageContainer">
+          <!-- 폭죽 캔버스 -->
+          <canvas id="confettiCanvas"></canvas>
+
+          <!-- 무대 상단 바 -->
+          <div class="stage-top-bar">
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <span class="stage-rank-pill" id="stageRankPill">
+                <span>단계 1 / 5</span> · <strong id="stageCurrentRankLabel">5등 (참가상)</strong>
+              </span>
+              <span class="stage-seed-badge" id="stageSeedBadge" style="font-family: monospace; font-size: 11px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 6px; color: rgba(255,255,255,0.7);" title="공정성 검증 시드 해시">
+                🔒 Seed: <span id="stageSeedText">2026_HVAC_10TH...</span>
+              </span>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button class="btn-stage-nav" onclick="prevTierStage()" id="btnPrevStage" title="이전 등수로 이동">◀ 이전 등수</button>
+              <button class="btn-stage-nav" onclick="nextTierStage()" id="btnNextStage" title="다음 등수로 이동">다음 등수 ▶</button>
+              <button class="btn-stage-nav" onclick="toggleFullscreenStage()" id="btnFullscreenStage" title="무대 전체화면 모드 (빔 프로젝터/전광판용)">
+                ⛶ 전체화면 전광판
+              </button>
+            </div>
+          </div>
+
+          <!-- 무대 중앙 콘텐츠 (타이틀 & 슬롯 & 추첨 버튼) -->
+          <div class="stage-center-box">
+            <div style="display: inline-block; font-size: 13px; font-weight: 850; letter-spacing: 0.15em; color: var(--gold-bright); text-transform: uppercase; margin-bottom: 6px;">
+              2026 HVAC EXPERT SEMINAR · LUCKY DRAW
+            </div>
+            <h2 class="stage-prize-title" id="stageRankTitle">5등 (참가상)</h2>
+            <div class="stage-prize-sub">
+              <span>경품:</span>
+              <span class="stage-prize-name-tag" id="stagePrizeNameTag">휴대용 멀티 고속 보조배터리</span>
+              <span style="color: rgba(255,255,255,0.4);">|</span>
+              <span>선정 인원: <strong id="stagePrizeCountTag" style="color: #fff;">5명</strong></span>
+              <span style="color: rgba(255,255,255,0.4);">|</span>
+              <span>추첨 대상: <strong id="stageCandidatesCount" style="color: #10b981;">0명</strong></span>
+            </div>
+
+            <!-- 슬롯 카드 동적 그리드 -->
+            <div class="stage-slots-grid" id="stageSlotsGrid">
+              <!-- JS 동적 렌더링 -->
+            </div>
+
+            <!-- 대형 추첨 시작 버튼 (추첨 전 노출) -->
+            <div id="stageDrawActionBox" style="margin-top: 10px;">
+              <button class="btn-stage-draw-start" id="btnStartDraw" onclick="startCurrentTierDraw()">
+                🎲 <span id="btnStartDrawText">5등 추첨 시작하기</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 무대 하단 컨트롤 바 -->
+          <div class="stage-bottom-bar">
+            <div style="font-size: 13px; color: rgba(255, 255, 255, 0.65); display: flex; align-items: center; gap: 8px;">
+              <span>진행 순서:</span>
+              <span id="stageTierSequenceText" style="color: #f3c448; font-weight: 700;">5등 ➔ 4등 ➔ 3등 ➔ 2등 ➔ 1등 (대상)</span>
+            </div>
+
+            <div style="display: flex; gap: 8px;">
+              <button class="btn-stage-nav" onclick="reRunConfetti()" title="축하 팡파르 다시 터뜨리기">🎉 폭죽 효과</button>
+              <button class="btn-stage-nav primary" onclick="goToNextStepOrComplete()" id="btnStepOrComplete">
+                다음 등수 발표하기 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- [SUB-TAB 2] 럭키드로우 등수 & 경품 설정 -->
+      <div id="subTabDrawConfig" class="draw-sub-panel" style="display: none;">
+        <div class="card" style="margin-bottom: 24px;">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">⚙️ 클로징 럭키드로우 등수 및 인원수 설정</h3>
+              <p class="card-sub">세미나 클로징 전 진행될 럭키드로우의 등수 단계(1~3등, 1~5등 등)와 각 등수별 당첨 인원수, 경품명을 자유롭게 구성합니다.</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn-act" onclick="applyTierPreset(3)">3단계 모드 (1~3등)</button>
+              <button class="btn-act primary" onclick="applyTierPreset(5)">5단계 모드 (1~5등 권장)</button>
+              <button class="btn-act" onclick="applyTierPreset(7)">7단계 모드 (1~7등)</button>
+            </div>
+          </div>
+
+          <!-- 등수별 카드 리스트 -->
+          <div class="tier-list-container" id="tierConfigList">
+            <!-- JS 동적 렌더링 -->
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; flex-wrap: wrap; gap: 10px;">
+            <button class="btn-act" onclick="addNewTierRow()">+ 새로운 등수 단계 추가</button>
+            <div style="font-size: 13px; color: var(--text-muted);">
+              총 당첨 인원: <strong id="configTotalWinnersCount" style="color: var(--gold-bright); font-size: 15px;">0</strong>명
+            </div>
+          </div>
+        </div>
+
+        <!-- 추첨 대상자 필터 & 시드 설정 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">🔒 공정 난수 추첨 알고리즘 및 후보자 필터 옵션</h3>
+              <p class="card-sub">무작위 의사난수 생성기(Mulberry32 PRNG)와 세미나 회차/타임스탬프 Seed를 결합하여 공정성을 보장합니다.</p>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+            <div>
+              <label class="form-label">추첨 후보자 필터링 조건</label>
+              <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; cursor: pointer;">
+                  <input type="checkbox" id="cfgOnlyMatched" onchange="saveDrawConfigFromUi()">
+                  <span>사전 등록 명부 정상 일치(Matched) 인원만 추첨 (미등록/오타 제외)</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; cursor: pointer;">
+                  <input type="checkbox" id="cfgExcludeBlocked" checked disabled>
+                  <span style="color: rgba(255,255,255,0.7);">관리자에 의해 강퇴/차단된 블랙리스트 계정 완전 제외 (필수)</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; cursor: pointer;">
+                  <input type="checkbox" id="cfgExcludeMilestones" onchange="saveDrawConfigFromUi()">
+                  <span>N번째 체크인 이벤트 당첨자는 럭키드로우 중복 당첨 제외</span>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label">공정 추첨 Seed 키워드</label>
+              <input type="text" id="cfgSeedPrefix" class="form-control" value="2026_HVAC_10TH_EXPERT_SEMINAR" oninput="saveDrawConfigFromUi()">
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px; line-height: 1.45;">
+                현재 시간(밀리초), "10"회차 세미나 식별자, 참석자 목록 해시를 조합하여 조작 불가능한 고유 의사난수 시드를 산출합니다.
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; border-top: 1px solid var(--card-border); padding-top: 16px;">
+            <button class="btn-act" onclick="resetDrawConfigToDefault()">기본값으로 복원</button>
+            <button class="btn-act primary" onclick="saveDrawConfigFromUi(true)">💾 럭키드로우 설정 저장</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- [SUB-TAB 3] N번째 체크인 당첨 이벤트 관리 -->
+      <div id="subTabDrawMilestone" class="draw-sub-panel" style="display: none;">
+        <!-- 상단 설명 및 통계 -->
+        <div class="card" style="margin-bottom: 24px;">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">🎯 N번째 출석 체크(체크인) 당첨 이벤트 설정</h3>
+              <p class="card-sub">
+                참가자가 모바일에서 체크인할 때마다 부여되는 순번(No. 1, 2, 3...)을 감지하여, 관리자가 지정한 특정 번호(10번째, 50번째, 77번째, 100번째 등)에 도달할 때 깜짝 경품 당첨 팝업을 실시간으로 띄워줍니다.
+              </p>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button class="btn-act" onclick="seedMockAttendees(15)">⚡ 15명 가상 출석 (10번째 당첨 즉시 테스트)</button>
+              <button class="btn-act" onclick="seedMockAttendees(50)">⚡ 50명 가상 출석 (50번째 테스트)</button>
+              <button class="btn-act" onclick="seedMockAttendees(100)">⚡ 100명 가상 출석 (전체 테스트)</button>
+            </div>
+          </div>
+
+          <!-- 이벤트 목표 번호 관리 테이블 -->
+          <div class="table-container" style="margin-top: 12px;">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th style="width: 120px;">목표 체크인 순번</th>
+                  <th>당첨 경품 명칭</th>
+                  <th style="width: 140px;">현재 진행 상태</th>
+                  <th style="width: 180px;">당첨자 정보</th>
+                  <th style="width: 110px; text-align: center;">관리</th>
+                </tr>
+              </thead>
+              <tbody id="milestoneConfigTableBody">
+                <!-- JS 동적 렌더링 -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 신규 순번 이벤트 추가 폼 -->
+          <div style="display: flex; gap: 10px; margin-top: 18px; align-items: flex-end; flex-wrap: wrap; background: rgba(255,255,255,0.03); padding: 14px; border-radius: 12px; border: 1px dashed rgba(255,255,255,0.15);">
+            <div style="width: 140px;">
+              <label class="form-label" style="font-size: 11.5px;">목표 순번 (숫자)</label>
+              <input type="number" id="inputNewMilestoneSeq" class="form-control" placeholder="예: 25" min="1">
+            </div>
+            <div style="flex: 1; min-width: 220px;">
+              <label class="form-label" style="font-size: 11.5px;">지급 경품 명칭</label>
+              <input type="text" id="inputNewMilestonePrize" class="form-control" placeholder="예: 스타벅스 e-Gift 카드 1만원권">
+            </div>
+            <button class="btn-act primary" onclick="addMilestoneEvent()">+ 순번 이벤트 추가</button>
+          </div>
+        </div>
+
+        <!-- 실시간 순번 당첨자 현황판 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">🎁 순번 이벤트 실시간 당첨자 현황판</h3>
+              <p class="card-sub">현재까지 지정된 순번에 체크인하여 경품에 당첨된 참석자 목록과 현장 경품 수령 완료 여부를 관리합니다.</p>
+            </div>
+            <button class="btn-act" onclick="renderMilestoneTab()">🔄 현황 새로고침</button>
+          </div>
+
+          <div class="table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th style="width: 70px;">순번</th>
+                  <th style="width: 110px;">발급 ID</th>
+                  <th style="width: 120px;">성명</th>
+                  <th>이메일 아이디</th>
+                  <th>당첨 경품</th>
+                  <th style="width: 110px;">체크인 시간</th>
+                  <th style="width: 130px; text-align: center;">현장 수령 확인</th>
+                </tr>
+              </thead>
+              <tbody id="milestoneWinnersTableBody">
+                <!-- JS 동적 렌더링 -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- [SUB-TAB 4] 전체 당첨자 명단 및 CSV 다운로드 -->
+      <div id="subTabDrawWinners" class="draw-sub-panel" style="display: none;">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">📋 2026 HVAC 세미나 럭키드로우 전체 당첨자 종합 명부</h3>
+              <p class="card-sub">클로징 럭키드로우 당첨자와 체크인 순번 이벤트 당첨자 전체 내역을 확인하고 CSV 엑셀 파일로 내려받거나 공지용 텍스트를 복사합니다.</p>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button class="btn-act primary" onclick="exportLuckyDrawCsv()">📥 당첨자 CSV 다운로드</button>
+              <button class="btn-act" onclick="copyLuckyDrawSummaryText()">📋 공지용 텍스트 복사</button>
+              <button class="btn-act danger" onclick="resetLuckyDrawStateConfirm()">🔄 추첨 결과 전체 초기화</button>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th style="width: 110px;">구분</th>
+                  <th style="width: 120px;">등수 / 순번</th>
+                  <th style="width: 100px;">발급 ID</th>
+                  <th style="width: 120px;">성명</th>
+                  <th>이메일 계정</th>
+                  <th>당첨 경품</th>
+                  <th style="width: 110px;">추첨 시각</th>
+                  <th style="width: 110px; text-align: center;">수령 여부</th>
+                </tr>
+              </thead>
+              <tbody id="allWinnersTableBody">
+                <!-- JS 동적 렌더링 -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
     <section id="tabKakao" class="tab-panel">
       <!-- 카카오 안내 헤더 -->
       <div style="background: rgba(254, 229, 0, 0.08); border: 1px solid rgba(254, 229, 0, 0.25); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 24px;">
@@ -2402,15 +3049,25 @@
       // 출석자가 비어있으면 초기 시딩
       if (checkinList.length === 0) {
         checkinList = [
-          { name: '이영수', email: 'youngsoo.lee', checkinTime: '오전 08:42', date: '2026-11-16' },
-          { name: '여명석', email: 'myeongseok.yeo', checkinTime: '오전 08:50', date: '2026-11-16' },
-          { name: '정성호', email: 'sungho.jeong', checkinTime: '오전 08:55', date: '2026-11-16' },
-          { name: '박상민', email: 'sangmin.park', checkinTime: '오전 09:02', date: '2026-11-16' },
-          { name: '김철수', email: 'cheolsoo.kim', checkinTime: '오전 09:10', date: '2026-11-16' },
-          { name: '김철수', email: 'unknown_guest99@gmail.com', checkinTime: '오전 09:12', date: '2026-11-16' }, // 미등록 의심
-          { name: '오타입력자', email: 'minji.park', checkinTime: '오전 09:15', date: '2026-11-16' } // 이름 불일치 의심
+          { seq: 1, checkinId: 'HVAC-001', name: '이영수', email: 'youngsoo.lee', checkinTime: '오전 08:42', date: '2026-11-16' },
+          { seq: 2, checkinId: 'HVAC-002', name: '여명석', email: 'myeongseok.yeo', checkinTime: '오전 08:50', date: '2026-11-16' },
+          { seq: 3, checkinId: 'HVAC-003', name: '정성호', email: 'sungho.jeong', checkinTime: '오전 08:55', date: '2026-11-16' },
+          { seq: 4, checkinId: 'HVAC-004', name: '박상민', email: 'sangmin.park', checkinTime: '오전 09:02', date: '2026-11-16' },
+          { seq: 5, checkinId: 'HVAC-005', name: '김철수', email: 'cheolsoo.kim', checkinTime: '오전 09:10', date: '2026-11-16' },
+          { seq: 6, checkinId: 'HVAC-006', name: '김철수', email: 'unknown_guest99@gmail.com', checkinTime: '오전 09:12', date: '2026-11-16' },
+          { seq: 7, checkinId: 'HVAC-007', name: '오타입력자', email: 'minji.park', checkinTime: '오전 09:15', date: '2026-11-16' }
         ];
         saveCheckin();
+      } else {
+        let changed = false;
+        checkinList.forEach((att, idx) => {
+          if (!att.seq) {
+            att.seq = idx + 1;
+            att.checkinId = 'HVAC-' + String(att.seq).padStart(3, '0');
+            changed = true;
+          }
+        });
+        if (changed) saveCheckin();
       }
 
       // 3) 차단된 블랙리스트 로드
@@ -2418,6 +3075,9 @@
         const bSaved = localStorage.getItem('hvac_blocked_users');
         blockedUsers = bSaved ? JSON.parse(bSaved) : [];
       } catch (e) { blockedUsers = []; }
+
+      // 4) 럭키드로우 & 순번 이벤트 시스템 초기화
+      initDrawSystem();
     }
 
     function saveQna() {
@@ -2444,6 +3104,7 @@
         panel.classList.toggle('active', panel.id === tabId);
       });
       if (tabId === 'tabMc') renderMcCards();
+      if (tabId === 'tabDraw') renderDrawTab();
     }
 
     // =========================================================
@@ -2813,12 +3474,14 @@
         filtered = filtered.filter(item => item.validation.status === 'matched');
       } else if (filter === 'blocked') {
         filtered = filtered.filter(item => item.validation.status === 'blocked');
+      } else if (filter === 'milestone') {
+        filtered = filtered.filter(item => item.isMilestoneWinner || isSeqMilestoneWinner(item.seq));
       }
 
       if (filtered.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="7" style="text-align: center; padding: 40px; color: var(--text-muted);">
+            <td colspan="8" style="text-align: center; padding: 40px; color: var(--text-muted);">
               조건에 일치하는 출석자가 없습니다.
             </td>
           </tr>
@@ -2828,9 +3491,17 @@
 
       tbody.innerHTML = filtered.map((item, idx) => {
         const val = item.validation;
+        const seqVal = item.seq || (idx + 1);
+        const checkinIdVal = item.checkinId || ('HVAC-' + String(seqVal).padStart(3, '0'));
+        const isMilestone = item.isMilestoneWinner || isSeqMilestoneWinner(seqVal);
+        const prizeName = item.milestonePrize || (getMilestoneBySeq(seqVal)?.prize || '');
+
         return `
           <tr class="${val.isProblem ? (val.status === 'blocked' ? 'row-blocked' : 'row-mismatch') : ''}">
-            <td style="color: var(--text-muted); font-size: 12px;">${idx + 1}</td>
+            <td>
+              <strong style="color: #fff; font-size: 13px;">#${seqVal}</strong><br>
+              <code style="font-size: 11px; color: #10b981;">${checkinIdVal}</code>
+            </td>
             <td>
               <span class="status-pill ${val.status}">
                 ${val.status === 'matched' ? '🟢' : (val.status === 'blocked' ? '🚫' : '⚠️')}
@@ -2841,6 +3512,16 @@
             <td><code>${escapeHtml(item.email)}</code></td>
             <td style="font-size: 12.5px; color: ${val.isProblem ? 'var(--gold-bright)' : 'var(--text-muted)'};">
               ${val.text}
+            </td>
+            <td>
+              ${isMilestone ? `
+                <span class="status-pill matched" style="color: #f3c448; border-color: rgba(243,196,72,0.45); background: rgba(243,196,72,0.12); font-size: 11px; padding: 3px 8px; line-height: 1.35; display: inline-block;">
+                  🎁 <strong>${seqVal}번째 당첨</strong><br>
+                  <small style="color: rgba(255,255,255,0.75);">${escapeHtml(prizeName)}</small>
+                </span>
+              ` : `
+                <span style="color: rgba(255, 255, 255, 0.25); font-size: 12px;">-</span>
+              `}
             </td>
             <td style="font-size: 12px; color: var(--text-muted);">${item.checkinTime || '-'}</td>
             <td style="text-align: center;">
@@ -2901,17 +3582,27 @@
       const now = new Date();
       const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
 
+      const maxSeq = checkinList.reduce((m, item) => Math.max(m, (item && item.seq) ? Number(item.seq) : 0), 0);
+      const seq = Math.max(maxSeq + 1, checkinList.length + 1);
+      const checkinId = 'HVAC-' + String(seq).padStart(3, '0');
+      const isMilestone = isSeqMilestoneWinner(seq);
+      const milestonePrize = isMilestone ? (getMilestoneBySeq(seq)?.prize || '') : '';
+
       checkinList.unshift({
+        seq,
+        checkinId,
         name,
         email,
         checkinTime: timeStr,
-        date: now.toISOString().slice(0, 10)
+        date: now.toISOString().slice(0, 10),
+        isMilestoneWinner: isMilestone,
+        milestonePrize: milestonePrize
       });
 
       saveCheckin();
       renderCheckinTable();
       closeModal('modalAddCheckin');
-      showToast('🎉 출석자가 수동으로 등록되었습니다.');
+      showToast(isMilestone ? `🎉 출석자가 등록되었습니다. [${seq}번째 깜짝 경품 당첨!]` : '🎉 출석자가 수동으로 등록되었습니다.');
     }
 
     // 출석자 삭제
@@ -3221,6 +3912,13 @@
       document.getElementById('statMismatchCheckin').textContent = mismatchC;
       document.getElementById('statBlockedCheckin').textContent = blockedUsers.length;
       document.getElementById('countBadgeCheckin').textContent = totalC;
+
+      // 3) 순번 이벤트 및 럭키드로우 지표
+      const milestoneCount = checkinList.filter(item => item.isMilestoneWinner || isSeqMilestoneWinner(item.seq)).length;
+      const elMilestoneStat = document.getElementById('statMilestoneCheckin');
+      if (elMilestoneStat) elMilestoneStat.textContent = milestoneCount;
+      const elDrawBadge = document.getElementById('countBadgeDraw');
+      if (elDrawBadge) elDrawBadge.textContent = milestoneCount + (typeof getTotalDrawnWinnersCount === 'function' ? getTotalDrawnWinnersCount() : 0);
     }
 
     // =========================================================
@@ -3243,10 +3941,13 @@
     }
 
     function exportCheckinCsv() {
-      let csv = '\uFEFF번호,상태,한글성명,이메일,매칭정보,체크인일시\n';
+      let csv = '\uFEFF순번,발급ID,상태,한글성명,이메일,매칭정보,이벤트당첨,체크인일시\n';
       checkinList.forEach((c, idx) => {
         const val = getAttendeeValidation(c);
-        csv += `${idx + 1},"${val.label}","${c.name}","${c.email}","${val.text}","${c.date || ''} ${c.checkinTime || ''}"\n`;
+        const seqVal = c.seq || (idx + 1);
+        const checkinIdVal = c.checkinId || ('HVAC-' + String(seqVal).padStart(3, '0'));
+        const milestoneText = (c.isMilestoneWinner || isSeqMilestoneWinner(seqVal)) ? `${seqVal}번째 (${c.milestonePrize || getMilestoneBySeq(seqVal)?.prize || ''})` : '-';
+        csv += `${seqVal},"${checkinIdVal}","${val.label}","${c.name}","${c.email}","${val.text}","${milestoneText}","${c.checkinTime || ''}"\n`;
       });
       downloadFile(csv, `hvac_attendance_export_${new Date().toISOString().slice(0, 10)}.csv`, 'text/csv;charset=utf-8;');
       showToast('📥 출석 명부가 CSV 파일로 다운로드되었습니다.');
@@ -3625,6 +4326,1018 @@
         localStorage.removeItem('hvac_theme_settings');
         selectThemePreset('forest');
         showToast('🌿 기본 테마로 복원되었습니다.');
+      }
+    }
+
+    // =========================================================
+    // 11. [TAB 6] 🎁 럭키드로우 & 출석 순번 이벤트 시스템
+    // =========================================================
+    const DEFAULT_MILESTONES = [
+      { seq: 10, prize: '스타벅스 e-Gift 카드 (1만원권)' },
+      { seq: 50, prize: 'LG 프리미엄 써모 텀블러' },
+      { seq: 77, prize: '신세계 모바일 상품권 (3만원권)' },
+      { seq: 100, prize: 'LG 퓨리케어 미니 공기청정기' }
+    ];
+
+    const DEFAULT_TIERS = [
+      { id: 't5', rank: 5, title: '5등 (참가상)', prize: '휴대용 멀티 고속 보조배터리', count: 5 },
+      { id: 't4', rank: 4, title: '4등 (행운상)', prize: '스타벅스 e-Gift 카드 (3만원권)', count: 3 },
+      { id: 't3', rank: 3, title: '3등 (우수상)', prize: '신세계 모바일 상품권 (5만원권)', count: 2 },
+      { id: 't2', rank: 2, title: '2등 (최우수상)', prize: '다이슨 슈퍼소닉 헤어드라이어', count: 1 },
+      { id: 't1', rank: 1, title: '1등 (대 상)', prize: 'LG 퓨리케어 에어로타워 오브제컬렉션', count: 1 }
+    ];
+
+    const DEFAULT_DRAW_CONFIG = {
+      tiers: DEFAULT_TIERS,
+      onlyMatched: false,
+      excludeMilestones: false,
+      seedPrefix: '2026_HVAC_10TH_EXPERT_SEMINAR'
+    };
+
+    let drawConfig = null;
+    let drawState = null;
+    let milestoneList = [];
+    let stageTierIdx = 0; // index into getSortedStageTiers()
+    let isDrawRolling = false;
+
+    // --- 시드 해시 및 Mulberry32 PRNG (공정 난수 엔진) ---
+    function hashString53(str, seed = 0) {
+      let h1 = 0xdeadbeef ^ seed, h2 = 0x41c64e6d ^ seed;
+      for (let i = 0, ch; i < str.length; i++) {
+        ch = str.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+      }
+      h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
+      h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+      h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
+      h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+      return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+    }
+
+    function createMulberry32(seed) {
+      let s = seed >>> 0;
+      return function() {
+        let t = s += 0x6D2B79F5;
+        t = Math.imul(t ^ t >>> 15, t | 1);
+        t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+      };
+    }
+
+    function seededShuffle(array, rng) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // --- 초기화 ---
+    function initDrawSystem() {
+      try {
+        const mSaved = localStorage.getItem('hvac_milestone_events');
+        milestoneList = mSaved ? JSON.parse(mSaved) : DEFAULT_MILESTONES;
+        if (!mSaved) localStorage.setItem('hvac_milestone_events', JSON.stringify(DEFAULT_MILESTONES));
+      } catch (e) { milestoneList = DEFAULT_MILESTONES; }
+
+      try {
+        const cSaved = localStorage.getItem('hvac_luckydraw_config');
+        drawConfig = cSaved ? JSON.parse(cSaved) : DEFAULT_DRAW_CONFIG;
+        if (!cSaved) localStorage.setItem('hvac_luckydraw_config', JSON.stringify(DEFAULT_DRAW_CONFIG));
+      } catch (e) { drawConfig = DEFAULT_DRAW_CONFIG; }
+
+      try {
+        const sSaved = localStorage.getItem('hvac_luckydraw_state');
+        drawState = sSaved ? JSON.parse(sSaved) : { drawnTiers: {}, deliveredMilestones: {} };
+        if (!sSaved) localStorage.setItem('hvac_luckydraw_state', JSON.stringify(drawState));
+      } catch (e) { drawState = { drawnTiers: {}, deliveredMilestones: {} }; }
+
+      if (!drawState.drawnTiers) drawState.drawnTiers = {};
+      if (!drawState.deliveredMilestones) drawState.deliveredMilestones = {};
+    }
+
+    function getMilestoneList() {
+      return milestoneList || DEFAULT_MILESTONES;
+    }
+
+    function saveMilestones() {
+      try {
+        localStorage.setItem('hvac_milestone_events', JSON.stringify(milestoneList));
+      } catch (e) {}
+    }
+
+    function isSeqMilestoneWinner(seq) {
+      if (!seq) return false;
+      return (getMilestoneList() || []).some(m => Number(m.seq) === Number(seq));
+    }
+
+    function getMilestoneBySeq(seq) {
+      if (!seq) return null;
+      return (getMilestoneList() || []).find(m => Number(m.seq) === Number(seq)) || null;
+    }
+
+    function getTotalDrawnWinnersCount() {
+      if (!drawState || !drawState.drawnTiers) return 0;
+      let total = 0;
+      for (const tierId in drawState.drawnTiers) {
+        if (Array.isArray(drawState.drawnTiers[tierId])) {
+          total += drawState.drawnTiers[tierId].length;
+        }
+      }
+      return total;
+    }
+
+    // --- 서브 탭 전환 ---
+    function switchDrawSubTab(subTabName) {
+      document.querySelectorAll('.draw-sub-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.draw-sub-panel').forEach(panel => {
+        panel.style.display = 'none';
+        panel.classList.remove('active');
+      });
+
+      if (subTabName === 'stage') {
+        document.getElementById('btnSubDrawStage').classList.add('active');
+        const p = document.getElementById('subTabDrawStage');
+        p.style.display = 'block'; p.classList.add('active');
+        renderStageView();
+      } else if (subTabName === 'config') {
+        document.getElementById('btnSubDrawConfig').classList.add('active');
+        const p = document.getElementById('subTabDrawConfig');
+        p.style.display = 'block'; p.classList.add('active');
+        renderTierConfigList();
+      } else if (subTabName === 'milestone') {
+        document.getElementById('btnSubDrawMilestone').classList.add('active');
+        const p = document.getElementById('subTabDrawMilestone');
+        p.style.display = 'block'; p.classList.add('active');
+        renderMilestoneTab();
+      } else if (subTabName === 'winners') {
+        document.getElementById('btnSubDrawWinners').classList.add('active');
+        const p = document.getElementById('subTabDrawWinners');
+        p.style.display = 'block'; p.classList.add('active');
+        renderAllWinnersTable();
+      }
+    }
+
+    function renderDrawTab() {
+      initDrawSystem();
+      switchDrawSubTab('stage');
+    }
+
+    // --- 사회자 무대 발표기 (Stage Engine) ---
+    // 사회자 발표 순서: 마지막 등수(예: 5등)부터 순차적으로 발표하여 긴장감 고조 후 1등 발표!
+    function getSortedStageTiers() {
+      if (!drawConfig || !drawConfig.tiers) return DEFAULT_TIERS;
+      // rank 기준 내림차순 정렬 (5 -> 4 -> 3 -> 2 -> 1)
+      return [...drawConfig.tiers].sort((a, b) => Number(b.rank) - Number(a.rank));
+    }
+
+    function getEligibleCandidatesForTier(tierId) {
+      const blocked = blockedUsers || [];
+      const drawnTiers = (drawState && drawState.drawnTiers) ? drawState.drawnTiers : {};
+
+      // 다른 등수에서 이미 당첨된 이메일 목록
+      const alreadyWonEmails = new Set();
+      for (const tId in drawnTiers) {
+        if (tId !== tierId && Array.isArray(drawnTiers[tId])) {
+          drawnTiers[tId].forEach(w => {
+            if (w.email) alreadyWonEmails.add(w.email.toLowerCase().replace('@lge.com', ''));
+          });
+        }
+      }
+
+      return checkinList.filter(att => {
+        const cleanEmail = att.email.toLowerCase().replace('@lge.com', '');
+        // 1) 강퇴/차단 계정 제외
+        if (blocked.some(b => b.toLowerCase().replace('@lge.com', '') === cleanEmail)) return false;
+        // 2) 정상 매칭 필터
+        if (drawConfig.onlyMatched) {
+          const val = getAttendeeValidation(att);
+          if (val.status !== 'matched') return false;
+        }
+        // 3) N번째 순번 당첨자 제외 옵션
+        if (drawConfig.excludeMilestones && (att.isMilestoneWinner || isSeqMilestoneWinner(att.seq))) return false;
+        // 4) 다른 등수 중복 당첨 제외
+        if (alreadyWonEmails.has(cleanEmail)) return false;
+        return true;
+      });
+    }
+
+    function renderStageView() {
+      const sortedTiers = getSortedStageTiers();
+      if (sortedTiers.length === 0) return;
+
+      if (stageTierIdx < 0) stageTierIdx = 0;
+      if (stageTierIdx >= sortedTiers.length) stageTierIdx = sortedTiers.length - 1;
+
+      const currentTier = sortedTiers[stageTierIdx];
+      const tierId = currentTier.id;
+
+      // 상단 배지 및 헤더 업데이트
+      document.getElementById('stageRankPill').innerHTML = `<span>단계 ${stageTierIdx + 1} / ${sortedTiers.length}</span> · <strong id="stageCurrentRankLabel">${escapeHtml(currentTier.title)}</strong>`;
+      document.getElementById('stageRankTitle').textContent = currentTier.title;
+      document.getElementById('stagePrizeNameTag').textContent = currentTier.prize;
+      document.getElementById('stagePrizeCountTag').textContent = currentTier.count + '명';
+
+      // 1등일 때 특별한 골드 글로우 스타일링
+      const isFirstRank = Number(currentTier.rank) === 1;
+      const rankTitleEl = document.getElementById('stageRankTitle');
+      if (isFirstRank) {
+        rankTitleEl.style.color = '#f3c448';
+        rankTitleEl.style.textShadow = '0 0 35px rgba(243, 196, 72, 0.7)';
+      } else {
+        rankTitleEl.style.color = '#ffffff';
+        rankTitleEl.style.textShadow = '0 0 25px rgba(243, 196, 72, 0.4)';
+      }
+
+      // 후보자 수 계산
+      const candidates = getEligibleCandidatesForTier(tierId);
+      document.getElementById('stageCandidatesCount').textContent = candidates.length + '명';
+
+      // Seed 텍스트
+      const seedText = `${drawConfig.seedPrefix || '2026_HVAC_10TH'}_TIER${currentTier.rank}`;
+      document.getElementById('stageSeedText').textContent = seedText;
+
+      // 진행 순서 텍스트
+      const seqStr = sortedTiers.map((t, idx) => {
+        if (idx === stageTierIdx) return `👉 [${t.title}]`;
+        return t.title.split(' ')[0];
+      }).join(' ➔ ');
+      document.getElementById('stageTierSequenceText').textContent = seqStr;
+
+      // 이전/다음 버튼 활성/비활성
+      document.getElementById('btnPrevStage').disabled = (stageTierIdx === 0);
+      document.getElementById('btnPrevStage').style.opacity = (stageTierIdx === 0) ? '0.45' : '1';
+
+      const isLastStep = (stageTierIdx === sortedTiers.length - 1);
+      const stepBtn = document.getElementById('btnStepOrComplete');
+      if (isLastStep) {
+        stepBtn.textContent = '🏆 전체 당첨자 종합 명부 보기 ➔';
+      } else {
+        stepBtn.textContent = '다음 등수 발표하기 ➔';
+      }
+
+      // 슬롯 그리드 렌더링
+      const slotsContainer = document.getElementById('stageSlotsGrid');
+      const actionBox = document.getElementById('stageDrawActionBox');
+      const drawnWinners = (drawState && drawState.drawnTiers) ? drawState.drawnTiers[tierId] : null;
+
+      if (drawnWinners && drawnWinners.length > 0) {
+        // 이미 추첨 완료된 경우: 확정 당첨자 카드 노출
+        actionBox.style.display = 'none';
+        slotsContainer.innerHTML = drawnWinners.map((w, idx) => {
+          return `
+            <div class="stage-slot-card is-winner" style="${isFirstRank ? 'border: 2px solid #f3c448; box-shadow: 0 0 50px rgba(243,196,72,0.6);' : ''}">
+              <div class="slot-num-badge">WINNER #${idx + 1}</div>
+              <div class="slot-name">${escapeHtml(w.name)}</div>
+              <div class="slot-id-pill">${escapeHtml(w.checkinId || 'HVAC-000')}</div>
+              <div class="slot-email">${escapeHtml(w.email)}</div>
+              <div style="font-size: 11px; color: var(--gold-bright); margin-top: 6px; font-weight: 700;">
+                🎉 당첨 확정 (${w.time || ''})
+              </div>
+              <button class="btn-slot-redraw" onclick="redrawSingleWinner('${tierId}', ${idx})">
+                🔄 부재자 1명 재추첨
+              </button>
+            </div>
+          `;
+        }).join('');
+      } else {
+        // 아직 추첨 전: 슬롯 대기 상자 및 대형 추첨 시작 버튼 노출
+        actionBox.style.display = 'block';
+        document.getElementById('btnStartDrawText').textContent = `${currentTier.title} 추첨 시작하기 (${currentTier.count}명 동시 추첨)`;
+
+        let placeholderCards = '';
+        for (let i = 0; i < currentTier.count; i++) {
+          placeholderCards += `
+            <div class="stage-slot-card" id="slotCard_${i}">
+              <div class="slot-num-badge">SLOT #${i + 1}</div>
+              <div class="slot-name" style="color: rgba(255,255,255,0.3); font-size: 32px;">? ? ?</div>
+              <div class="slot-id-pill" style="opacity: 0.5;">HVAC-???</div>
+              <div class="slot-email" style="opacity: 0.4;">추첨 대기 중</div>
+            </div>
+          `;
+        }
+        slotsContainer.innerHTML = placeholderCards;
+      }
+    }
+
+    // --- 슬롯머신 롤링 애니메이션 및 공정 추첨 시작 ---
+    function startCurrentTierDraw() {
+      if (isDrawRolling) return;
+      const sortedTiers = getSortedStageTiers();
+      const currentTier = sortedTiers[stageTierIdx];
+      const tierId = currentTier.id;
+
+      const candidates = getEligibleCandidatesForTier(tierId);
+      if (candidates.length === 0) {
+        alert('추첨 가능한 출석 대상자가 없습니다. 출석자 명부를 확인해 주세요.');
+        return;
+      }
+      if (candidates.length < currentTier.count) {
+        if (!confirm(`현재 추첨 대상자(${candidates.length}명)가 설정된 당첨 인원(${currentTier.count}명)보다 적습니다.\n가용한 ${candidates.length}명 전원을 추첨하시겠습니까?`)) {
+          return;
+        }
+      }
+
+      // 공정 시드 생성 (타임스탬프 + "10"회차 세미나 식별자 + 후보자 목록 해시)
+      const drawTimestamp = Date.now();
+      const candidateHash = hashString53(candidates.map(c => c.email).join(','));
+      const seedString = `${drawConfig.seedPrefix || '2026_HVAC_10TH_SEMINAR'}_TIME${drawTimestamp}_RANK${currentTier.rank}_HASH${candidateHash}`;
+      const seed32 = hashString53(seedString) >>> 0;
+      const rng = createMulberry32(seed32);
+
+      // Fisher-Yates 공정 셔플
+      const shuffled = seededShuffle(candidates, rng);
+      const pickCount = Math.min(currentTier.count, shuffled.length);
+      const winners = shuffled.slice(0, pickCount).map((c, i) => ({
+        name: c.name,
+        email: c.email,
+        seq: c.seq,
+        checkinId: c.checkinId || ('HVAC-' + String(c.seq).padStart(3, '0')),
+        tierId: tierId,
+        tierTitle: currentTier.title,
+        prize: currentTier.prize,
+        time: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
+        seedCode: `SEED-${seed32.toString(16).toUpperCase()}`
+      }));
+
+      // 롤링 애니메이션 시작
+      isDrawRolling = true;
+      document.getElementById('stageDrawActionBox').style.display = 'none';
+
+      const slotCards = [];
+      for (let i = 0; i < pickCount; i++) {
+        const el = document.getElementById(`slotCard_${i}`);
+        if (el) {
+          el.classList.add('is-rolling');
+          slotCards.push(el);
+        }
+      }
+
+      // 65ms 주기로 이름이 빠르게 핑핑 돌아가는 슬롯 롤링 연출
+      let rollStep = 0;
+      const maxSteps = 30; // 약 2.2초 동안 롤링
+      const rollInterval = setInterval(() => {
+        rollStep++;
+        slotCards.forEach((card, idx) => {
+          const randCandidate = candidates[Math.floor(Math.random() * candidates.length)];
+          if (randCandidate) {
+            card.querySelector('.slot-name').textContent = randCandidate.name;
+            card.querySelector('.slot-name').style.color = '#f3c448';
+            card.querySelector('.slot-id-pill').textContent = randCandidate.checkinId || 'HVAC-???';
+            card.querySelector('.slot-email').textContent = randCandidate.email;
+          }
+        });
+
+        if (rollStep >= maxSteps) {
+          clearInterval(rollInterval);
+          isDrawRolling = false;
+
+          // 최종 당첨자 확정 및 저장
+          if (!drawState.drawnTiers) drawState.drawnTiers = {};
+          drawState.drawnTiers[tierId] = winners;
+          try {
+            localStorage.setItem('hvac_luckydraw_state', JSON.stringify(drawState));
+          } catch (e) {}
+
+          // 화려한 폭죽 Confetti 효과 발사!
+          runConfetti();
+
+          // 무대 뷰 갱신
+          renderStageView();
+          updateAllStats();
+          showToast(`🎉 ${currentTier.title} 당첨자 발표 완료! 축하드립니다!`);
+        }
+      }, 70);
+    }
+
+    // --- 즉석 1명 부재자 재추첨 기능 ---
+    function redrawSingleWinner(tierId, winnerIdx) {
+      if (isDrawRolling) return;
+      const currentTier = (drawConfig.tiers || []).find(t => t.id === tierId);
+      if (!currentTier) return;
+
+      const existingWinners = drawState.drawnTiers[tierId];
+      if (!existingWinners || !existingWinners[winnerIdx]) return;
+
+      const targetOldWinner = existingWinners[winnerIdx];
+      if (!confirm(`'${targetOldWinner.name} (${targetOldWinner.email})' 님이 현장에 부재합니까?\n공정하게 1명을 즉석 재추첨합니다.`)) {
+        return;
+      }
+
+      const candidates = getEligibleCandidatesForTier(tierId);
+      // 현재 등수 당첨자들 제외
+      const currentWinnerEmails = new Set(existingWinners.map(w => w.email.toLowerCase().replace('@lge.com', '')));
+      const available = candidates.filter(c => !currentWinnerEmails.has(c.email.toLowerCase().replace('@lge.com', '')));
+
+      if (available.length === 0) {
+        alert('더 이상 재추첨할 수 있는 가용 후보자가 없습니다.');
+        return;
+      }
+
+      // 재추첨 시드 생성
+      const subSeed = hashString53(`${drawConfig.seedPrefix}_REDRAW_${Date.now()}_SLOT${winnerIdx}`) >>> 0;
+      const rng = createMulberry32(subSeed);
+      const shuffled = seededShuffle(available, rng);
+      const newCandidate = shuffled[0];
+
+      const newWinner = {
+        name: newCandidate.name,
+        email: newCandidate.email,
+        seq: newCandidate.seq,
+        checkinId: newCandidate.checkinId || ('HVAC-' + String(newCandidate.seq).padStart(3, '0')),
+        tierId: tierId,
+        tierTitle: currentTier.title,
+        prize: currentTier.prize,
+        time: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
+        seedCode: `REDRAW-${subSeed.toString(16).toUpperCase()}`
+      };
+
+      existingWinners[winnerIdx] = newWinner;
+      drawState.drawnTiers[tierId] = existingWinners;
+      try {
+        localStorage.setItem('hvac_luckydraw_state', JSON.stringify(drawState));
+      } catch (e) {}
+
+      runConfetti();
+      renderStageView();
+      updateAllStats();
+      showToast(`🔄 1명 재추첨 완료: '${newWinner.name}' 님이 새로 당첨되었습니다!`);
+    }
+
+    // --- 단계 이동 네비게이션 ---
+    function prevTierStage() {
+      if (isDrawRolling) return;
+      if (stageTierIdx > 0) {
+        stageTierIdx--;
+        renderStageView();
+      }
+    }
+
+    function nextTierStage() {
+      if (isDrawRolling) return;
+      const sortedTiers = getSortedStageTiers();
+      if (stageTierIdx < sortedTiers.length - 1) {
+        stageTierIdx++;
+        renderStageView();
+      }
+    }
+
+    function goToNextStepOrComplete() {
+      if (isDrawRolling) return;
+      const sortedTiers = getSortedStageTiers();
+      if (stageTierIdx < sortedTiers.length - 1) {
+        stageTierIdx++;
+        renderStageView();
+      } else {
+        // 모든 등수 추첨 완료: 종합 명부로 안내
+        switchDrawSubTab('winners');
+      }
+    }
+
+    // --- 전체화면 전광판 모드 ---
+    function toggleFullscreenStage() {
+      const container = document.getElementById('drawStageContainer');
+      const btn = document.getElementById('btnFullscreenStage');
+      container.classList.toggle('is-fullscreen');
+
+      if (container.classList.contains('is-fullscreen')) {
+        btn.textContent = '✕ 전체화면 종료 (ESC)';
+        try {
+          if (container.requestFullscreen) container.requestFullscreen();
+        } catch (e) {}
+      } else {
+        btn.textContent = '⛶ 전체화면 전광판';
+        try {
+          if (document.exitFullscreen) document.exitFullscreen();
+        } catch (e) {}
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const container = document.getElementById('drawStageContainer');
+        if (container && container.classList.contains('is-fullscreen')) {
+          toggleFullscreenStage();
+        }
+      }
+    });
+
+    // --- 순수 HTML5 캔버스 폭죽 Confetti 엔진 ---
+    let confettiAnimationId = null;
+    function runConfetti() {
+      const canvas = document.getElementById('confettiCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width = canvas.parentElement.offsetWidth || 1000;
+      const h = canvas.height = canvas.parentElement.offsetHeight || 600;
+
+      const particles = [];
+      const colors = ['#f3c448', '#10b981', '#ffffff', '#ff5366', '#d4a017', '#38bdf8'];
+      const count = 120;
+
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: w / 2 + (Math.random() - 0.5) * 200,
+          y: h / 2 - 50 + (Math.random() - 0.5) * 100,
+          vx: (Math.random() - 0.5) * 16,
+          vy: -Math.random() * 12 - 4,
+          gravity: 0.35 + Math.random() * 0.15,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          size: Math.random() * 8 + 4,
+          rotation: Math.random() * 360,
+          rotSpeed: (Math.random() - 0.5) * 12,
+          opacity: 1
+        });
+      }
+
+      if (confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
+      let frames = 0;
+
+      function renderFrame() {
+        frames++;
+        ctx.clearRect(0, 0, w, h);
+
+        let active = 0;
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += p.gravity;
+          p.rotation += p.rotSpeed;
+          if (frames > 70) p.opacity -= 0.015;
+
+          if (p.opacity > 0 && p.y < h + 20) {
+            active++;
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, p.opacity);
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
+            ctx.restore();
+          }
+        });
+
+        if (active > 0 && frames < 220) {
+          confettiAnimationId = requestAnimationFrame(renderFrame);
+        } else {
+          ctx.clearRect(0, 0, w, h);
+        }
+      }
+
+      confettiAnimationId = requestAnimationFrame(renderFrame);
+    }
+
+    function reRunConfetti() {
+      runConfetti();
+      showToast('🎉 축하 팡파르 효과가 발사되었습니다!');
+    }
+
+    // --- [SUB-TAB 2] 럭키드로우 등수 & 프리셋 설정 ---
+    function renderTierConfigList() {
+      const container = document.getElementById('tierConfigList');
+      const tiers = drawConfig.tiers || DEFAULT_TIERS;
+
+      let totalWinners = 0;
+      container.innerHTML = tiers.map((tier, idx) => {
+        totalWinners += Number(tier.count);
+        return `
+          <div class="tier-card-row">
+            <div class="tier-badge-label">
+              <span>🏅</span>
+              <input type="text" class="form-control" style="width: 130px; font-weight: 850;" value="${escapeHtml(tier.title)}" onchange="updateTierTitle(${idx}, this.value)">
+            </div>
+            <div style="flex: 1; min-width: 200px;">
+              <input type="text" class="form-control" placeholder="경품명" value="${escapeHtml(tier.prize)}" onchange="updateTierPrize(${idx}, this.value)">
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 12px; color: var(--text-muted);">선정 인원:</span>
+              <div class="stepper-box">
+                <button type="button" class="btn-stepper" onclick="changeTierCount(${idx}, -1)">-</button>
+                <span class="stepper-val">${tier.count}</span>
+                <button type="button" class="btn-stepper" onclick="changeTierCount(${idx}, 1)">+</button>
+              </div>
+              <button type="button" class="btn-tbl" onclick="deleteTierRow(${idx})" title="삭제" style="color: #ff6b6b;">🗑️</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('configTotalWinnersCount').textContent = totalWinners;
+      document.getElementById('cfgOnlyMatched').checked = !!drawConfig.onlyMatched;
+      document.getElementById('cfgExcludeMilestones').checked = !!drawConfig.excludeMilestones;
+      document.getElementById('cfgSeedPrefix').value = drawConfig.seedPrefix || '2026_HVAC_10TH_EXPERT_SEMINAR';
+    }
+
+    function updateTierTitle(idx, val) {
+      if (drawConfig.tiers[idx]) {
+        drawConfig.tiers[idx].title = val.trim();
+        saveDrawConfigFromUi(false);
+      }
+    }
+
+    function updateTierPrize(idx, val) {
+      if (drawConfig.tiers[idx]) {
+        drawConfig.tiers[idx].prize = val.trim();
+        saveDrawConfigFromUi(false);
+      }
+    }
+
+    function changeTierCount(idx, delta) {
+      if (drawConfig.tiers[idx]) {
+        let current = Number(drawConfig.tiers[idx].count) + delta;
+        if (current < 1) current = 1;
+        drawConfig.tiers[idx].count = current;
+        saveDrawConfigFromUi(false);
+        renderTierConfigList();
+      }
+    }
+
+    function addNewTierRow() {
+      const nextRank = (drawConfig.tiers.length > 0) ? Math.max(...drawConfig.tiers.map(t => Number(t.rank))) + 1 : 1;
+      drawConfig.tiers.push({
+        id: 't' + nextRank + '_' + Date.now().toString(36),
+        rank: nextRank,
+        title: `${nextRank}등 (특별상)`,
+        prize: '신세계 모바일 상품권',
+        count: 2
+      });
+      saveDrawConfigFromUi(false);
+      renderTierConfigList();
+    }
+
+    function deleteTierRow(idx) {
+      if (drawConfig.tiers.length <= 1) {
+        alert('최소 1개 이상의 등수 단계가 필요합니다.');
+        return;
+      }
+      drawConfig.tiers.splice(idx, 1);
+      saveDrawConfigFromUi(false);
+      renderTierConfigList();
+    }
+
+    function applyTierPreset(tierCount) {
+      if (tierCount === 3) {
+        drawConfig.tiers = [
+          { id: 't3', rank: 3, title: '3등 (우수상)', prize: '신세계 모바일 상품권 (5만원권)', count: 3 },
+          { id: 't2', rank: 2, title: '2등 (최우수상)', prize: '다이슨 슈퍼소닉 헤어드라이어', count: 2 },
+          { id: 't1', rank: 1, title: '1등 (대 상)', prize: 'LG 퓨리케어 에어로타워 오브제컬렉션', count: 1 }
+        ];
+      } else if (tierCount === 7) {
+        drawConfig.tiers = [
+          { id: 't7', rank: 7, title: '7등 (참가상)', prize: '스타벅스 e-Gift 카드 (1만원권)', count: 7 },
+          { id: 't6', rank: 6, title: '6등 (장려상)', prize: '휴대용 보조배터리', count: 5 },
+          { id: 't5', rank: 5, title: '5등 (행운상)', prize: '고급 써모 텀블러', count: 4 },
+          { id: 't4', rank: 4, title: '4등 (도약상)', prize: '신세계 상품권 (3만원권)', count: 3 },
+          { id: 't3', rank: 3, title: '3등 (우수상)', prize: '신세계 상품권 (5만원권)', count: 2 },
+          { id: 't2', rank: 2, title: '2등 (최우수상)', prize: '다이슨 헤어드라이어', count: 1 },
+          { id: 't1', rank: 1, title: '1등 (대 상)', prize: 'LG 퓨리케어 에어로타워', count: 1 }
+        ];
+      } else {
+        // 5단계 기본
+        drawConfig.tiers = JSON.parse(JSON.stringify(DEFAULT_TIERS));
+      }
+      stageTierIdx = 0;
+      saveDrawConfigFromUi(true);
+      renderTierConfigList();
+    }
+
+    function saveDrawConfigFromUi(showToastFlag = false) {
+      drawConfig.onlyMatched = document.getElementById('cfgOnlyMatched').checked;
+      drawConfig.excludeMilestones = document.getElementById('cfgExcludeMilestones').checked;
+      drawConfig.seedPrefix = document.getElementById('cfgSeedPrefix').value.trim() || '2026_HVAC_10TH_EXPERT_SEMINAR';
+
+      try {
+        localStorage.setItem('hvac_luckydraw_config', JSON.stringify(drawConfig));
+        if (showToastFlag) showToast('💾 럭키드로우 등수 및 설정이 저장되었습니다.');
+      } catch (e) {}
+    }
+
+    function resetDrawConfigToDefault() {
+      if (confirm('럭키드로우 설정을 기본 5단계 모드로 복원하시겠습니까?')) {
+        drawConfig = JSON.parse(JSON.stringify(DEFAULT_DRAW_CONFIG));
+        stageTierIdx = 0;
+        try {
+          localStorage.setItem('hvac_luckydraw_config', JSON.stringify(drawConfig));
+        } catch (e) {}
+        renderTierConfigList();
+        showToast('⚙️ 기본 설정으로 복원되었습니다.');
+      }
+    }
+
+    // --- [SUB-TAB 3] N번째 출석 체크(체크인) 당첨 이벤트 관리 ---
+    function renderMilestoneTab() {
+      const configTbody = document.getElementById('milestoneConfigTableBody');
+      const winnersTbody = document.getElementById('milestoneWinnersTableBody');
+      const milestones = getMilestoneList();
+
+      // 1) 목표 번호 설정 목록
+      configTbody.innerHTML = milestones.map((m, idx) => {
+        // 해당 순번에 체크인한 당첨자가 있는지 확인
+        const winner = checkinList.find(att => Number(att.seq) === Number(m.seq));
+        const statusHtml = winner
+          ? `<span class="status-pill matched">🎉 당첨 완료</span>`
+          : `<span class="status-pill" style="color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.15);">⏳ 체크인 대기 중</span>`;
+
+        const winnerInfo = winner
+          ? `<strong>${escapeHtml(winner.name)}</strong> (${winner.email})<br><code style="font-size: 11px; color: #10b981;">${winner.checkinId || ''}</code>`
+          : `<span style="color: var(--text-muted);">-</span>`;
+
+        return `
+          <tr>
+            <td><strong style="color: var(--gold-bright); font-size: 15px;">#${m.seq}</strong> 번째</td>
+            <td><strong>${escapeHtml(m.prize)}</strong></td>
+            <td>${statusHtml}</td>
+            <td>${winnerInfo}</td>
+            <td style="text-align: center;">
+              <button class="btn-tbl" onclick="deleteMilestoneEvent(${idx})" style="color: #ff6b6b;">🗑️ 삭제</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // 2) 실제 당첨자 현황판
+      const winners = checkinList.filter(att => att.isMilestoneWinner || isSeqMilestoneWinner(att.seq));
+      if (winners.length === 0) {
+        winnersTbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align: center; padding: 30px; color: var(--text-muted);">
+              아직 목표 순번에 도달한 체크인 당첨자가 없습니다. (체크인이 진행되면 자동 집계됩니다)
+            </td>
+          </tr>
+        `;
+      } else {
+        winnersTbody.innerHTML = winners.map(w => {
+          const m = getMilestoneBySeq(w.seq);
+          const prizeName = w.milestonePrize || (m ? m.prize : '이벤트 경품');
+          const isDelivered = !!(drawState && drawState.deliveredMilestones && drawState.deliveredMilestones[w.seq]);
+
+          return `
+            <tr>
+              <td><strong style="color: var(--gold-bright);">#${w.seq}</strong></td>
+              <td><code style="color: #10b981;">${w.checkinId || ('HVAC-' + String(w.seq).padStart(3, '0'))}</code></td>
+              <td><strong>${escapeHtml(w.name)}</strong></td>
+              <td><code>${escapeHtml(w.email)}</code></td>
+              <td><span style="color: #f3c448; font-weight: 700;">🎁 ${escapeHtml(prizeName)}</span></td>
+              <td style="font-size: 12px; color: var(--text-muted);">${w.checkinTime || '-'}</td>
+              <td style="text-align: center;">
+                <button class="btn-tbl ${isDelivered ? 'btn-act' : ''}" style="${isDelivered ? 'background: rgba(16,185,129,0.2); color: #10b981; border-color: #10b981;' : ''}" onclick="toggleMilestoneDelivered(${w.seq})">
+                  ${isDelivered ? '✅ 수령 완료' : '⏳ 미수령 (수령확인)'}
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+
+    function addMilestoneEvent() {
+      const seqInput = document.getElementById('inputNewMilestoneSeq');
+      const prizeInput = document.getElementById('inputNewMilestonePrize');
+      const seq = parseInt(seqInput.value, 10);
+      const prize = prizeInput.value.trim();
+
+      if (!seq || seq < 1) {
+        alert('올바른 목표 순번 숫자를 입력해 주세요. (예: 25)');
+        return;
+      }
+      if (!prize) {
+        alert('지급할 경품 명칭을 입력해 주세요.');
+        return;
+      }
+
+      if (milestoneList.some(m => Number(m.seq) === seq)) {
+        alert(`이미 #${seq}번째 순번 이벤트가 등록되어 있습니다.`);
+        return;
+      }
+
+      milestoneList.push({ seq, prize });
+      milestoneList.sort((a, b) => Number(a.seq) - Number(b.seq));
+      saveMilestones();
+
+      // 기존 출석자 중 해당 seq가 있으면 즉시 당첨 처리
+      checkinList.forEach(att => {
+        if (Number(att.seq) === seq) {
+          att.isMilestoneWinner = true;
+          att.milestonePrize = prize;
+        }
+      });
+      saveCheckin();
+
+      seqInput.value = '';
+      prizeInput.value = '';
+      renderMilestoneTab();
+      renderCheckinTable();
+      updateAllStats();
+      showToast(`🎯 #${seq}번째 체크인 당첨 이벤트가 등록되었습니다.`);
+    }
+
+    function deleteMilestoneEvent(idx) {
+      if (confirm('해당 순번 이벤트를 삭제하시겠습니까?')) {
+        milestoneList.splice(idx, 1);
+        saveMilestones();
+        renderMilestoneTab();
+        renderCheckinTable();
+        updateAllStats();
+        showToast('🗑️ 순번 이벤트가 삭제되었습니다.');
+      }
+    }
+
+    function toggleMilestoneDelivered(seq) {
+      if (!drawState.deliveredMilestones) drawState.deliveredMilestones = {};
+      drawState.deliveredMilestones[seq] = !drawState.deliveredMilestones[seq];
+      try {
+        localStorage.setItem('hvac_luckydraw_state', JSON.stringify(drawState));
+      } catch (e) {}
+      renderMilestoneTab();
+      showToast(drawState.deliveredMilestones[seq] ? `🎁 #${seq}번 당첨자 현장 경품 수령 완료 처리되었습니다.` : `⏳ #${seq}번 미수령 상태로 변경되었습니다.`);
+    }
+
+    // --- 관리자 테스트용 가상 출석자 시딩 ---
+    function seedMockAttendees(targetCount) {
+      if (!confirm(`현재 출석자 수(${checkinList.length}명)에서 총 ${targetCount}명까지 가상 출석자를 자동 채번하시겠습니까?\n10번째, 50번째 등 지정된 순번에 맞춰 깜짝 당첨 테스트가 가능합니다.`)) {
+        return;
+      }
+
+      const sampleNames = ['강도현', '조유진', '윤상혁', '최서연', '송지훈', '신다은', '한태양', '배수현', '황우진', '권나래', '서준호', '안소희', '오동건', '유예린', '문승우'];
+      const sampleDepts = ['AIDC개발팀', '공조선행연', '스마트홈팀', '칠러설계팀', '시스템HVAC', '제어SW팀', '인버터설계'];
+
+      const maxSeq = checkinList.reduce((m, item) => Math.max(m, (item && item.seq) ? Number(item.seq) : 0), 0);
+      let currentSeq = maxSeq;
+
+      while (checkinList.length < targetCount) {
+        currentSeq++;
+        const name = sampleNames[currentSeq % sampleNames.length] + (currentSeq > 15 ? Math.floor(currentSeq / 15) : '');
+        const email = `guest_${currentSeq}@lge.com`;
+        const checkinId = 'HVAC-' + String(currentSeq).padStart(3, '0');
+        const m = getMilestoneBySeq(currentSeq);
+        const isMilestone = !!m;
+
+        checkinList.push({
+          seq: currentSeq,
+          checkinId: checkinId,
+          name: name,
+          email: email,
+          checkinTime: `오전 09:${String(15 + Math.floor(currentSeq / 3)).padStart(2, '0')}`,
+          date: '2026-11-16',
+          isMilestoneWinner: isMilestone,
+          milestonePrize: m ? m.prize : ''
+        });
+      }
+
+      saveCheckin();
+      renderCheckinTable();
+      renderMilestoneTab();
+      renderStageView();
+      updateAllStats();
+      showToast(`⚡ 가상 출석자 ${targetCount}명 등록 완료! (이벤트 순번 테스트 가능)`);
+    }
+
+    // --- [SUB-TAB 4] 전체 당첨자 종합 명부 및 CSV 다운로드 ---
+    function renderAllWinnersTable() {
+      const tbody = document.getElementById('allWinnersTableBody');
+      const allRows = [];
+
+      // 1) 클로징 럭키드로우 당첨자
+      const drawnTiers = (drawState && drawState.drawnTiers) ? drawState.drawnTiers : {};
+      const sortedTiers = getSortedStageTiers();
+
+      sortedTiers.forEach(tier => {
+        const tierWinners = drawnTiers[tier.id];
+        if (Array.isArray(tierWinners)) {
+          tierWinners.forEach((w, idx) => {
+            allRows.push({
+              category: '🏆 럭키드로우',
+              rankLabel: `${tier.title} (${idx + 1}/${tierWinners.length})`,
+              checkinId: w.checkinId || ('HVAC-' + String(w.seq || '').padStart(3, '0')),
+              name: w.name,
+              email: w.email,
+              prize: w.prize || tier.prize,
+              time: w.time || '-',
+              delivered: '현장 수령 대상'
+            });
+          });
+        }
+      });
+
+      // 2) N번째 순번 이벤트 당첨자
+      const milestoneWinners = checkinList.filter(att => att.isMilestoneWinner || isSeqMilestoneWinner(att.seq));
+      milestoneWinners.forEach(w => {
+        const m = getMilestoneBySeq(w.seq);
+        const prizeName = w.milestonePrize || (m ? m.prize : '순번 경품');
+        const isDelivered = !!(drawState && drawState.deliveredMilestones && drawState.deliveredMilestones[w.seq]);
+
+        allRows.push({
+          category: '🎯 순번 이벤트',
+          rankLabel: `#${w.seq}번째 체크인`,
+          checkinId: w.checkinId || ('HVAC-' + String(w.seq).padStart(3, '0')),
+          name: w.name,
+          email: w.email,
+          prize: prizeName,
+          time: w.checkinTime || '-',
+          delivered: isDelivered ? '✅ 수령완료' : '⏳ 미수령'
+        });
+      });
+
+      if (allRows.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align: center; padding: 40px; color: var(--text-muted);">
+              아직 추첨 또는 당첨된 내역이 없습니다. (럭키드로우 추첨 또는 순번 체크인 시 자동 반영됩니다)
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = allRows.map((row, idx) => {
+        return `
+          <tr>
+            <td><span class="status-pill matched">${escapeHtml(row.category)}</span></td>
+            <td><strong>${escapeHtml(row.rankLabel)}</strong></td>
+            <td><code style="color: #10b981;">${escapeHtml(row.checkinId)}</code></td>
+            <td><strong>${escapeHtml(row.name)}</strong></td>
+            <td><code>${escapeHtml(row.email)}</code></td>
+            <td><span style="color: #f3c448; font-weight: 700;">🎁 ${escapeHtml(row.prize)}</span></td>
+            <td style="font-size: 12px; color: var(--text-muted);">${escapeHtml(row.time)}</td>
+            <td style="text-align: center; font-size: 12px;">${escapeHtml(row.delivered)}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function exportLuckyDrawCsv() {
+      let csv = '\uFEFF구분,등수및순번,발급ID,한글성명,이메일,당첨경품,시간,수령상태\n';
+      const drawnTiers = (drawState && drawState.drawnTiers) ? drawState.drawnTiers : {};
+      const sortedTiers = getSortedStageTiers();
+
+      sortedTiers.forEach(tier => {
+        const tierWinners = drawnTiers[tier.id];
+        if (Array.isArray(tierWinners)) {
+          tierWinners.forEach((w, idx) => {
+            csv += `"클로징 럭키드로우","${tier.title} (${idx + 1}번)","${w.checkinId || ''}","${w.name}","${w.email}","${w.prize || tier.prize}","${w.time || ''}","현장지급"\n`;
+          });
+        }
+      });
+
+      const milestoneWinners = checkinList.filter(att => att.isMilestoneWinner || isSeqMilestoneWinner(att.seq));
+      milestoneWinners.forEach(w => {
+        const m = getMilestoneBySeq(w.seq);
+        const prizeName = w.milestonePrize || (m ? m.prize : '순번 경품');
+        const isDelivered = !!(drawState && drawState.deliveredMilestones && drawState.deliveredMilestones[w.seq]);
+        csv += `"N번째 순번이벤트","${w.seq}번째 체크인","${w.checkinId || ''}","${w.name}","${w.email}","${prizeName}","${w.checkinTime || ''}","${isDelivered ? '수령완료' : '미수령'}"\n`;
+      });
+
+      downloadFile(csv, `hvac_luckydraw_winners_${new Date().toISOString().slice(0, 10)}.csv`, 'text/csv;charset=utf-8;');
+      showToast('📥 럭키드로우 당첨자 명단이 CSV 파일로 다운로드되었습니다.');
+    }
+
+    function copyLuckyDrawSummaryText() {
+      let text = `📢 [2026 HVAC 전문가 세미나] 럭키드로우 & 이벤트 당첨자 발표 🎉\n\n`;
+      const drawnTiers = (drawState && drawState.drawnTiers) ? drawState.drawnTiers : {};
+      const sortedTiers = [...(drawConfig.tiers || DEFAULT_TIERS)].sort((a, b) => Number(a.rank) - Number(b.rank)); // 1등부터
+
+      text += `🏆 [클로징 럭키드로우 당첨자]\n`;
+      sortedTiers.forEach(tier => {
+        const winners = drawnTiers[tier.id];
+        if (Array.isArray(winners) && winners.length > 0) {
+          text += `▶ ${tier.title} [경품: ${tier.prize}]\n`;
+          winners.forEach(w => {
+            text += `  - ${w.name} 님 (${w.checkinId || ''})\n`;
+          });
+        }
+      });
+
+      const milestoneWinners = checkinList.filter(att => att.isMilestoneWinner || isSeqMilestoneWinner(att.seq));
+      if (milestoneWinners.length > 0) {
+        text += `\n🎯 [N번째 체크인 깜짝 당첨자]\n`;
+        milestoneWinners.forEach(w => {
+          const m = getMilestoneBySeq(w.seq);
+          text += `  - #${w.seq}번째 당첨: ${w.name} 님 (${w.milestonePrize || m?.prize || ''})\n`;
+        });
+      }
+
+      text += `\n📌 당첨되신 분들은 현장 등록 데스크에서 선물을 수령해 주시기 바랍니다! 축하드립니다!`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 공지용 텍스트가 클립보드에 복사되었습니다! (카톡 단톡방에 붙여넣기 하세요)');
+      }).catch(() => {
+        alert('클립보드 복사에 실패했습니다. 권한을 확인해 주세요.');
+      });
+    }
+
+    function resetLuckyDrawStateConfirm() {
+      if (confirm('⚠️ 럭키드로우 추첨 결과를 모두 초기화하시겠습니까?\n모든 등수의 추첨 결과가 리셋되며 처음부터 다시 추첨을 진행할 수 있습니다.')) {
+        drawState = { drawnTiers: {}, deliveredMilestones: {} };
+        try {
+          localStorage.setItem('hvac_luckydraw_state', JSON.stringify(drawState));
+        } catch (e) {}
+        stageTierIdx = 0;
+        renderStageView();
+        renderAllWinnersTable();
+        updateAllStats();
+        showToast('🔄 럭키드로우 추첨 결과가 깨끗하게 초기화되었습니다.');
       }
     }
 
