@@ -58,6 +58,82 @@
             }
           }
         } catch (e) {}
+
+        // Dynamic Schedule & Session Sync from Admin Settings
+        function syncScheduleSettings() {
+          try {
+            const scheduleData = JSON.parse(localStorage.getItem('hvac_schedule_settings') || 'null');
+            if (!scheduleData) return;
+
+            // 1. Hero / Main Info sync
+            if (scheduleData.hero) {
+              const h = scheduleData.hero;
+              const elEyebrow = document.querySelector('.eyebrow');
+              if (elEyebrow && (h.eyebrow || h.scheduleDate)) {
+                elEyebrow.textContent = h.eyebrow || `ENGINEERING INSIGHT DAY · ${h.scheduleDate}`;
+              }
+
+              const elYear = document.querySelector('.year');
+              if (elYear && h.year) elYear.textContent = h.year;
+
+              const elH1 = document.querySelector('.hero h1');
+              if (elH1 && (h.title || h.titleSpan || h.subtitle)) {
+                elH1.innerHTML = `${h.title || 'HVAC Engineering'}<span>${h.titleSpan || h.subtitle || 'Expert Seminar'}</span>`;
+              }
+
+              const elCopy = document.querySelector('.hero-copy');
+              if (elCopy && h.copy) elCopy.textContent = h.copy;
+
+              const metaDivs = document.querySelectorAll('.hero .meta > div');
+              if (metaDivs.length >= 4) {
+                const s1 = metaDivs[0].querySelector('strong');
+                const s2 = metaDivs[1].querySelector('strong');
+                const s3 = metaDivs[2].querySelector('strong');
+                const s4 = metaDivs[3].querySelector('strong');
+                if (s1 && (h.admissionTime || h.entryTime)) s1.textContent = h.admissionTime || h.entryTime;
+                if (s2 && (h.scheduleHours || h.totalSchedule)) s2.textContent = h.scheduleHours || h.totalSchedule;
+                if (s3 && (h.place || h.location)) s3.textContent = h.place || h.location;
+                if (s4 && (h.venueSummary || h.venue)) s4.textContent = h.venueSummary || h.venue;
+              }
+            }
+
+            // 2. Program Time Table (Agenda) sync
+            if (Array.isArray(scheduleData.sessions) && scheduleData.sessions.length > 0) {
+              const agendaShell = document.querySelector('#agenda .agenda-shell');
+              if (agendaShell) {
+                const oldRows = agendaShell.querySelectorAll('.agenda-row');
+                oldRows.forEach(function(r) { r.remove(); });
+
+                scheduleData.sessions.forEach(function(s) {
+                  const row = document.createElement('div');
+                  let typeClass = '';
+                  if (s.type === 'session') typeClass = 'session';
+                  else if (s.type === 'break') typeClass = 'break';
+                  else if (s.type === 'meal') typeClass = 'meal';
+
+                  row.className = ('agenda-row ' + typeClass).trim();
+                  row.innerHTML = `
+                    <div class="time">${s.time || ''}</div>
+                    <div class="minute">${s.minute || '-'}</div>
+                    <div class="topic">${s.title || ''}</div>
+                    <div class="speaker">${s.speaker || '-'}</div>
+                    <div class="note">${s.note || ''}</div>
+                  `;
+                  agendaShell.appendChild(row);
+                });
+              }
+            }
+          } catch (e) {
+            console.warn('syncScheduleSettings error:', e);
+          }
+        }
+
+        syncScheduleSettings();
+        window.addEventListener('storage', function(e) {
+          if (e.key === 'hvac_schedule_settings') {
+            syncScheduleSettings();
+          }
+        });
       });
     })();
   </script>

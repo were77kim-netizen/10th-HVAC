@@ -1791,6 +1791,81 @@
       min-width: 44px;
       text-align: center;
     }
+
+    /* =========================================================
+       10. 세미나 프로그램 & 세션 관리 (Schedule Editor)
+       ========================================================= */
+    .session-admin-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .session-admin-card:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .session-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .session-type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 850;
+    }
+
+    .session-type-badge.session {
+      background: rgba(212, 160, 23, 0.15);
+      border: 1px solid rgba(243, 196, 72, 0.35);
+      color: #f3c448;
+    }
+
+    .session-type-badge.break {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      color: #60a5fa;
+    }
+
+    .session-type-badge.meal {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+    }
+
+    .session-type-badge.general {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .session-bullets-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .session-bullets-box ul {
+      margin: 0;
+      padding-left: 18px;
+    }
   </style>
 </head>
 <body>
@@ -1869,6 +1944,9 @@
       </button>
       <button class="tab-btn" data-tab="tabDraw" onclick="switchTab('tabDraw')">
         🎁 럭키드로우 & 이벤트 <span class="tab-count" id="countBadgeDraw">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tabSchedule" onclick="switchTab('tabSchedule')">
+        📝 프로그램 & 세션 관리 <span class="tab-count" id="countBadgeSchedule">0</span>
       </button>
       <button class="tab-btn" data-tab="tabKakao" onclick="switchTab('tabKakao')">
         📢 카카오톡 공지 센터
@@ -2396,6 +2474,103 @@
         </div>
       </div>
     </section>
+
+    <!-- -----------------------------------------------------
+         [TAB 5] 📝 세미나 프로그램 & 세션 관리 (index_v2 / 체크인 연동)
+         ----------------------------------------------------- -->
+    <section id="tabSchedule" class="tab-panel">
+      <!-- 상단 알림 배너 -->
+      <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 24px;">
+        <h3 style="color: var(--primary-bright); font-size: 16px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+          📝 세미나 프로그램 타이틀 및 세션 일정 통합 관리
+        </h3>
+        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+          여기서 수정한 행사 타이틀, 소개 문구, 전체 일정, 세션별 시간·주제·강사·안내 내용은 <strong>index_v2 메인 페이지</strong>와 <strong>체크인 후 세션 뷰어 및 시간표</strong>에 실시간으로 즉시 일괄 동기화 반영됩니다.
+        </p>
+      </div>
+
+      <!-- 1. 메인 행사 개요 및 헤더 정보 편집 (index_v2 Hero 섹션) -->
+      <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">🏛️ 메인 행사 헤더 & 개요 정보 (index_v2 메인 페이지)</h3>
+            <p class="card-sub">행사 공식 명칭, 부제, 대표 소개글, 일시 및 장소 메타 정보를 수정합니다.</p>
+          </div>
+          <button class="btn-act primary" onclick="saveScheduleHeroFromUi(true)">💾 행사 개요 저장</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 14px;">
+          <div>
+            <label class="form-label">메인 타이틀 1행</label>
+            <input type="text" id="cfgHeroTitle" class="form-control" value="HVAC Engineering">
+          </div>
+          <div>
+            <label class="form-label">메인 타이틀 2행 (강조 Span)</label>
+            <input type="text" id="cfgHeroTitleSpan" class="form-control" value="Expert Seminar">
+          </div>
+          <div>
+            <label class="form-label">상단 부제 (Eyebrow)</label>
+            <input type="text" id="cfgHeroEyebrow" class="form-control" value="ENGINEERING INSIGHT DAY · 2026. 11. 16(월)">
+          </div>
+          <div>
+            <label class="form-label">개최 연도 (Year)</label>
+            <input type="text" id="cfgHeroYear" class="form-control" value="2026">
+          </div>
+        </div>
+
+        <div style="margin-top: 16px;">
+          <label class="form-label">행사 대표 소개문구 (Hero Copy)</label>
+          <textarea id="cfgHeroCopy" class="form-control" rows="3">국내 주거난방의 변천, 고밀도 AI 서버 액체냉각, AIDC 전력공급, 공동주택 공기열원 히트펌프, 에너지컨설팅과 과학·인문학을 한자리에서 다루는 오프라인 현장 전문가 세미나입니다.</textarea>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 16px;">
+          <div>
+            <label class="form-label">입실 마감 시각</label>
+            <input type="text" id="cfgHeroEntryTime" class="form-control" value="08:50까지">
+          </div>
+          <div>
+            <label class="form-label">전체 일정 시간</label>
+            <input type="text" id="cfgHeroTotalSchedule" class="form-control" value="09:00 ~ 17:50">
+          </div>
+          <div>
+            <label class="form-label">행사 장소</label>
+            <input type="text" id="cfgHeroLocation" class="form-control" value="국민대학교 본부관(별관)">
+          </div>
+          <div>
+            <label class="form-label">세부 세미나홀</label>
+            <input type="text" id="cfgHeroVenue" class="form-control" value="학술회의장">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 세션별 전체 일정표 편집기 (추가/수정/삭제/순서변경) -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">📅 세미나 전체 일정 및 세션 상세 관리</h3>
+            <p class="card-sub">
+              각 세션의 시간, 유형(강연/휴식/식사), 주제, 강사, 장소 및 체크인 후 뷰어에 노출되는 세부 안내 내용(Bullets)을 편집합니다.
+            </p>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn-act primary" onclick="openAddSessionModal()">+ 새 세션 추가</button>
+            <button class="btn-act" onclick="saveAllSessionsToStorage(true)">💾 전체 세션 저장</button>
+            <button class="btn-act" onclick="resetScheduleToDefault()">🔄 기본 세션 복원</button>
+            <a class="btn-act" href="./index_v2.html" target="_blank">🌐 index_v2 미리보기 ↗</a>
+            <a class="btn-act" href="./checkin.html" target="_blank">📱 체크인 미리보기 ↗</a>
+          </div>
+        </div>
+
+        <!-- 세션 리스트 컨테이너 -->
+        <div id="sessionCardList" style="display: grid; gap: 14px; margin-top: 16px;">
+          <!-- JS 동적 렌더링 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------
+         [TAB 6] 각 세션별 카카오톡 채널 안내 멘트 발송 센터
+         ----------------------------------------------------- -->
     <section id="tabKakao" class="tab-panel">
       <!-- 카카오 안내 헤더 -->
       <div style="background: rgba(254, 229, 0, 0.08); border: 1px solid rgba(254, 229, 0, 0.25); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 24px;">
@@ -2839,7 +3014,84 @@
     </div>
   </div>
 
-  <!-- 6. 관리자 암호 변경 모달 -->
+  <!-- 6. 세션 상세 편집 모달 -->
+  <div class="modal-backdrop" id="modalEditSession">
+    <div class="modal-box" style="max-width: 620px;">
+      <div class="modal-head">
+        <h3 class="modal-title" id="modalSessionTitle">세션 상세 정보 편집</h3>
+        <button class="modal-close" onclick="closeModal('modalEditSession')">&times;</button>
+      </div>
+      <form id="formEditSession" onsubmit="handleSaveSessionModal(event)">
+        <input type="hidden" id="editSessionIndex" value="-1">
+        <div class="modal-body">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div class="form-group">
+              <label>세션 구분 / 소제목 (Sublabel)</label>
+              <input type="text" id="mSessionSublabel" class="form-control" placeholder="예: Keynote Session 1" required>
+            </div>
+            <div class="form-group">
+              <label>세션 유형 (Type)</label>
+              <select id="mSessionType" class="form-control">
+                <option value="session">🎓 강연 세션 (Keynote/Insight)</option>
+                <option value="break">☕ 휴식 시간 (Break Time)</option>
+                <option value="meal">🍱 식사 및 기념촬영 (Meal/Photo)</option>
+                <option value="general">📢 일반 일정 (입실/오프닝/클로징)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1.2fr 0.8fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div class="form-group">
+              <label>진행 시간대 (Time)</label>
+              <input type="text" id="mSessionTime" class="form-control" placeholder="예: 09:20 ~ 10:10" required>
+            </div>
+            <div class="form-group">
+              <label>소요 시간 (분)</label>
+              <input type="text" id="mSessionMinute" class="form-control" placeholder="예: 50" required>
+            </div>
+            <div class="form-group">
+              <label>진행 상태 (Status)</label>
+              <select id="mSessionStatus" class="form-control">
+                <option value="예정">예정</option>
+                <option value="진행 중">진행 중</option>
+                <option value="종료">종료</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label>세션 주제 / 타이틀 (Title)</label>
+            <input type="text" id="mSessionTopic" class="form-control" placeholder="예: 국내주거난방의 변천과 현황" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div class="form-group">
+              <label>강사 / 발표자 (Speaker)</label>
+              <input type="text" id="mSessionSpeaker" class="form-control" placeholder="예: 여명석 교수 (서울대학교)" required>
+            </div>
+            <div class="form-group">
+              <label>장소 및 비고 (Location / Note)</label>
+              <input type="text" id="mSessionLocation" class="form-control" placeholder="예: 본부관 학술회의장" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              세부 안내 내용 (Bullets)
+              <small style="font-weight: normal; color: var(--text-muted);">(체크인 후 세션 뷰어에 표시됨 · 줄바꿈으로 항목 구분)</small>
+            </label>
+            <textarea id="mSessionBullets" class="form-control" rows="4" placeholder="항목별로 줄바꿈하여 입력하세요.&#10;예) 우리나라 전통 온돌에서 현대 복사난방 발전사&#10;공동주택 바닥난방 열적 쾌적성"></textarea>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn-act" onclick="closeModal('modalEditSession')">취소</button>
+          <button type="submit" class="btn-act primary">세션 저장</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 7. 관리자 암호 변경 모달 -->
   <div class="modal-backdrop" id="modalPwdChange">
     <div class="modal-box">
       <div class="modal-head">
@@ -3078,6 +3330,9 @@
 
       // 4) 럭키드로우 & 순번 이벤트 시스템 초기화
       initDrawSystem();
+
+      // 5) 프로그램 & 세션 일정 관리 초기화
+      initScheduleSystem();
     }
 
     function saveQna() {
@@ -3105,6 +3360,7 @@
       });
       if (tabId === 'tabMc') renderMcCards();
       if (tabId === 'tabDraw') renderDrawTab();
+      if (tabId === 'tabSchedule') renderScheduleTab();
     }
 
     // =========================================================
@@ -3919,6 +4175,12 @@
       if (elMilestoneStat) elMilestoneStat.textContent = milestoneCount;
       const elDrawBadge = document.getElementById('countBadgeDraw');
       if (elDrawBadge) elDrawBadge.textContent = milestoneCount + (typeof getTotalDrawnWinnersCount === 'function' ? getTotalDrawnWinnersCount() : 0);
+
+      // 4) 프로그램 세션 일정 지표
+      const elScheduleBadge = document.getElementById('countBadgeSchedule');
+      if (elScheduleBadge && typeof scheduleData !== 'undefined' && scheduleData && Array.isArray(scheduleData.sessions)) {
+        elScheduleBadge.textContent = scheduleData.sessions.length;
+      }
     }
 
     // =========================================================
@@ -5338,6 +5600,518 @@
         renderAllWinnersTable();
         updateAllStats();
         showToast('🔄 럭키드로우 추첨 결과가 깨끗하게 초기화되었습니다.');
+      }
+    }
+
+    // =========================================================
+    // 12. [TAB 5] 📝 세미나 프로그램 & 세션 일정 관리 시스템
+    // =========================================================
+    const DEFAULT_SCHEDULE_DATA = {
+      hero: {
+        eyebrow: "ENGINEERING INSIGHT DAY · 2026. 11. 16(월)",
+        year: "2026",
+        title: "HVAC Engineering",
+        titleSpan: "Expert Seminar",
+        copy: "국내 주거난방의 변천, 고밀도 AI 서버 액체냉각, AIDC 전력공급, 공동주택 공기열원 히트펌프, 에너지컨설팅과 과학·인문학을 한자리에서 다루는 오프라인 현장 전문가 세미나입니다.",
+        entryTime: "08:50까지",
+        totalSchedule: "09:00 ~ 17:50",
+        location: "국민대학교 본부관(별관)",
+        venue: "학술회의장"
+      },
+      sessions: [
+        {
+          id: "s1",
+          time: "~ 08:50",
+          minute: "-",
+          type: "general",
+          sublabel: "Reception & 입실",
+          status: "진행 중",
+          location: "📍 본부관 학술회의장",
+          title: "세미나 등록 및 모바일 체크인",
+          speaker: "-",
+          note: "QR 코드 스캔",
+          bullets: [
+            "등록 데스크에서 명찰을 수령하고 입실해 주세요.",
+            "각 좌석 테이블에 비치된 QR코드 및 카카오톡 소통방에 입장하세요.",
+            "Opening 세션은 오전 9시에 정시 시작합니다!"
+          ]
+        },
+        {
+          id: "s2",
+          time: "09:00 ~ 09:20",
+          minute: "20",
+          type: "session",
+          sublabel: "Opening Session",
+          status: "예정",
+          location: "📍 본부관 학술회의장",
+          title: "오프닝 및 개회사",
+          speaker: "ES엔지니어링담당",
+          note: "일정안내, 시상",
+          bullets: [
+            "세미나 취지 및 1일 아젠다 안내",
+            "우수 엔지니어링 시상식 진행",
+            "현장 참여 퀴즈 및 럭키드로우 경품 안내"
+          ]
+        },
+        {
+          id: "s3",
+          time: "09:20 ~ 10:10",
+          minute: "50",
+          type: "session",
+          sublabel: "Keynote Session 1",
+          status: "예정",
+          location: "📍 본부관 학술회의장",
+          title: "국내주거난방의 변천과 현황",
+          speaker: "여명석 교수 (서울대학교)",
+          note: "서울대학교",
+          bullets: [
+            "우리나라 전통 온돌에서 현대 바닥 복사난방으로의 발전사",
+            "공동주택 바닥난방의 열적 쾌적성 및 에너지 절감 효과",
+            "탄소중립 시대의 주거 난방 미래 전망"
+          ]
+        },
+        {
+          id: "s4",
+          time: "10:10 ~ 10:30",
+          minute: "20",
+          type: "break",
+          sublabel: "Break time",
+          status: "예정",
+          location: "📍 로비",
+          title: "☕ 휴식 시간 (Coffee Break)",
+          speaker: "-",
+          note: "다과 및 네트워킹",
+          bullets: [
+            "로비에 비치된 음료와 다과를 자유롭게 이용하세요.",
+            "동료 엔지니어들과의 자유로운 기술 네트워킹 시간입니다."
+          ]
+        },
+        {
+          id: "s5",
+          time: "10:30 ~ 11:20",
+          minute: "50",
+          type: "session",
+          sublabel: "Keynote Session 2",
+          status: "예정",
+          location: "📍 본부관 학술회의장",
+          title: "고밀도 AI 서버의 액체냉각 및 데이터센터 열관리 기술",
+          speaker: "이성혁 교수 (중앙대학교)",
+          note: "중앙대학교",
+          bullets: [
+            "고밀도 AI 칩(GPU) 발열 한계와 공랭의 한계점 극복",
+            "Direct-to-Chip(D2C) 액체냉각 및 액침냉각(Immersion) 최신 기술",
+            "데이터센터 PUE 절감을 위한 차세대 냉각 인프라 설계"
+          ]
+        },
+        {
+          id: "s6",
+          time: "11:20 ~ 11:40",
+          minute: "20",
+          type: "break",
+          sublabel: "Break time",
+          status: "예정",
+          location: "📍 로비",
+          title: "☕ 휴식 시간 (Break Time)",
+          speaker: "-",
+          note: "",
+          bullets: [
+            "다음 세션 시작 5분 전까지 착석해 주시기 바랍니다."
+          ]
+        },
+        {
+          id: "s7",
+          time: "11:40 ~ 12:30",
+          minute: "50",
+          type: "session",
+          sublabel: "Keynote Session 3",
+          status: "예정",
+          location: "📍 본부관 학술회의장",
+          title: "국내 전력시장 현황 및 AIDC 전력공급 방안",
+          speaker: "조홍종 교수 (단국대학교)",
+          note: "단국대학교",
+          bullets: [
+            "AI 데이터센터 급증에 따른 국가 전력망(Grid) 부하 분석",
+            "지역 분산에너지 활성화 및 송배전 유연성 확보 전략",
+            "민간 기업의 전력 조달 및 에너지 정책 대응 방안"
+          ]
+        },
+        {
+          id: "s8",
+          time: "12:30 ~ 14:00",
+          minute: "90",
+          type: "meal",
+          sublabel: "Lunch Break",
+          status: "예정",
+          location: "📍 교내 식당",
+          title: "🍱 기념촬영 및 점심 식사",
+          speaker: "-",
+          note: "교내 식당",
+          bullets: [
+            "학술회의장 앞 로비에서 단체 기념촬영이 진행됩니다.",
+            "식권 또는 명찰을 패용하시고 교내 식당으로 이동해 주세요.",
+            "오후 세션은 14:00 정시에 시작합니다."
+          ]
+        },
+        {
+          id: "s9",
+          time: "14:00 ~ 14:50",
+          minute: "50",
+          type: "session",
+          sublabel: "Insight Session 1",
+          status: "예정",
+          location: "📍 본부관 학술회의장",
+          title: "건축설비 측면에서 바라보는 공동주택 공기열원 히트펌프의 역할과 과제",
+          speaker: "유정현 수석 (LHRI)",
+          note: "LHRI (토지주택연구원)",
+          bullets: [
+            "제로에너지건축물(ZEB) 구현을 위한 히트펌프 적용 사례",
+            "공기열원 히트펌프(AWHP)의 겨울철 난방 효율 개선 연구",
+            "공동주택 보일러 대체 가능성과 제도적 개선 과제"
+          ]
+        },
+        {
+          id: "s10",
+          time: "14:50 ~ 15:10",
+          minute: "20",
+          type: "break",
+          sublabel: "Break time",
+          status: "예정",
+          location: "📍 로비",
+          title: "☕ 휴식 시간 (Break Time)",
+          speaker: "-",
+          note: "",
+          bullets: [
+            "오후 세션 중간 휴식 및 질의응답 준비 시간입니다."
+          ]
+        },
+        {
+          id: "s11",
+          time: "15:10 ~ 15:40",
+          minute: "30",
+          type: "session",
+          sublabel: "Insight Session 2",
+          status: "예정",
+          location: "📍 본부관 학술회의장",
+          title: "에너지컨설팅 사례 발표",
+          speaker: "오영훈 팀장 (에너지컨설팅팀)",
+          note: "에너지컨설팅팀",
+          bullets: [
+            "산업 플랜트 및 대형 빌딩 실시간 에너지 진단(Audit)",
+            "실제 현장 맞춤형 고효율 공조 솔루션 적용 성과 분석",
+            "운영 비용(OPEX) 절감 및 탄소 배출 감축 효과"
+          ]
+        },
+        {
+          id: "s12",
+          time: "15:40 ~ 16:00",
+          minute: "20",
+          type: "break",
+          sublabel: "Break time",
+          status: "예정",
+          location: "📍 로비",
+          title: "☕ 휴식 시간 (Break Time)",
+          speaker: "-",
+          note: "",
+          bullets: [
+            "세션 퀴즈 마감 전 최종 제출을 확인해 주세요."
+          ]
+        },
+        {
+          id: "s13",
+          time: "16:00 ~ 17:40",
+          minute: "100",
+          type: "session",
+          sublabel: "Special Lecture",
+          status: "예정",
+          location: "📍 본부관 학술회의장",
+          title: "과학 및 인문학 강의",
+          speaker: "이정모 관장 (과학커뮤니케이터)",
+          note: "과학커뮤니케이터",
+          bullets: [
+            "기술과 과학이 급변하는 AI 시대의 소통과 공감",
+            "질문하고 의심하며 함께 탐구하는 열린 자세의 힘",
+            "과학자의 시선으로 바라본 인간과 엔지니어의 미래"
+          ]
+        },
+        {
+          id: "s14",
+          time: "17:40 ~ 17:50",
+          minute: "10",
+          type: "general",
+          sublabel: "Closing & Lucky Draw",
+          status: "예정",
+          location: "📍 본부관 학술회의장",
+          title: "Wrap up 및 만찬 럭키드로우",
+          speaker: "ES엔지니어링담당",
+          note: "설문 및 마무리",
+          bullets: [
+            "모바일 만족도 설문 제출 안내",
+            "대망의 만찬 럭키드로우(1~5등) 현장 추첨 진행",
+            "폐회 및 귀가 안내"
+          ]
+        }
+      ]
+    };
+
+    let scheduleData = null;
+
+    function initScheduleSystem() {
+      try {
+        const saved = localStorage.getItem('hvac_schedule_settings');
+        if (saved) {
+          scheduleData = JSON.parse(saved);
+        } else {
+          scheduleData = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE_DATA));
+          localStorage.setItem('hvac_schedule_settings', JSON.stringify(scheduleData));
+        }
+      } catch (e) {
+        scheduleData = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE_DATA));
+      }
+
+      if (!scheduleData.hero) scheduleData.hero = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE_DATA.hero));
+      if (!Array.isArray(scheduleData.sessions)) scheduleData.sessions = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE_DATA.sessions));
+    }
+
+    function renderScheduleTab() {
+      initScheduleSystem();
+
+      // 1) 행사 개요 필드 채우기
+      const h = scheduleData.hero;
+      if (document.getElementById('cfgHeroTitle')) document.getElementById('cfgHeroTitle').value = h.title || '';
+      if (document.getElementById('cfgHeroTitleSpan')) document.getElementById('cfgHeroTitleSpan').value = h.titleSpan || '';
+      if (document.getElementById('cfgHeroEyebrow')) document.getElementById('cfgHeroEyebrow').value = h.eyebrow || '';
+      if (document.getElementById('cfgHeroYear')) document.getElementById('cfgHeroYear').value = h.year || '';
+      if (document.getElementById('cfgHeroCopy')) document.getElementById('cfgHeroCopy').value = h.copy || '';
+      if (document.getElementById('cfgHeroEntryTime')) document.getElementById('cfgHeroEntryTime').value = h.entryTime || '';
+      if (document.getElementById('cfgHeroTotalSchedule')) document.getElementById('cfgHeroTotalSchedule').value = h.totalSchedule || '';
+      if (document.getElementById('cfgHeroLocation')) document.getElementById('cfgHeroLocation').value = h.location || '';
+      if (document.getElementById('cfgHeroVenue')) document.getElementById('cfgHeroVenue').value = h.venue || '';
+
+      // 2) 세션 카드 렌더링
+      renderSessionCardList();
+
+      // 3) 통계 배지
+      const badge = document.getElementById('countBadgeSchedule');
+      if (badge) badge.textContent = scheduleData.sessions.length;
+    }
+
+    function saveScheduleHeroFromUi(showToastFlag = false) {
+      if (!scheduleData) initScheduleSystem();
+      scheduleData.hero = {
+        title: document.getElementById('cfgHeroTitle').value.trim(),
+        titleSpan: document.getElementById('cfgHeroTitleSpan').value.trim(),
+        eyebrow: document.getElementById('cfgHeroEyebrow').value.trim(),
+        year: document.getElementById('cfgHeroYear').value.trim(),
+        copy: document.getElementById('cfgHeroCopy').value.trim(),
+        entryTime: document.getElementById('cfgHeroEntryTime').value.trim(),
+        totalSchedule: document.getElementById('cfgHeroTotalSchedule').value.trim(),
+        location: document.getElementById('cfgHeroLocation').value.trim(),
+        venue: document.getElementById('cfgHeroVenue').value.trim()
+      };
+
+      try {
+        localStorage.setItem('hvac_schedule_settings', JSON.stringify(scheduleData));
+        if (showToastFlag) showToast('💾 행사 타이틀 및 개요 정보가 저장되었습니다! (index_v2 실시간 반영)');
+      } catch (e) {
+        alert('저장에 실패했습니다.');
+      }
+    }
+
+    function renderSessionCardList() {
+      const container = document.getElementById('sessionCardList');
+      if (!container) return;
+      const sessions = scheduleData.sessions || [];
+
+      if (sessions.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 40px; color: var(--text-muted); background: var(--card-bg); border-radius: 12px; border: 1px dashed var(--card-border);">
+            등록된 세션이 없습니다. [+ 새 세션 추가] 버튼을 눌러 일정을 등록해 보세요.
+          </div>
+        `;
+        return;
+      }
+
+      const typeLabels = {
+        session: '🎓 강연 세션',
+        break: '☕ 휴식 (Break)',
+        meal: '🍱 기념촬영 & 식사',
+        general: '📢 일반 일정'
+      };
+
+      container.innerHTML = sessions.map((s, idx) => {
+        const typeClass = s.type || 'general';
+        const typeLabel = typeLabels[typeClass] || '일반';
+        const bullets = s.bullets || [];
+
+        return `
+          <div class="session-admin-card" id="sessionCard_${idx}">
+            <div class="session-card-header">
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <div style="display: flex; gap: 2px;">
+                  <button type="button" class="btn-tbl" onclick="moveSessionOrder(${idx}, -1)" ${idx === 0 ? 'disabled style="opacity:0.3;"' : ''} title="위로 이동">▲</button>
+                  <button type="button" class="btn-tbl" onclick="moveSessionOrder(${idx}, 1)" ${idx === sessions.length - 1 ? 'disabled style="opacity:0.3;"' : ''} title="아래로 이동">▼</button>
+                </div>
+                <strong style="color: var(--gold-bright); font-size: 14px; min-width: 28px;">#${idx + 1}</strong>
+                <span class="session-type-badge ${typeClass}">${typeLabel}</span>
+                <span style="font-weight: 850; font-size: 13.5px; color: #fff;">${escapeHtml(s.sublabel || '')}</span>
+                <span class="status-pill ${s.status === '진행 중' ? 'matched' : ''}" style="font-size: 11px;">${escapeHtml(s.status || '예정')}</span>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-muted);">
+                <span>⏰ <strong>${escapeHtml(s.time || '')}</strong> (${escapeHtml(s.minute || '-')}분)</span>
+                <span>|</span>
+                <span>${escapeHtml(s.location || '')}</span>
+                <div style="display: flex; gap: 4px; margin-left: 8px;">
+                  <button type="button" class="btn-tbl" onclick="openEditSessionModal(${idx})">✏️ 수정</button>
+                  <button type="button" class="btn-tbl" onclick="deleteSession(${idx})" style="color: #ff6b6b;">🗑️ 삭제</button>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h4 style="font-size: 16px; font-weight: 900; color: #fff; margin-bottom: 4px;">
+                ${escapeHtml(s.title || '')}
+              </h4>
+              <div style="font-size: 13px; color: var(--gold-bright); display: flex; align-items: center; gap: 6px;">
+                <span>강사/주관:</span>
+                <strong>${escapeHtml(s.speaker || '-')}</strong>
+                ${s.note ? `<span style="color: var(--text-muted); font-size: 12px;">(${escapeHtml(s.note)})</span>` : ''}
+              </div>
+            </div>
+
+            ${bullets.length > 0 ? `
+              <div class="session-bullets-box">
+                <strong style="display: block; font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 4px; text-transform: uppercase;">
+                  체크인 후 세션 뷰어 안내 내용 (${bullets.length}개 항목)
+                </strong>
+                <ul>
+                  ${bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}
+                </ul>
+              </div>
+            ` : `
+              <div style="font-size: 11.5px; color: rgba(255,255,255,0.35); font-style: italic;">
+                등록된 세부 안내 내용이 없습니다. [수정]을 눌러 불릿 포인트를 추가할 수 있습니다.
+              </div>
+            `}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openAddSessionModal() {
+      document.getElementById('editSessionIndex').value = '-1';
+      document.getElementById('modalSessionTitle').textContent = '+ 새로운 세션 추가';
+
+      document.getElementById('mSessionSublabel').value = `Session ${scheduleData.sessions.length + 1}`;
+      document.getElementById('mSessionType').value = 'session';
+      document.getElementById('mSessionTime').value = '14:00 ~ 14:50';
+      document.getElementById('mSessionMinute').value = '50';
+      document.getElementById('mSessionStatus').value = '예정';
+      document.getElementById('mSessionTopic').value = '';
+      document.getElementById('mSessionSpeaker').value = '';
+      document.getElementById('mSessionLocation').value = '📍 본부관 학술회의장';
+      document.getElementById('mSessionBullets').value = '';
+
+      openModal('modalEditSession');
+    }
+
+    function openEditSessionModal(idx) {
+      const s = scheduleData.sessions[idx];
+      if (!s) return;
+
+      document.getElementById('editSessionIndex').value = idx;
+      document.getElementById('modalSessionTitle').textContent = `✏️ 세션 #${idx + 1} 상세 편집`;
+
+      document.getElementById('mSessionSublabel').value = s.sublabel || '';
+      document.getElementById('mSessionType').value = s.type || 'session';
+      document.getElementById('mSessionTime').value = s.time || '';
+      document.getElementById('mSessionMinute').value = s.minute || '-';
+      document.getElementById('mSessionStatus').value = s.status || '예정';
+      document.getElementById('mSessionTopic').value = s.title || '';
+      document.getElementById('mSessionSpeaker').value = s.speaker || '';
+      document.getElementById('mSessionLocation').value = s.location || s.note || '';
+      document.getElementById('mSessionBullets').value = (s.bullets || []).join('\n');
+
+      openModal('modalEditSession');
+    }
+
+    function handleSaveSessionModal(e) {
+      e.preventDefault();
+      const idx = parseInt(document.getElementById('editSessionIndex').value, 10);
+
+      const bulletsRaw = document.getElementById('mSessionBullets').value;
+      const bullets = bulletsRaw.split('\n').map(b => b.trim()).filter(b => b.length > 0);
+
+      const locVal = document.getElementById('mSessionLocation').value.trim();
+
+      const sessionObj = {
+        id: idx >= 0 ? (scheduleData.sessions[idx].id || ('s_' + Date.now().toString(36))) : ('s_' + Date.now().toString(36)),
+        sublabel: document.getElementById('mSessionSublabel').value.trim(),
+        type: document.getElementById('mSessionType').value,
+        time: document.getElementById('mSessionTime').value.trim(),
+        minute: document.getElementById('mSessionMinute').value.trim() || '-',
+        status: document.getElementById('mSessionStatus').value,
+        title: document.getElementById('mSessionTopic').value.trim(),
+        speaker: document.getElementById('mSessionSpeaker').value.trim() || '-',
+        location: locVal.startsWith('📍') ? locVal : (locVal ? `📍 ${locVal}` : '📍 본부관 학술회의장'),
+        note: locVal.replace('📍', '').trim(),
+        bullets: bullets
+      };
+
+      if (idx >= 0 && scheduleData.sessions[idx]) {
+        scheduleData.sessions[idx] = sessionObj;
+      } else {
+        scheduleData.sessions.push(sessionObj);
+      }
+
+      saveAllSessionsToStorage(false);
+      closeModal('modalEditSession');
+      renderSessionCardList();
+      updateAllStats();
+      showToast('💾 세션 정보가 저장되었습니다! (index_v2 및 체크인 페이지 실시간 반영)');
+    }
+
+    function deleteSession(idx) {
+      const s = scheduleData.sessions[idx];
+      if (!s) return;
+      if (confirm(`'${s.title || s.sublabel}' 세션을 삭제하시겠습니까?`)) {
+        scheduleData.sessions.splice(idx, 1);
+        saveAllSessionsToStorage(false);
+        renderSessionCardList();
+        updateAllStats();
+        showToast('🗑️ 세션이 삭제되었습니다.');
+      }
+    }
+
+    function moveSessionOrder(idx, delta) {
+      const targetIdx = idx + delta;
+      if (targetIdx < 0 || targetIdx >= scheduleData.sessions.length) return;
+
+      const temp = scheduleData.sessions[idx];
+      scheduleData.sessions[idx] = scheduleData.sessions[targetIdx];
+      scheduleData.sessions[targetIdx] = temp;
+
+      saveAllSessionsToStorage(false);
+      renderSessionCardList();
+      showToast('↕️ 세션 순서가 변경되었습니다.');
+    }
+
+    function saveAllSessionsToStorage(showToastFlag = false) {
+      try {
+        localStorage.setItem('hvac_schedule_settings', JSON.stringify(scheduleData));
+        if (showToastFlag) showToast('💾 전체 세션 일정이 저장되었습니다. 사이트에 실시간 동기화됩니다.');
+      } catch (e) {
+        alert('세션 일정 저장에 실패했습니다.');
+      }
+    }
+
+    function resetScheduleToDefault() {
+      if (confirm('전체 세미나 일정을 기본 14개 공식 세션으로 복원하시겠습니까?')) {
+        scheduleData = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE_DATA));
+        saveAllSessionsToStorage(false);
+        renderScheduleTab();
+        updateAllStats();
+        showToast('🔄 기본 세미나 일정으로 복원되었습니다.');
       }
     }
 
