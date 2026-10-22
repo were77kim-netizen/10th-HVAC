@@ -1923,9 +1923,10 @@
       </div>
 
       <div class="header-actions">
-        <a class="btn-header" href="./index.html" target="_blank">🏠 메인 페이지 ↗</a>
+        <a class="btn-header" href="./index_v2.html" target="_blank">🏠 메인 페이지 ↗</a>
         <a class="btn-header" href="./checkin.html" target="_blank">📱 체크인 ↗</a>
         <a class="btn-header" href="./qna.html" target="_blank">💬 Q&A 피드 ↗</a>
+        <a class="btn-header" href="./quiz.html" target="_blank">💡 퀴즈 ↗</a>
         <button class="btn-header" onclick="openPwdChangeModal()">🔑 암호 변경</button>
         <button class="btn-header danger" onclick="handleLogout()">⏻ 로그아웃</button>
       </div>
@@ -2087,6 +2088,7 @@
           <button class="btn-tbl" id="mcTabK3" onclick="filterMcSession('k3')">Keynote 3 전력망</button>
           <button class="btn-tbl" id="mcTabI1" onclick="filterMcSession('i1')">Insight 1 히트펌프</button>
           <button class="btn-tbl" id="mcTabI2" onclick="filterMcSession('i2')">Insight 2 에너지</button>
+          <button class="btn-tbl" id="mcTabSL" onclick="filterMcSession('sl')">Special 과학인문학</button>
         </div>
 
         <!-- 사회자 카드 목록 -->
@@ -3366,6 +3368,20 @@
     // =========================================================
     // 4. [TAB 1] Q&A 질문 관리
     // =========================================================
+    function normalizeQnaSessionKey(q) {
+      if (!q) return 'all';
+      const raw = String(q.session || '').trim();
+      if (['k1', 'k2', 'k3', 'i1', 'i2', 'sl', 'all'].includes(raw)) return raw;
+      const name = String(q.sessionName || '');
+      if (name.includes('Keynote Session 1') || name.includes('주거난방')) return 'k1';
+      if (name.includes('Keynote Session 2') || name.includes('액체냉각')) return 'k2';
+      if (name.includes('Keynote Session 3') || name.includes('전력')) return 'k3';
+      if (name.includes('Insight Session 1') || name.includes('히트펌프')) return 'i1';
+      if (name.includes('Insight Session 2') || name.includes('에너지컨설팅')) return 'i2';
+      if (name.includes('Special') || name.includes('인문학')) return 'sl';
+      return raw || 'all';
+    }
+
     function renderQnaList() {
       const container = document.getElementById('qnaCardGrid');
       const search = document.getElementById('qnaSearchInput').value.trim().toLowerCase();
@@ -3381,7 +3397,8 @@
           if (!matchAuthor && !matchContent) return false;
         }
         // 세션 필터
-        if (session !== 'all' && q.session !== session) return false;
+        const qNorm = normalizeQnaSessionKey(q);
+        if (session !== 'all' && qNorm !== session && q.session !== session) return false;
         // 상태 필터
         if (status === 'starred' && !q.isStarred) return false;
         if (status === 'pending' && q.isAnswered) return false;
@@ -3553,7 +3570,7 @@
     // =========================================================
     function filterMcSession(sess) {
       mcFilter = sess;
-      ['All', 'K1', 'K2', 'K3', 'I1', 'I2'].forEach(name => {
+      ['All', 'K1', 'K2', 'K3', 'I1', 'I2', 'SL'].forEach(name => {
         const btn = document.getElementById('mcTab' + name);
         if (btn) btn.classList.remove('active');
       });
@@ -3564,7 +3581,10 @@
 
     function renderMcCards() {
       const container = document.getElementById('mcCardsGrid');
-      let filtered = qnaList.filter(q => mcFilter === 'all' || q.session === mcFilter);
+      let filtered = qnaList.filter(q => {
+        const qNorm = normalizeQnaSessionKey(q);
+        return mcFilter === 'all' || qNorm === mcFilter || q.session === mcFilter;
+      });
 
       // 정렬 우선순위: 채택된 질문(isStarred) 먼저, 그 다음 공감수 많은 순
       filtered.sort((a, b) => {
@@ -6114,6 +6134,27 @@
         showToast('🔄 기본 세미나 일정으로 복원되었습니다.');
       }
     }
+
+    // 타 탭(참가자 체크인, Q&A 등록 등)에서 변경 발생 시 실시간 동기화
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'hvac_qna_list') {
+        try {
+          const saved = localStorage.getItem('hvac_qna_list');
+          if (saved) qnaList = JSON.parse(saved);
+          renderQnaList();
+          renderMcCards();
+          updateAllStats();
+        } catch (err) {}
+      } else if (e.key === 'hvac_checkin_list') {
+        try {
+          const cSaved = localStorage.getItem('hvac_checkin_list');
+          if (cSaved) checkinList = JSON.parse(cSaved);
+          renderCheckinTable();
+          if (activeTab === 'tabDraw') renderDrawTab();
+          updateAllStats();
+        } catch (err) {}
+      }
+    });
 
     // 시작 시 인증 체크
     window.addEventListener('DOMContentLoaded', () => {

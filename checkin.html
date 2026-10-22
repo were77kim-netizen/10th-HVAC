@@ -1284,10 +1284,12 @@
             </div>
           </div>
           <ul class="menu-list">
+            <li class="menu-item" id="menuItemMissionPopup">🎯 오늘의 미션 현황</li>
             <li class="menu-item" id="menuItemMissions">✨ 오늘의 퀴즈 챌린지</li>
             <li class="menu-item" id="menuItemQna">✍️ 실시간 세션 Q&A</li>
             <li class="menu-item" id="menuItemTimetable">📅 행사 시간표 보기</li>
             <li class="menu-item" id="menuItemMap">🗺️ 행사장 안내 약도</li>
+            <li class="menu-item" id="menuItemHome">🏠 세미나 메인 홈</li>
             <li class="menu-item" id="menuItemKakao">💬 카카오톡 공식 채널</li>
             <li class="menu-item" id="menuItemLogout" style="color: #ff5366;">⏻ 체크아웃 (재입력)</li>
           </ul>
@@ -1377,7 +1379,6 @@
   </div>
 
   <!-- =========================================================
-  <!-- =========================================================
        MODAL 1-B: N번째 체크인 깜짝 당첨 축하 팝업
   ========================================================= -->
   <div class="modal-backdrop" id="modalMilestonePrize">
@@ -1412,29 +1413,29 @@
   </div>
 
   <!-- =========================================================
-       MODAL 2: '오늘의 미션을 확인해 보세요' 첫 팝업 (스크린샷 1과 100% 동일)
+       MODAL 2: '오늘의 미션을 확인해 보세요' 팝업
   ========================================================= -->
   <div class="mission-modal" id="modalMission">
     <div class="mission-card">
       <h3>오늘의 미션을 확인해 보세요</h3>
-      <p class="desc">세미나 퀴즈 미션을 모두 마치고 만찬 럭키드로우 경품을 받아 보세요!</p>
+      <p class="desc">세미나 퀴즈 미션을 모두 마치고 클로징 럭키드로우 경품을 받아 보세요!</p>
 
       <div class="m-item">
         <div class="m-num">01</div>
         <div class="m-info">
           <small>KEYNOTE SESSION</small>
-          <strong>주거난방 & AI 액체냉각 퀴즈</strong>
+          <strong>주거난방·액체냉각·AIDC 퀴즈</strong>
         </div>
-        <span class="m-badge">미완료</span>
+        <span class="m-badge" id="missionBadge1">미완료</span>
       </div>
 
       <div class="m-item">
         <div class="m-num">02</div>
         <div class="m-info">
-          <small>INSIGHT SESSION</small>
-          <strong>AIDC 전력망 & 히트펌프 퀴즈</strong>
+          <small>INSIGHT & SPECIAL SESSION</small>
+          <strong>히트펌프·에너지·인문학 퀴즈</strong>
         </div>
-        <span class="m-badge">미완료</span>
+        <span class="m-badge" id="missionBadge2">미완료</span>
       </div>
 
       <div class="m-item">
@@ -1443,7 +1444,7 @@
           <small>FEEDBACK & LUCKY DRAW</small>
           <strong>만족도 설문 제출하기</strong>
         </div>
-        <span class="m-badge">미완료</span>
+        <span class="m-badge" id="missionBadge3">미완료</span>
       </div>
 
       <div class="m-actions">
@@ -2084,6 +2085,7 @@
         }, 300);
       } else {
         setTimeout(() => {
+          syncMissionBadges();
           document.getElementById('modalMission').classList.add('show');
         }, 400);
       }
@@ -2265,6 +2267,39 @@
     // =========================================================
     // 모달 및 메뉴 상호작용
     // =========================================================
+    function syncMissionBadges() {
+      try {
+        const ans = JSON.parse(localStorage.getItem('hvac_quiz_answers') || '{}');
+        const surveyDone = localStorage.getItem('hvac_survey_done') === 'true';
+
+        const b1 = document.getElementById('missionBadge1');
+        const b2 = document.getElementById('missionBadge2');
+        const b3 = document.getElementById('missionBadge3');
+
+        const m1Done = !!(ans['1'] && ans['2'] && ans['3']);
+        const m2Done = !!(ans['4'] && ans['5'] && ans['6']);
+
+        function applyBadge(el, isDone) {
+          if (!el) return;
+          if (isDone) {
+            el.textContent = '완료 ✓';
+            el.style.background = 'rgba(34, 197, 94, 0.22)';
+            el.style.color = '#4ade80';
+            el.style.border = '1px solid rgba(34, 197, 94, 0.45)';
+          } else {
+            el.textContent = '미완료';
+            el.style.background = '';
+            el.style.color = '';
+            el.style.border = '';
+          }
+        }
+
+        applyBadge(b1, m1Done);
+        applyBadge(b2, m2Done);
+        applyBadge(b3, surveyDone);
+      } catch (e) {}
+    }
+
     // 1. 오늘의 미션 모달 닫기 / 퀴즈 풀러 가기
     document.getElementById('btnMissionClose').addEventListener('click', () => {
       document.getElementById('modalMission').classList.remove('show');
@@ -2298,6 +2333,15 @@
     });
 
     // 메뉴 항목들
+    const menuItemMissionPopup = document.getElementById('menuItemMissionPopup');
+    if (menuItemMissionPopup) {
+      menuItemMissionPopup.addEventListener('click', () => {
+        menuPopover.classList.remove('show');
+        syncMissionBadges();
+        document.getElementById('modalMission').classList.add('show');
+      });
+    }
+
     document.getElementById('menuItemMissions').addEventListener('click', () => {
       menuPopover.classList.remove('show');
       window.location.href = './quiz.html';
@@ -2310,8 +2354,17 @@
 
     document.getElementById('menuItemTimetable').addEventListener('click', () => {
       menuPopover.classList.remove('show');
+      renderTimetableSheet();
       modalTimetable.classList.add('show');
     });
+
+    const menuItemHome = document.getElementById('menuItemHome');
+    if (menuItemHome) {
+      menuItemHome.addEventListener('click', () => {
+        menuPopover.classList.remove('show');
+        window.location.href = './index_v2.html';
+      });
+    }
 
     // 약도 모달 열기 / 닫기
     const modalMap = document.getElementById('modalMap');
@@ -2347,7 +2400,19 @@
       modalSessionQna.classList.remove('show');
     });
 
-    // 현재 세션 질문 제출 (qna.html 실시간 보드와 100% 호환 연동)
+    // 현재 세션 질문 제출 (qna.html & admin.html 실시간 보드와 100% 호환 연동)
+    function resolveQnaSessionKey(s, idx) {
+      if (!s) return 'all';
+      const combined = `${s.sublabel || ''} ${s.title || ''}`;
+      if (combined.includes('Keynote Session 1') || combined.includes('주거난방')) return 'k1';
+      if (combined.includes('Keynote Session 2') || combined.includes('액체냉각')) return 'k2';
+      if (combined.includes('Keynote Session 3') || combined.includes('전력')) return 'k3';
+      if (combined.includes('Insight Session 1') || combined.includes('히트펌프')) return 'i1';
+      if (combined.includes('Insight Session 2') || combined.includes('에너지컨설팅')) return 'i2';
+      if (combined.includes('Special') || combined.includes('인문학')) return 'sl';
+      return s.id || ('s' + idx);
+    }
+
     document.getElementById('btnSubmitSessionQna').addEventListener('click', () => {
       const content = modalQnaContent.value.trim();
       if (!content) {
@@ -2360,6 +2425,7 @@
       const author = modalQnaAnonCheck.checked ? '익명 참가자' : (modalQnaAuthorName.textContent || '참가자');
       const now = new Date();
       const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+      const qSessionKey = resolveQnaSessionKey(s, currentIdx);
 
       try {
         let qList = [];
@@ -2367,13 +2433,15 @@
         if (saved) qList = JSON.parse(saved);
         qList.unshift({
           id: Date.now(),
-          session: 's' + currentIdx,
-          sessionName: s.sublabel + ' · ' + s.title.slice(0, 16),
+          session: qSessionKey,
+          sessionName: (s.sublabel || 'Session') + ' · ' + (s.title || '').slice(0, 16),
           author: author,
           content: content,
           time: timeStr,
           likes: 1,
-          isLiked: true
+          isLiked: true,
+          isStarred: false,
+          isAnswered: false
         });
         localStorage.setItem('hvac_qna_list', JSON.stringify(qList));
       } catch (e) {}
@@ -2384,7 +2452,12 @@
 
     document.getElementById('menuItemKakao').addEventListener('click', () => {
       menuPopover.classList.remove('show');
-      window.open('https://pf.kakao.com/_hvac2026', '_blank');
+      let kakaoUrl = 'https://pf.kakao.com/_hvac2026';
+      try {
+        const links = JSON.parse(localStorage.getItem('hvac_site_links') || 'null');
+        if (links && links.kakaoChannel) kakaoUrl = links.kakaoChannel;
+      } catch (e) {}
+      window.open(kakaoUrl, '_blank');
     });
 
     // 체크아웃 (로그아웃 / 재체크인)
@@ -2406,6 +2479,7 @@
       loadSyncedSessions();
       renderSideDots();
       renderTimetableSheet();
+      syncMissionBadges();
 
       // 2. 이전 체크인 상태 복원
       try {
@@ -2472,13 +2546,15 @@
       renderSession(0);
     });
 
-    // 관리자 페이지 등 타 탭에서 세션/일정 정보 수정 시 실시간 자동 반영
+    // 관리자 페이지 등 타 탭에서 세션/일정/퀴즈 정보 수정 시 실시간 자동 반영
     window.addEventListener('storage', (e) => {
       if (e.key === 'hvac_schedule_settings') {
         loadSyncedSessions();
         renderSideDots();
         renderTimetableSheet();
         renderSession(Math.min(currentIdx, Math.max(0, sessions.length - 1)));
+      } else if (e.key === 'hvac_quiz_answers' || e.key === 'hvac_survey_done') {
+        syncMissionBadges();
       }
     });
   </script>
