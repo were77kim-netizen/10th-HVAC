@@ -1923,7 +1923,7 @@
       </div>
 
       <div class="header-actions">
-        <a class="btn-header" href="./index_v2.html" target="_blank">🏠 메인 페이지 ↗</a>
+        <a class="btn-header" href="./index.html" target="_blank">🏠 메인 페이지 ↗</a>
         <a class="btn-header" href="./checkin.html" target="_blank">📱 체크인 ↗</a>
         <a class="btn-header" href="./qna.html" target="_blank">💬 Q&A 피드 ↗</a>
         <a class="btn-header" href="./quiz.html" target="_blank">💡 퀴즈 ↗</a>
@@ -2015,12 +2015,12 @@
           >
           <select id="qnaSessionFilter" class="filter-select" onchange="renderQnaList()">
             <option value="all">전체 세션 보기</option>
-            <option value="k1">Keynote 1 · 주거난방</option>
-            <option value="k2">Keynote 2 · 액체냉각</option>
-            <option value="k3">Keynote 3 · AIDC 전력망</option>
-            <option value="i1">Insight 1 · 히트펌프</option>
-            <option value="i2">Insight 2 · 에너지컨설팅</option>
-            <option value="sl">Special · 과학인문학</option>
+            <option value="k1">Keynote 1 · 주거난방 (여명석 교수)</option>
+            <option value="k2">Keynote 2 · 액체냉각 (이성혁 교수)</option>
+            <option value="k3">Keynote 3 · AIDC 전력망 (조홍종 교수)</option>
+            <option value="i1">Insight 1 · 히트펌프 (유정현 수석)</option>
+            <option value="i2">Insight 2 · 에너지컨설팅 (오영훈 팀장)</option>
+            <option value="sl">Special · 과학인문학 (이정모 관장)</option>
           </select>
 
           <select id="qnaSortFilter" class="filter-select" onchange="renderQnaList()">
@@ -2081,14 +2081,14 @@
         </div>
 
         <!-- 세션 탭 필터 (사회자용) -->
-        <div style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 6px;">
-          <button class="btn-tbl active" id="mcTabAll" onclick="filterMcSession('all')">전체 세션</button>
-          <button class="btn-tbl" id="mcTabK1" onclick="filterMcSession('k1')">Keynote 1 주거난방</button>
-          <button class="btn-tbl" id="mcTabK2" onclick="filterMcSession('k2')">Keynote 2 액체냉각</button>
-          <button class="btn-tbl" id="mcTabK3" onclick="filterMcSession('k3')">Keynote 3 전력망</button>
-          <button class="btn-tbl" id="mcTabI1" onclick="filterMcSession('i1')">Insight 1 히트펌프</button>
-          <button class="btn-tbl" id="mcTabI2" onclick="filterMcSession('i2')">Insight 2 에너지</button>
-          <button class="btn-tbl" id="mcTabSL" onclick="filterMcSession('sl')">Special 과학인문학</button>
+        <div id="mcSessionFilterBar" style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 6px;">
+          <button class="btn-tbl active" id="mcTabAll" data-mc-sess="all" onclick="filterMcSession('all')">전체 세션</button>
+          <button class="btn-tbl" id="mcTabK1" data-mc-sess="k1" onclick="filterMcSession('k1')">Keynote 1 주거난방</button>
+          <button class="btn-tbl" id="mcTabK2" data-mc-sess="k2" onclick="filterMcSession('k2')">Keynote 2 액체냉각</button>
+          <button class="btn-tbl" id="mcTabK3" data-mc-sess="k3" onclick="filterMcSession('k3')">Keynote 3 전력망</button>
+          <button class="btn-tbl" id="mcTabI1" data-mc-sess="i1" onclick="filterMcSession('i1')">Insight 1 히트펌프</button>
+          <button class="btn-tbl" id="mcTabI2" data-mc-sess="i2" onclick="filterMcSession('i2')">Insight 2 에너지</button>
+          <button class="btn-tbl" id="mcTabSL" data-mc-sess="sl" onclick="filterMcSession('sl')">Special 과학인문학</button>
         </div>
 
         <!-- 사회자 카드 목록 -->
@@ -2478,7 +2478,7 @@
     </section>
 
     <!-- -----------------------------------------------------
-         [TAB 5] 📝 세미나 프로그램 & 세션 관리 (index_v2 / 체크인 연동)
+         [TAB 5] 📝 세미나 프로그램 & 세션 관리 (메인 페이지 / 체크인 연동)
          ----------------------------------------------------- -->
     <section id="tabSchedule" class="tab-panel">
       <!-- 상단 알림 배너 -->
@@ -2487,15 +2487,15 @@
           📝 세미나 프로그램 타이틀 및 세션 일정 통합 관리
         </h3>
         <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
-          여기서 수정한 행사 타이틀, 소개 문구, 전체 일정, 세션별 시간·주제·강사·안내 내용은 <strong>index_v2 메인 페이지</strong>와 <strong>체크인 후 세션 뷰어 및 시간표</strong>에 실시간으로 즉시 일괄 동기화 반영됩니다.
+          여기서 수정한 행사 타이틀, 소개 문구, 전체 일정, 세션별 시간·주제·강사·안내 내용은 <strong>공식 메인 페이지 (index.html)</strong>와 <strong>체크인 후 세션 뷰어 및 시간표</strong>, <strong>실시간 Q&A 및 퀴즈 보드</strong>에 즉시 일괄 동기화 반영됩니다.
         </p>
       </div>
 
-      <!-- 1. 메인 행사 개요 및 헤더 정보 편집 (index_v2 Hero 섹션) -->
+      <!-- 1. 메인 행사 개요 및 헤더 정보 편집 (공식 메인 Hero 섹션) -->
       <div class="card" style="margin-bottom: 24px;">
         <div class="card-header">
           <div>
-            <h3 class="card-title">🏛️ 메인 행사 헤더 & 개요 정보 (index_v2 메인 페이지)</h3>
+            <h3 class="card-title">🏛️ 메인 행사 헤더 & 개요 정보 (공식 메인 페이지)</h3>
             <p class="card-sub">행사 공식 명칭, 부제, 대표 소개글, 일시 및 장소 메타 정보를 수정합니다.</p>
           </div>
           <button class="btn-act primary" onclick="saveScheduleHeroFromUi(true)">💾 행사 개요 저장</button>
@@ -2532,7 +2532,7 @@
           </div>
           <div>
             <label class="form-label">전체 일정 시간</label>
-            <input type="text" id="cfgHeroTotalSchedule" class="form-control" value="09:00 ~ 17:50">
+            <input type="text" id="cfgHeroTotalSchedule" class="form-control" value="09:00 ~ 18:00">
           </div>
           <div>
             <label class="form-label">행사 장소</label>
@@ -2558,8 +2558,9 @@
             <button class="btn-act primary" onclick="openAddSessionModal()">+ 새 세션 추가</button>
             <button class="btn-act" onclick="saveAllSessionsToStorage(true)">💾 전체 세션 저장</button>
             <button class="btn-act" onclick="resetScheduleToDefault()">🔄 기본 세션 복원</button>
-            <a class="btn-act" href="./index_v2.html" target="_blank">🌐 index_v2 미리보기 ↗</a>
+            <a class="btn-act" href="./index.html" target="_blank">🌐 메인 페이지 미리보기 ↗</a>
             <a class="btn-act" href="./checkin.html" target="_blank">📱 체크인 미리보기 ↗</a>
+            <a class="btn-act" href="./index_old.html" target="_blank" style="opacity: 0.7;">🕰️ 구버전(index_old) ↗</a>
           </div>
         </div>
 
@@ -2880,12 +2881,12 @@
           <div class="form-group">
             <label>세션 선택</label>
             <select id="editQnaSession" class="form-control">
-              <option value="k1">Keynote 1 · 주거난방</option>
-              <option value="k2">Keynote 2 · 액체냉각</option>
-              <option value="k3">Keynote 3 · AIDC 전력망</option>
-              <option value="i1">Insight 1 · 히트펌프</option>
-              <option value="i2">Insight 2 · 에너지컨설팅</option>
-              <option value="sl">Special · 과학인문학</option>
+              <option value="k1">Keynote 1 · 주거난방 (여명석 교수)</option>
+              <option value="k2">Keynote 2 · 액체냉각 (이성혁 교수)</option>
+              <option value="k3">Keynote 3 · AIDC 전력망 (조홍종 교수)</option>
+              <option value="i1">Insight 1 · 히트펌프 (유정현 수석)</option>
+              <option value="i2">Insight 2 · 에너지컨설팅 (오영훈 팀장)</option>
+              <option value="sl">Special · 과학인문학 (이정모 관장)</option>
             </select>
           </div>
           <div class="form-group">
@@ -2918,11 +2919,11 @@
             <label>세션 선택</label>
             <select id="addQnaSession" class="form-control">
               <option value="k1">Keynote 1 · 주거난방 (여명석 교수)</option>
-              <option value="k2">Keynote 2 · 액체냉각 (정성호 교수)</option>
-              <option value="k3">Keynote 3 · AIDC 전력망 (박상민 교수)</option>
-              <option value="i1">Insight 1 · 차세대 히트펌프 (LG전자)</option>
-              <option value="i2">Insight 2 · 빌딩 에너지컨설팅 (LG전자)</option>
-              <option value="sl">Special · 과학인문학 (이독실 작가)</option>
+              <option value="k2">Keynote 2 · 액체냉각 (이성혁 교수)</option>
+              <option value="k3">Keynote 3 · AIDC 전력망 (조홍종 교수)</option>
+              <option value="i1">Insight 1 · 히트펌프 (유정현 수석)</option>
+              <option value="i2">Insight 2 · 에너지컨설팅 (오영훈 팀장)</option>
+              <option value="sl">Special · 과학인문학 (이정모 관장)</option>
             </select>
           </div>
           <div class="form-group">
@@ -3198,12 +3199,14 @@
     const DEFAULT_ROSTER = [
       { email: 'youngsoo.lee', name: '이영수' },
       { email: 'myeongseok.yeo', name: '여명석' },
-      { email: 'sungho.jeong', name: '정성호' },
-      { email: 'sangmin.park', name: '박상민' },
+      { email: 'seonghyuk.lee', name: '이성혁' },
+      { email: 'hongjong.cho', name: '조홍종' },
+      { email: 'junghyun.yoo', name: '유정현' },
+      { email: 'younghoon.oh', name: '오영훈' },
+      { email: 'jeongmo.lee', name: '이정모' },
       { email: 'cheolsoo.kim', name: '김철수' },
       { email: 'minji.park', name: '박민지' },
       { email: 'hyunjin.lee', name: '이현진' },
-      { email: 'doksill.lee', name: '이독실' },
       { email: 'hvac.admin', name: '세미나운영진' }
     ];
 
@@ -3225,19 +3228,81 @@
     let activeTab = 'tabQna';
     let mcFilter = 'all';
 
-    // 세션 명칭 매핑
+    // 세션 명칭 매핑 (TAB 5 세션 일정과 실시간 연동)
     const sessionLabels = {
       'all': '공통 질의',
       'k1': 'Keynote 1 · 주거난방 (여명석 교수)',
-      'k2': 'Keynote 2 · 액체냉각 (정성호 교수)',
-      'k3': 'Keynote 3 · AIDC 전력망 (박상민 교수)',
-      'i1': 'Insight 1 · 차세대 히트펌프 (LG전자)',
-      'i2': 'Insight 2 · 빌딩 에너지컨설팅 (LG전자)',
-      'sl': 'Special · 과학인문학 (이독실 작가)'
+      'k2': 'Keynote 2 · 액체냉각 (이성혁 교수)',
+      'k3': 'Keynote 3 · AIDC 전력망 (조홍종 교수)',
+      'i1': 'Insight 1 · 히트펌프 (유정현 수석)',
+      'i2': 'Insight 2 · 에너지컨설팅 (오영훈 팀장)',
+      'sl': 'Special · 과학인문학 (이정모 관장)'
     };
+
+    function syncAdminSessionSelectors() {
+      if (!scheduleData || !Array.isArray(scheduleData.sessions)) return;
+      const lectureSessions = scheduleData.sessions.filter(s => s.type === 'session' && !(s.sublabel || '').includes('Opening') && !(s.title || '').includes('오프닝') && s.title !== 'Opening');
+      if (lectureSessions.length === 0) return;
+
+      const qnaFilterEl = document.getElementById('qnaSessionFilter');
+      const editSelEl = document.getElementById('editQnaSession');
+      const addSelEl = document.getElementById('addQnaSession');
+      const mcBarEl = document.getElementById('mcSessionFilterBar');
+
+      const prevFilterVal = qnaFilterEl ? qnaFilterEl.value : 'all';
+      if (qnaFilterEl) qnaFilterEl.innerHTML = '<option value="all">전체 세션 보기</option>';
+      if (editSelEl) editSelEl.innerHTML = '';
+      if (addSelEl) addSelEl.innerHTML = '';
+      if (mcBarEl) {
+        mcBarEl.innerHTML = `<button class="btn-tbl ${mcFilter === 'all' ? 'active' : ''}" id="mcTabAll" data-mc-sess="all" onclick="filterMcSession('all')">전체 세션</button>`;
+      }
+
+      const stdKeys = ['k1', 'k2', 'k3', 'i1', 'i2', 'sl'];
+      lectureSessions.forEach((s, idx) => {
+        const key = normalizeQnaSessionKey({ session: s.id, sessionName: `${s.sublabel || ''} ${s.title || ''}` });
+        const finalKey = (key && key !== 'all' && !key.startsWith('s')) ? key : (stdKeys[idx] || s.id || ('s' + idx));
+        const shortTitle = (s.title || '').length > 14 ? s.title.slice(0, 14) + '…' : (s.title || `세션 ${idx + 1}`);
+        const cleanSpeaker = (s.speaker || '').replace(/\s*\([^)]*\)\s*$/, '').trim();
+        const spkSuffix = (cleanSpeaker && cleanSpeaker !== '-') ? ` (${cleanSpeaker})` : '';
+        const fullLabel = `${s.sublabel || 'Session'} · ${shortTitle}${spkSuffix}`;
+        sessionLabels[finalKey] = fullLabel;
+
+        if (qnaFilterEl) {
+          const opt = document.createElement('option');
+          opt.value = finalKey;
+          opt.textContent = fullLabel;
+          qnaFilterEl.appendChild(opt);
+        }
+        if (editSelEl) {
+          const opt2 = document.createElement('option');
+          opt2.value = finalKey;
+          opt2.textContent = fullLabel;
+          editSelEl.appendChild(opt2);
+        }
+        if (addSelEl) {
+          const opt3 = document.createElement('option');
+          opt3.value = finalKey;
+          opt3.textContent = fullLabel;
+          addSelEl.appendChild(opt3);
+        }
+        if (mcBarEl) {
+          const btn = document.createElement('button');
+          btn.className = 'btn-tbl' + (mcFilter === finalKey ? ' active' : '');
+          btn.setAttribute('data-mc-sess', finalKey);
+          btn.onclick = () => filterMcSession(finalKey);
+          btn.textContent = `${s.sublabel || 'Session'} · ${shortTitle}`;
+          mcBarEl.appendChild(btn);
+        }
+      });
+
+      if (qnaFilterEl && Array.from(qnaFilterEl.options).some(o => o.value === prevFilterVal)) {
+        qnaFilterEl.value = prevFilterVal;
+      }
+    }
 
     function initDashboard() {
       loadData();
+      syncAdminSessionSelectors();
       renderQnaList();
       renderMcCards();
       renderCheckinTable();
@@ -3378,7 +3443,7 @@
       if (name.includes('Keynote Session 3') || name.includes('전력')) return 'k3';
       if (name.includes('Insight Session 1') || name.includes('히트펌프')) return 'i1';
       if (name.includes('Insight Session 2') || name.includes('에너지컨설팅')) return 'i2';
-      if (name.includes('Special') || name.includes('인문학')) return 'sl';
+      if (name.includes('Special') || name.includes('인문학') || name.includes('테라포밍')) return 'sl';
       return raw || 'all';
     }
 
@@ -3570,12 +3635,12 @@
     // =========================================================
     function filterMcSession(sess) {
       mcFilter = sess;
-      ['All', 'K1', 'K2', 'K3', 'I1', 'I2', 'SL'].forEach(name => {
-        const btn = document.getElementById('mcTab' + name);
-        if (btn) btn.classList.remove('active');
-      });
-      const activeBtn = document.getElementById('mcTab' + (sess === 'all' ? 'All' : sess.toUpperCase()));
-      if (activeBtn) activeBtn.classList.add('active');
+      const mcBarEl = document.getElementById('mcSessionFilterBar');
+      if (mcBarEl) {
+        mcBarEl.querySelectorAll('.btn-tbl').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-mc-sess') === sess);
+        });
+      }
       renderMcCards();
     }
 
@@ -3967,7 +4032,7 @@
     }
 
     // =========================================================
-    // 7. [TAB 4] 카카오톡 채널 세션 공지 멘트 전송 센터
+    // 7. [TAB 6] 카카오톡 채널 세션 공지 멘트 전송 센터
     // =========================================================
     const kakaoPresets = [
       {
@@ -3979,50 +4044,53 @@
 반갑습니다, 참가자 여러분!
 2026 HVAC 전문가 세미나가 곧 시작됩니다.
 
-📍 장소: LG전자 R&D캠퍼스 컨벤션홀
+📍 장소: 국민대학교 본부관 (별관) 학술회의장
 📱 현장 체크인: https://were77kim-netizen.github.io/10th-HVAC/checkin.html
 💬 실시간 질의응답: https://were77kim-netizen.github.io/10th-HVAC/qna.html
 
-현장 도착 후 모바일 체크인을 완료하시고 명찰 및 자료집을 수령해 주시기 바랍니다.`
+현장 도착 후 모바일 체크인을 완료하시고 명찰을 수령해 주시기 바랍니다.`
       },
       {
         id: 'p2',
         title: '💡 [Keynote 1 종료 & 퀴즈 1 안내]',
-        time: '10:30',
-        content: `[Keynote 1 종료 및 15분 휴식 안내]
+        time: '10:10',
+        content: `[Keynote 1 종료 및 20분 휴식 안내]
 
-서울대학교 여명석 교수님의 '국내 주거난방의 변천과 미래' 강연이 종료되었습니다.
+서울대학교 여명석 교수님의 '국내주거난방의 변천과 현황' 강연이 종료되었습니다.
 
-💡 방금 들으신 핵심 내용 퀴즈를 풀고 만찬 럭키드로우 경품에 도전하세요!
+💡 방금 들으신 핵심 내용 퀴즈를 풀고 클로징 럭키드로우 경품에 도전하세요!
 👉 퀴즈 풀기: https://were77kim-netizen.github.io/10th-HVAC/quiz.html
 
-15분간의 커피 브레이크 후 Keynote 2 (액체냉각) 세션이 이어집니다.`
+20분간의 휴식 후 10:30부터 중앙대학교 이성혁 교수님의 Keynote 2 (고밀도 AI 서버 액체냉각) 세션이 이어집니다.`
       },
       {
         id: 'p3',
-        title: '🍽️ [Keynote 2 종료 & 오찬(점심) 안내]',
-        time: '12:00',
-        content: `[오전 세션 종료 및 뷔페 오찬 안내]
+        title: '🍽️ [오전 세션 종료 & 기념촬영/점심 안내]',
+        time: '12:30',
+        content: `[오전 세션 종료 및 기념촬영 · 점심 식사 안내]
 
-정성호 교수님의 액체냉각 세션이 종료되었습니다. 유익한 인사이트를 얻으셨기를 바랍니다.
+단국대학교 조홍종 교수님의 '국내 전력시장 현황 및 AIDC 전력공급 방안' 세션까지 오전 강연이 모두 종료되었습니다.
 
-🍽️ 점심 식사 안내:
-- 식사장소: 컨벤션홀 1층 VIP 다이닝룸 (뷔페)
-- 식사시간: 12:00 ~ 13:20 (80분)
+📸 단체 기념촬영 및 점심 안내:
+- 기념촬영: 행사장 앞 단상 집결 후 단체 촬영
+- 식사장소: 법학관 5층 천하 식당 (도보 2~3분)
+- 식사시간: 12:30 ~ 14:00 (90분)
 
-오후 13:20부터 고려대 박상민 교수님의 'AIDC 전력망 연계' 세션이 시작되오니 5분 전까지 착석 부탁드립니다.`
+오후 14:00부터 토지주택연구원(LHRI) 유정현 수석님의 '공동주택 공기열원 히트펌프' 세션이 시작되오니 5분 전까지 착석 부탁드립니다.`
       },
       {
         id: 'p4',
         title: '⚡ [오후 세션 시작 안내]',
-        time: '13:15',
+        time: '13:55',
         content: `[오후 세션 시작 5분 전 안내]
 
 참가자 여러분, 즐거운 점심 식사 되셨습니까?
-잠시 후 13:20부터 오후 세션이 재개됩니다.
+잠시 후 14:00부터 오후 세션이 재개됩니다.
 
-⚡ Keynote 3: 고려대 박상민 교수
-'AIDC 전력망 연계 열관리 솔루션'
+⚡ Insight 1: 토지주택연구원(LHRI) 유정현 수석연구원
+'헬로우 히트펌프, 굿바이 보일러'
+⚡ Insight 2 (15:10~): 에너지컨설팅팀 오영훈 팀장 '에너지컨설팅 사례 발표'
+⚡ Special (16:00~): 이정모 관장 '테라포밍 또는 찬란한 멸종-그래도 우리는 지구에 살아야 한다'
 
 강연 중 궁금하신 사항은 실시간 Q&A에 남겨주시면 세션 종료 후 질의응답 시간에 답변드립니다!
 💬 질문 등록: https://were77kim-netizen.github.io/10th-HVAC/qna.html`
@@ -4030,27 +4098,27 @@
       {
         id: 'p5',
         title: '🏆 [퀴즈 마감 15분 전 최종 리마인드]',
-        time: '16:45',
+        time: '17:25',
         content: `[🚨 세션 퀴즈 마감 15분 전 안내]
 
-만찬 시 진행되는 특별 경품 럭키드로우 추첨 응모가 곧 마감됩니다!
-아직 퀴즈를 풀지 못하신 분들은 지금 바로 도전하세요.
+클로징 시 진행되는 특별 경품 럭키드로우 추첨 응모가 곧 마감됩니다!
+아직 6개 세션 퀴즈를 풀지 못하신 분들은 지금 바로 도전하세요.
 
-🎁 경품: 최신 프리미엄 가전, 무선 헤드폰, 호텔 식사권 등
+🎁 경품: 1등~5등 특별 경품 현장 추첨
 👉 지금 퀴즈 풀기: https://were77kim-netizen.github.io/10th-HVAC/quiz.html`
       },
       {
         id: 'p6',
-        title: '✨ [만족도 설문 & 네트워킹 만찬 시작]',
+        title: '✨ [만족도 설문 & 클로징 럭키드로우 시작]',
         time: '17:40',
-        content: `[만족도 설문 참여 및 만찬 럭키드로우 안내]
+        content: `[만족도 설문 참여 및 클로징 럭키드로우 안내]
 
 오늘 하루 동안 열정적으로 참여해 주신 모든 참가자분들께 감사드립니다.
 
-더 나은 행사를 위해 1분 만족도 설문에 참여해 주세요:
+더 나은 세미나를 위해 1분 만족도 설문에 참여해 주세요:
 📝 설문 링크: https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=5M1pUCpkwEWAlNDC3sEL42ywEzOY3PNJr4qBXM_4T5dURDlOS1VaUFpXTVRPUTkzSFZXUDlBQlk1Vy4u
 
-잠시 후 대망의 만찬 럭키드로우 추첨이 진행됩니다!`
+잠시 후 대망의 클로징 럭키드로우 경품 추첨이 진행됩니다!`
       }
     ];
 
@@ -5634,7 +5702,7 @@
         titleSpan: "Expert Seminar",
         copy: "국내 주거난방의 변천, 고밀도 AI 서버 액체냉각, AIDC 전력공급, 공동주택 공기열원 히트펌프, 에너지컨설팅과 과학·인문학을 한자리에서 다루는 오프라인 현장 전문가 세미나입니다.",
         entryTime: "08:50까지",
-        totalSchedule: "09:00 ~ 17:50",
+        totalSchedule: "09:00 ~ 18:00",
         location: "국민대학교 본부관(별관)",
         venue: "학술회의장"
       },
@@ -5660,7 +5728,7 @@
           id: "s2",
           time: "09:00 ~ 09:20",
           minute: "20",
-          type: "session",
+          type: "general",
           sublabel: "Opening Session",
           status: "예정",
           location: "📍 본부관 학술회의장",
@@ -5780,7 +5848,7 @@
           sublabel: "Insight Session 1",
           status: "예정",
           location: "📍 본부관 학술회의장",
-          title: "건축설비 측면에서 바라보는 공동주택 공기열원 히트펌프의 역할과 과제",
+          title: "헬로우 히트펌프, 굿바이 보일러",
           speaker: "유정현 수석 (LHRI)",
           note: "LHRI (토지주택연구원)",
           bullets: [
@@ -5844,7 +5912,7 @@
           sublabel: "Special Lecture",
           status: "예정",
           location: "📍 본부관 학술회의장",
-          title: "과학 및 인문학 강의",
+          title: "테라포밍 또는 찬란한 멸종-그래도 우리는 지구에 살아야 한다",
           speaker: "이정모 관장 (과학커뮤니케이터)",
           note: "과학커뮤니케이터",
           bullets: [
@@ -5855,18 +5923,18 @@
         },
         {
           id: "s14",
-          time: "17:40 ~ 17:50",
-          minute: "10",
+          time: "17:40 ~ 18:00",
+          minute: "20",
           type: "general",
           sublabel: "Closing & Lucky Draw",
           status: "예정",
           location: "📍 본부관 학술회의장",
-          title: "Wrap up 및 만찬 럭키드로우",
+          title: "Wrap up 및 클로징 럭키드로우",
           speaker: "ES엔지니어링담당",
           note: "설문 및 마무리",
           bullets: [
             "모바일 만족도 설문 제출 안내",
-            "대망의 만찬 럭키드로우(1~5등) 현장 추첨 진행",
+            "대망의 클로징 럭키드로우(1~5등) 현장 추첨 진행",
             "폐회 및 귀가 안내"
           ]
         }
@@ -5890,6 +5958,36 @@
 
       if (!scheduleData.hero) scheduleData.hero = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE_DATA.hero));
       if (!Array.isArray(scheduleData.sessions)) scheduleData.sessions = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE_DATA.sessions));
+
+      // Auto-upgrade legacy cached default titles from before v2 promotion
+      let migrated = false;
+      if (scheduleData.hero && scheduleData.hero.totalSchedule === '09:00 ~ 17:50') {
+        scheduleData.hero.totalSchedule = '09:00 ~ 18:00';
+        migrated = true;
+      }
+      scheduleData.sessions.forEach(s => {
+        if (s.id === 's2' && s.type === 'session' && (s.sublabel || '').includes('Opening')) {
+          s.type = 'general';
+          migrated = true;
+        }
+        if (s.title === '건축설비 측면에서 바라보는 공동주택 공기열원 히트펌프의 역할과 과제') {
+          s.title = '헬로우 히트펌프, 굿바이 보일러';
+          migrated = true;
+        }
+        if (s.title === '과학 및 인문학 강의') {
+          s.title = '테라포밍 또는 찬란한 멸종-그래도 우리는 지구에 살아야 한다';
+          migrated = true;
+        }
+        if (s.id === 's14' && s.time === '17:40 ~ 17:50') {
+          s.time = '17:40 ~ 18:00';
+          s.minute = '20';
+          s.title = 'Wrap up 및 클로징 럭키드로우';
+          migrated = true;
+        }
+      });
+      if (migrated) {
+        try { localStorage.setItem('hvac_schedule_settings', JSON.stringify(scheduleData)); } catch (e) {}
+      }
     }
 
     function renderScheduleTab() {
@@ -5931,7 +6029,7 @@
 
       try {
         localStorage.setItem('hvac_schedule_settings', JSON.stringify(scheduleData));
-        if (showToastFlag) showToast('💾 행사 타이틀 및 개요 정보가 저장되었습니다! (index_v2 실시간 반영)');
+        if (showToastFlag) showToast('💾 행사 타이틀 및 개요 정보가 저장되었습니다! (메인 페이지 실시간 반영)');
       } catch (e) {
         alert('저장에 실패했습니다.');
       }
@@ -6088,7 +6186,7 @@
       closeModal('modalEditSession');
       renderSessionCardList();
       updateAllStats();
-      showToast('💾 세션 정보가 저장되었습니다! (index_v2 및 체크인 페이지 실시간 반영)');
+      showToast('💾 세션 정보가 저장되었습니다! (메인 및 체크인 페이지 실시간 반영)');
     }
 
     function deleteSession(idx) {
@@ -6119,6 +6217,9 @@
     function saveAllSessionsToStorage(showToastFlag = false) {
       try {
         localStorage.setItem('hvac_schedule_settings', JSON.stringify(scheduleData));
+        syncAdminSessionSelectors();
+        renderQnaList();
+        renderMcCards();
         if (showToastFlag) showToast('💾 전체 세션 일정이 저장되었습니다. 사이트에 실시간 동기화됩니다.');
       } catch (e) {
         alert('세션 일정 저장에 실패했습니다.');

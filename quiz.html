@@ -581,7 +581,7 @@
     </div>
     <div class="nav-right">
       <a href="./qna.html" style="background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); color: #fff;">💬 Q&A</a>
-      <a href="./index_v2.html">세미나 홈 ↗</a>
+      <a href="./index.html">세미나 홈 ↗</a>
     </div>
   </header>
 
@@ -728,7 +728,7 @@
     <div class="bottom-links">
       <a href="./checkin.html">📱 모바일 체크인 복귀</a>
       <a href="./qna.html">✍️ 실시간 세션 Q&A</a>
-      <a href="./index_v2.html#agenda">📅 행사 일정표 보기</a>
+      <a href="./index.html#agenda">📅 행사 일정표 보기</a>
     </div>
   </main>
 
@@ -885,6 +885,35 @@
         } catch (e) {}
       });
     }
+
+    // 관리자 세션 일정(hvac_schedule_settings)과 퀴즈 세션 태그 실시간 동기화
+    function syncQuizSessionTags() {
+      try {
+        const raw = localStorage.getItem('hvac_schedule_settings');
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (!data || !Array.isArray(data.sessions)) return;
+        const lectureSessions = data.sessions.filter(function(s) {
+          return s.type === 'session' && !(s.sublabel || '').includes('Opening') && !(s.title || '').includes('오프닝') && s.title !== 'Opening';
+        });
+        const cards = document.querySelectorAll('.quiz-card');
+        lectureSessions.forEach(function(s, idx) {
+          const card = cards[idx];
+          if (!card) return;
+          const tagEl = card.querySelector('.quiz-session-tag');
+          if (tagEl && (s.sublabel || s.title)) {
+            const shortTitle = (s.title || '').length > 18 ? s.title.slice(0, 18) + '…' : (s.title || '');
+            tagEl.textContent = `${(s.sublabel || 'SESSION ' + (idx + 1)).toUpperCase()} · ${shortTitle}`;
+          }
+        });
+      } catch (e) {}
+    }
+    syncQuizSessionTags();
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'hvac_schedule_settings') {
+        syncQuizSessionTags();
+      }
+    });
   </script>
 </body>
 </html>

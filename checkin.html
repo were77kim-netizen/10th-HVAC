@@ -1621,7 +1621,7 @@
         id: "s2",
         time: "09:00 ~ 09:20",
         minute: "20",
-        type: "session",
+        type: "general",
         sublabel: "Opening Session",
         status: "예정",
         location: "📍 본부관 학술회의장",
@@ -1741,7 +1741,7 @@
         sublabel: "Insight Session 1",
         status: "예정",
         location: "📍 본부관 학술회의장",
-        title: "건축설비 측면에서 바라보는 공동주택 공기열원 히트펌프의 역할과 과제",
+        title: "헬로우 히트펌프, 굿바이 보일러",
         speaker: "유정현 수석 (LHRI)",
         note: "LHRI (토지주택연구원)",
         bullets: [
@@ -1805,7 +1805,7 @@
         sublabel: "Special Lecture",
         status: "예정",
         location: "📍 본부관 학술회의장",
-        title: "과학 및 인문학 강의",
+        title: "테라포밍 또는 찬란한 멸종-그래도 우리는 지구에 살아야 한다",
         speaker: "이정모 관장 (과학커뮤니케이터)",
         note: "과학커뮤니케이터",
         bullets: [
@@ -1816,18 +1816,18 @@
       },
       {
         id: "s14",
-        time: "17:40 ~ 17:50",
-        minute: "10",
+        time: "17:40 ~ 18:00",
+        minute: "20",
         type: "general",
         sublabel: "Closing & Lucky Draw",
         status: "예정",
         location: "📍 본부관 학술회의장",
-        title: "Wrap up 및 만찬 럭키드로우",
+        title: "Wrap up 및 클로징 럭키드로우",
         speaker: "ES엔지니어링담당",
         note: "설문 및 마무리",
         bullets: [
           "모바일 만족도 설문 제출 안내",
-          "대망의 만찬 럭키드로우(1~5등) 현장 추첨 진행",
+          "대망의 클로징 럭키드로우(1~5등) 현장 추첨 진행",
           "폐회 및 귀가 안내"
         ]
       }
@@ -1850,12 +1850,35 @@
         const raw = localStorage.getItem('hvac_schedule_settings');
         if (raw) {
           const data = JSON.parse(raw);
-          if (data && Array.isArray(data.sessions) && data.sessions.length > 0) {
-            sessions = data.sessions;
-            if (data.hero && data.hero.scheduleDate) {
+          if (data && data.hero) {
+            const h = data.hero;
+            if (h.scheduleDate) {
               const dateEl = document.getElementById('timetableHeaderTitle');
-              if (dateEl) dateEl.textContent = `📅 ${data.hero.scheduleDate} 행사 시간표`;
+              if (dateEl) dateEl.textContent = `📅 ${h.scheduleDate} 행사 시간표`;
             }
+            const brandEl = document.querySelector('.dash-brand');
+            if (brandEl && (h.year || h.title || h.titleSpan)) {
+              brandEl.textContent = `${h.year || '2026'} ${h.title || 'HVAC Engineering'} ${h.titleSpan || 'Expert Seminar'}`;
+            }
+            const introMetaEl = document.querySelector('#screenIntro .intro-meta');
+            if (introMetaEl && (h.eyebrow || h.location)) {
+              const datePart = h.eyebrow ? (h.eyebrow.split('·')[1] || h.eyebrow).trim() : '2026. 11. 16(월)';
+              const locPart = [h.location || '국민대학교 본부관 (별관)', h.venue || ''].filter(Boolean).join(' ');
+              introMetaEl.innerHTML = `${escapeHtml(datePart)} · ${escapeHtml(locPart)}<div style="font-size: 11px; opacity: 0.65; margin-top: 5px; letter-spacing: -0.01em;">주최: ES엔지니어링담당 · 운영: ES아카데미팀</div>`;
+            }
+          }
+          if (data && Array.isArray(data.sessions) && data.sessions.length > 0) {
+            let migrated = false;
+            data.sessions.forEach(s => {
+              if (s.id === 's2' && s.type === 'session' && (s.sublabel || '').includes('Opening')) { s.type = 'general'; migrated = true; }
+              if (s.title === '건축설비 측면에서 바라보는 공동주택 공기열원 히트펌프의 역할과 과제') { s.title = '헬로우 히트펌프, 굿바이 보일러'; migrated = true; }
+              if (s.title === '과학 및 인문학 강의') { s.title = '테라포밍 또는 찬란한 멸종-그래도 우리는 지구에 살아야 한다'; migrated = true; }
+              if (s.id === 's14' && s.time === '17:40 ~ 17:50') { s.time = '17:40 ~ 18:00'; s.minute = '20'; s.title = 'Wrap up 및 클로징 럭키드로우'; migrated = true; }
+            });
+            if (migrated) {
+              try { localStorage.setItem('hvac_schedule_settings', JSON.stringify(data)); } catch (e) {}
+            }
+            sessions = data.sessions;
             return;
           }
         }
@@ -2362,7 +2385,7 @@
     if (menuItemHome) {
       menuItemHome.addEventListener('click', () => {
         menuPopover.classList.remove('show');
-        window.location.href = './index_v2.html';
+        window.location.href = './index.html';
       });
     }
 
@@ -2409,7 +2432,7 @@
       if (combined.includes('Keynote Session 3') || combined.includes('전력')) return 'k3';
       if (combined.includes('Insight Session 1') || combined.includes('히트펌프')) return 'i1';
       if (combined.includes('Insight Session 2') || combined.includes('에너지컨설팅')) return 'i2';
-      if (combined.includes('Special') || combined.includes('인문학')) return 'sl';
+      if (combined.includes('Special') || combined.includes('인문학') || combined.includes('테라포밍')) return 'sl';
       return s.id || ('s' + idx);
     }
 

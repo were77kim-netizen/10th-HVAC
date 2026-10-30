@@ -685,7 +685,7 @@
         🖥️ 발표모드
       </button>
       <a class="back-btn" href="./quiz.html" title="세션 퀴즈 챌린지" style="font-size: 13px;">💡</a>
-      <a class="back-btn" href="./index_v2.html" title="메인 홈으로" style="font-size: 13px;">🏠</a>
+      <a class="back-btn" href="./index.html" title="메인 홈으로" style="font-size: 13px;">🏠</a>
     </div>
   </header>
 
@@ -719,9 +719,9 @@
         <option value="k1">Keynote 1: 국내주거난방의 변천과 현황 (여명석 교수)</option>
         <option value="k2">Keynote 2: AI 서버 액체냉각 및 데이터센터 (이성혁 교수)</option>
         <option value="k3">Keynote 3: 전력시장 현황 및 AIDC 전력공급 (조홍종 교수)</option>
-        <option value="i1">Insight 1: 공동주택 공기열원 히트펌프 (유정현 수석)</option>
+        <option value="i1">Insight 1: 헬로우 히트펌프, 굿바이 보일러 (유정현 수석)</option>
         <option value="i2">Insight 2: 에너지컨설팅 사례 발표 (오영훈 팀장)</option>
-        <option value="sl">Special: 과학 및 인문학 강의 (이정모 관장)</option>
+        <option value="sl">Special: 테라포밍 또는 찬란한 멸종 (이정모 관장)</option>
       </select>
 
       <textarea
@@ -832,7 +832,7 @@
       if (name.includes('Keynote Session 3') || name.includes('전력')) return 'k3';
       if (name.includes('Insight Session 1') || name.includes('히트펌프')) return 'i1';
       if (name.includes('Insight Session 2') || name.includes('에너지컨설팅')) return 'i2';
-      if (name.includes('Special') || name.includes('인문학')) return 'sl';
+      if (name.includes('Special') || name.includes('인문학') || name.includes('테라포밍')) return 'sl';
       return k;
     }
 
@@ -845,7 +845,7 @@
         if (!data || !Array.isArray(data.sessions) || data.sessions.length === 0) return;
 
         const lectureSessions = data.sessions.filter(s =>
-          s.type === 'session' ||
+          (s.type === 'session' && !(s.sublabel || '').includes('Opening') && !(s.title || '').includes('오프닝') && s.title !== 'Opening') ||
           (s.sublabel && (s.sublabel.includes('Keynote') || s.sublabel.includes('Insight') || s.sublabel.includes('Special')))
         );
         if (lectureSessions.length === 0) return;

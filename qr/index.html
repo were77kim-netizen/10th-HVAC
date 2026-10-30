@@ -6,7 +6,7 @@
   <title>2026 HVAC Engineering Expert Seminar - 현장 스마트 QR 안내판</title>
   <style>
     :root {
-      --primary: #d60019;
+      --primary: #108548;
       --kakao: #fee500;
       --kakao-text: #391b1b;
     }
@@ -201,5 +201,42 @@
     </div>
   </div>
 
+  <script>
+    (function() {
+      function syncQrSettings() {
+        try {
+          const links = JSON.parse(localStorage.getItem('hvac_site_links') || 'null');
+          if (links && links.kakaoChannel) {
+            const kakaoCard = document.querySelector('.kakao-card');
+            if (kakaoCard) {
+              const img = kakaoCard.querySelector('.qr-box img');
+              const urlDiv = kakaoCard.querySelector('.url');
+              if (img) {
+                img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' + encodeURIComponent(links.kakaoChannel);
+              }
+              if (urlDiv) {
+                urlDiv.textContent = links.kakaoChannel.replace(/^https?:\/\//, '');
+              }
+            }
+          }
+          const sched = JSON.parse(localStorage.getItem('hvac_schedule_settings') || 'null');
+          if (sched && sched.hero) {
+            const h = sched.hero;
+            const titleEl = document.querySelector('.header-bar h1');
+            const subEl = document.querySelector('.header-bar p');
+            if (titleEl && (h.year || h.title || h.titleSpan)) {
+              titleEl.textContent = `${h.year || '2026'} ${h.title || 'HVAC Engineering'} ${h.titleSpan || 'Expert Seminar'} 현장 안내판`;
+            }
+            if (subEl && (h.location || h.venue)) {
+              const fullPlace = [h.location, h.venue].filter(Boolean).join(' ');
+              subEl.textContent = `일시: 2026년 11월 16일 (월) · ${fullPlace} · 주최: ES엔지니어링담당 · 운영: ES아카데미팀`;
+            }
+          }
+        } catch (e) {}
+      }
+      window.addEventListener('DOMContentLoaded', syncQrSettings);
+      window.addEventListener('storage', syncQrSettings);
+    })();
+  </script>
 </body>
 </html>
